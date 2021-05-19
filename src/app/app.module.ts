@@ -20,9 +20,9 @@ import { LoginComponent } from './shared/components/login/login.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AccountModule,
-    ProfileModule,
-    ShopModule,
+    // AccountModule,
+    // ProfileModule,
+    // ShopModule,
     AuthConfigModule
   ],
   providers: [],

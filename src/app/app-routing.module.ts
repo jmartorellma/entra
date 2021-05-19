@@ -8,10 +8,10 @@ const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'accounts', loadChildren: () => import('./account/account.module').then(m => m.AccountModule)},
-  { path: 'profiles', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)},
-  { path: 'shop', loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)},
-  { path: '**', redirectTo: 'home' },
+  // { path: 'accounts', loadChildren: () => import('./account/account.module').then(m => m.AccountModule)},
+  // { path: 'profiles', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)},
+  // { path: 'shop', loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)},
+  { path: '**', component: HomeComponent },
 ];
 
 @NgModule({
