@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   }
 
   login() {
-    this.router.navigate(['accounts', 'login']);
+    this.router.navigate(['login']);
   }
 
   profile() {

@@ -8,10 +8,14 @@ import { ProfileModule } from './profile/profile.module';
 import { ShopModule } from './shop/shop.module';
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from './shared/components/home/home.component';
+import { LoginComponent } from './shared/components/login/login.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
