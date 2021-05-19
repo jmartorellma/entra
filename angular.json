@@ -65,7 +65,10 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "entra:build"
+            "browserTarget": "entra:build",
+            "ssl": true,
+            "sslCert": "ssl/localhost.crt",
+            "sslKey": "ssl/localhost.key"
           },
           "configurations": {
             "production": {
