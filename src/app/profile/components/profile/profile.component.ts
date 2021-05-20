@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { ApiResul } from 'src/app/shared/components/login/login.component';
+import { ApiResul } from 'src/app/account/components/login/login.component';
 
 @Component({
   selector: 'app-profile',
