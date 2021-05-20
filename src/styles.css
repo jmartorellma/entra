@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --primary-color: #8bc34a;
+  --accent-color: #424242;
+}
 
 html,
 body {
@@ -11,9 +15,15 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.white {
+    color: white !important;
+}
+
 app-login,
 app-profile,
 app-home {
     overflow-y: auto;
     flex-grow: 1;
 }
+
+ 

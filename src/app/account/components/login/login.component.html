@@ -1,35 +1,54 @@
 <div fxFill fxLayout="column"> <!--*ngIf="!loginState$.pending" -->
     <div fxLayout="column" fxFlex="auto"></div>
     <div fxLayout="row" fxLayoutAlign="center center" [@fadeInOut]>
-        <mat-card class="mat-elevation-z4 main-content" fxFlex="33" fxFlex.sm="66" fxFlex.xs="90">
-            <form fxLayout="column" fxLayoutAlign="space-between stretch" fxFlex="grow" [formGroup]="loginForm" (ngSubmit)="login()">
-                <div fxFlex="grow" fxLayout="column" fxLayoutAlign="space-around stretch">
+        <mat-card fxLayout="column" class="mat-elevation-z4" fxFlex="33" fxFlex.sm="66" fxFlex.xs="90">
+            <mat-card-header fxLayout="column" fxLayoutAlign="start center">
+                <mat-card-title class="card-head"><h1>Inicio sesión</h1></mat-card-title>
+                <div><mat-divider></mat-divider></div>
+            </mat-card-header>            
+            <mat-card-content fxLayout="column" fxFlex="grow">
+                <form fxLayout="column" fxLayoutAlign="space-between stretch" fxFlex="grow" [formGroup]="loginForm" (ngSubmit)="login()">
+                    <div fxFlex="grow" fxLayout="column" fxLayoutAlign="space-around stretch">
+                        <section fxLayout="column" fxLayoutAlign="strat stretch">
+                            <mat-form-field appearence="fill">
+                                <mat-label>Usuario</mat-label>
+                                <input matInput type="text" [formControl]="username" required />
+                                <mat-error *ngIf="username.hasError('required')">
+                                    Campo Usuario <strong>obligatorio</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </section> 
+                        <section fxLayout="column" fxLayoutAlign="strat stretch">
+                            <mat-form-field appearence="fill">
+                                <mat-label>Password</mat-label>
+                                <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required />
+                                <mat-icon matSuffix color="primary" (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                <mat-error *ngIf="password.hasError('minlength') && !password.hasError('required')">
+                                    Password de mínimo <strong>6 carácteres</strong>
+                                </mat-error>
+                                <mat-error *ngIf="password.hasError('required')">
+                                    Campo Password <strong>obligatorio</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </section>   
+                    </div>
                     <section fxLayout="column" fxLayoutAlign="strat stretch">
-                        <mat-form-field appearence="fill">
-                            <mat-label>Usuario</mat-label>
-                            <input matInput type="text" [formControl]="username" required />
-                            <mat-error *ngIf="username.hasError('required')">
-                                Campo Usuario <strong>obligatorio</strong>
-                            </mat-error>
-                        </mat-form-field>
+                        <button class="white" mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Iniciar sesión</button>
                     </section> 
-                    <section fxLayout="column" fxLayoutAlign="strat stretch">
-                        <mat-form-field appearence="fill">
-                            <mat-label>Password</mat-label>
-                            <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required />
-                            <mat-icon matSuffix color="primary" (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                            <mat-error *ngIf="password.hasError('required')">
-                                Campo Password <strong>obligatorio</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </section>   
-                </div>            
-                <section fxLayout="column" fxLayoutAlign="strat stretch">
-                    <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
-                </section>    
-            </form>
+                </form>
+            </mat-card-content>    
+            <mat-card-actions fxLayout="column" fxLayoutAlign="strat stretch">    
+                <div><mat-divider></mat-divider></div>            
+                <div class="register-container" fxLayout="row" fxLayout="row" fxLayoutAlign="space-around center">
+                    <div><strong>No tienes cuenta?</strong></div>
+                    <div class="links-text" (click)="goRegister()"><strong>Regístrate</strong></div>
+                </div>
+                <div class="reset-container" fxLayout="column" fxLayoutAlign="strat center">
+                    <div class="links-text" (click)="goReset()"><strong>Restablecer Contraseña</strong></div>
+                </div>
+            </mat-card-actions>       
         </mat-card>    
-    </div>
+    </div>    
     <div fxLayout="column" fxFlex="auto"></div>
 </div>
 <!-- <div *ngIf="loginState$.pending" fxFill fxLayout="column" fxLayoutAlign="center center" style="background-color: grey; opacity:0.5">

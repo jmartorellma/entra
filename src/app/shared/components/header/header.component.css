@@ -1,0 +1,20 @@
+.header-toolbar {
+    height: 85px;
+}
+
+.logo-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.logo {
+    width: 50px;
+    border-radius: 10px;
+}
+
+.text-logo {
+    position: absolute;
+    top: 16px;
+    left: 50px;
+    color: var(--primary-color);
+}

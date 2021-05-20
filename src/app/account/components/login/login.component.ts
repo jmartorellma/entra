@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     this.bSubmitted = false;
     this.hide = true;
     this.username = new FormControl('', [Validators.required]);
-    this.password = new FormControl('', [Validators.required]);
+    this.password = new FormControl('', [Validators.required, Validators.minLength(6)]);
     this.errorLogin = '';
     this.loginForm = this.formBuilder.group({
       email: this.username,
@@ -63,6 +63,14 @@ export class LoginComponent implements OnInit {
     };
     // this.store.dispatch(LoginAction.login({credentials}));
     this.oidcSecurityService.authorize({customParams: { username: credentials.username, password: credentials.password }});
+  }
+
+  goRegister() {
+
+  }
+
+  goReset() {
+
   }
 }
 
