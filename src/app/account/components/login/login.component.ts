@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
+import { CredentialsModel } from '../../models/credentialsModel';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
   public password: FormControl;
   public loginForm: FormGroup;
   public errorLogin: any;
-  public bSubmitted: boolean;
+  public isSubmit: boolean;
   public hide: boolean;
 
   //loginState$: LoginState;
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit {
   {
     //this.store.select('login').subscribe(login => this.loginState$ = login);
 
-    this.bSubmitted = false;
+    this.isSubmit = false;
     this.hide = true;
     this.username = new FormControl('', [Validators.required]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(6)]);
@@ -55,18 +56,18 @@ export class LoginComponent implements OnInit {
   }
 
   public login(){
-    this.bSubmitted = true;
+    this.isSubmit = true;
     
-    const credentials = {
-      username: this.username.value,
-      password: this.password.value,
+    const credentials: CredentialsModel = {
+      Username: this.username.value,
+      Password: this.password.value,
     };
     // this.store.dispatch(LoginAction.login({credentials}));
-    this.oidcSecurityService.authorize({customParams: { username: credentials.username, password: credentials.password }});
+    this.oidcSecurityService.authorize({customParams: { username: credentials.Username, password: credentials.Password }});
   }
 
   goRegister() {
-
+    this.router.navigate(['accounts','register']);
   }
 
   goReset() {

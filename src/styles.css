@@ -15,7 +15,7 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.white {
+.mat-raised-button{
     color: white !important;
 }
 

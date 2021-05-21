@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccountRoutingModule } from './account-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-//import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -24,7 +23,6 @@ import { LoginComponent } from './components/login/login.component';
     CommonModule,
     AccountRoutingModule,
     ReactiveFormsModule,
-    //BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
