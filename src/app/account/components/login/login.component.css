@@ -2,9 +2,13 @@ h1 {
     font-size: 30px;
 }
 
-mat-card {
-    height: 400px;
+mat-card {    
     padding: 0;
+}
+
+.login-card {
+    height: 400px;
+    margin-top: 20px;
 }
 
 mat-card-header {

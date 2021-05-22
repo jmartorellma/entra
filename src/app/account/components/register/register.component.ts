@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  styleUrls: ['./register.component.css', '../login/login.component.css'],
   animations: [
     trigger('fadeInOut', [
       state('void', style({
@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
   // userState$: UserState;
 
   public registerModel: RegisterModel | undefined;
-  public userName: FormControl;
+  public username: FormControl;
   public name: FormControl;
   public surname: FormControl;
   public phoneNumber: FormControl;
@@ -35,6 +35,8 @@ export class RegisterComponent implements OnInit {
   public confirmPassword: FormControl;
   public registerForm: FormGroup;
   public isSubmit: boolean;
+  public hide: boolean;
+  public hideConfirm: boolean;
   
   constructor(
     //private store: Store<AppState>, 
@@ -56,38 +58,40 @@ export class RegisterComponent implements OnInit {
     // });
 
     this.isSubmit = false;
-
-    this.userName = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(55), Validators.pattern('[a-zA-Z áéíóúÁÉÍÓÚÑñÇç]*')]);
-    this.name = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(55), Validators.pattern('[a-zA-Z áéíóúÁÉÍÓÚÑñÇç]*')]);
-    this.surname= new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(55), Validators.pattern('[a-zA-Z áéíóúÁÉÍÓÚÑñÇç]*')]);
-    this.phoneNumber = new FormControl(null, [Validators.required]);
+    this.hide = true;
+    this.hideConfirm = true;
+    this.username = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9]*')]);
+    this.name = new FormControl('', [Validators.required, Validators.maxLength(55), Validators.pattern('[a-zA-Z áéíóúÁÉÍÓÚÑñÇç]*')]);
+    this.surname= new FormControl('', [Validators.required, Validators.maxLength(55), Validators.pattern('[a-zA-Z áéíóúÁÉÍÓÚÑñÇç]*')]);
+    this.phoneNumber = new FormControl(null, [Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern('[0-9]*')]);
     this.email = new FormControl('', [Validators.required, Validators.email]);
-    this.password = new FormControl('', [Validators.required, Validators.minLength(8)]);
+    this.password = new FormControl('', [Validators.required, Validators.minLength(6)]);
     this.confirmPassword = new FormControl('', [Validators.required]);
 
     const options: AbstractControlOptions = { validators: CustomValidator.passwordMatchValidator(this.password, this.confirmPassword) };
     this.registerForm = this.formBuilder.group({
-      userName: this.userName,
+      userName: this.username,
       name: this.name,
       surname: this.surname,
       phoneNumber: this.phoneNumber,
       email: this.email,
       password: this.password,
       confirmPassword: this.confirmPassword
-    // }, { validator: CustomValidator.passwordMatchValidator('password', 'confirmPassword') });
       }, options);
   }
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void {    
+  }
+
+  goLogin() {
+    this.router.navigate(['accounts','login']);
   }
 
   public userRegister()
   {
     this.isSubmit = true;
-    // Se inicializa la clase User
     this.registerModel = {
-      Username: this.userName.value,
+      Username: this.username.value,
       Name: this.name.value,
       Surname: this.surname.value,
       PhoneNumber: this.phoneNumber.value,

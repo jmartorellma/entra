@@ -1,10 +1,9 @@
 import { AbstractControl, FormGroup } from '@angular/forms';
 
 export class CustomValidator {
-    // static passwordMatchValidator(password: string, confirmPassword: string): any {
     static passwordMatchValidator(passwordControl: AbstractControl, confirmPasswordControl: AbstractControl): any {
-        return (formGroup: FormGroup) => {
-            if (!passwordControl || !confirmPasswordControl) {
+        return () => {
+            if (!passwordControl || !confirmPasswordControl || passwordControl.value === '') {
                 return null;
             }
 
@@ -14,11 +13,13 @@ export class CustomValidator {
 
             if (passwordControl.value !== confirmPasswordControl.value) {
                 confirmPasswordControl.setErrors({ matchPasswords: true });
-                return true;
+                return { matchPasswords: passwordControl.value + ' != ' + confirmPasswordControl.value };
             } 
-
-            confirmPasswordControl.setErrors(null);
-            return null;
+            else
+            {
+                confirmPasswordControl.setErrors(null);
+                return null;
+            }
         };
     }
 }

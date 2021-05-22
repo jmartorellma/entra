@@ -15,11 +15,23 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.mat-raised-button{
+.mat-raised-button {
     color: white !important;
 }
 
+.customError {
+    color:red;
+    font-size: 75%;
+    line-height: 1.125;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    letter-spacing: normal;
+    margin-top: -12px;
+    margin-bottom: 12px;
+}
+
+
 app-login,
+app-register,
 app-profile,
 app-home {
     overflow-y: auto;
