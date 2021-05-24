@@ -3,12 +3,12 @@ import { RegisterModel } from '../models/registerModel';
 
 export const registerUser = createAction(
     '[ACCOUNT] Register User',
-    props<{registerModel: RegisterModel}>()
+    props<{ registerModel: RegisterModel }>()
 );
 
 export const registerUserSuccess = createAction(
     '[ACCOUNT] Register User Success',
-    props<{registerModel: RegisterModel}>()
+    props<{ payload: any }>()
 );
 
 export const registerUserError = createAction(

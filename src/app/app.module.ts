@@ -11,6 +11,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AccountModule } from './account/account.module';
@@ -20,12 +21,14 @@ import { ShopModule } from './shop/shop.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
+import { ErrorDialogComponent } from './shared/components/error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +50,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
     EffectsModule.forRoot(EffectsArray),
     BrowserAnimationsModule,
     MatToolbarModule,
+    MatDialogModule,
     FlexLayoutModule,
     AuthConfigModule
   ],

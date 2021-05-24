@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -34,7 +34,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     MatIconModule,
     MatCardModule,
     MatDividerModule,
-    MatDialogModule,
+    MatSnackBarModule,
     MatProgressSpinnerModule,
     FlexLayoutModule
   ]

@@ -29,6 +29,10 @@ body {
     margin-bottom: 12px;
 }
 
+.custom-snackbar {
+    background-color: var(--primary-color);
+    color: white !important;
+}
 
 app-login,
 app-register,

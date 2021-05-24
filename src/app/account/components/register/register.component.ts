@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { RegisterModel } from '../../models/registerModel';
-import { AbstractControl, AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidator } from 'src/app/shared/validators/customValidator';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducer';
+import * as AccountActions from '../../actions';
 
 
 @Component({
@@ -39,7 +42,7 @@ export class RegisterComponent implements OnInit {
   public hideConfirm: boolean;
   
   constructor(
-    //private store: Store<AppState>, 
+    private store: Store<AppState>, 
     private formBuilder: FormBuilder,
     public router: Router)
   {  
@@ -100,7 +103,7 @@ export class RegisterComponent implements OnInit {
       ConfirmPassword: this.confirmPassword.value,
     };
 
-    // this.store.dispatch(UserAction.createUser({user: this.user}));
+    this.store.dispatch(AccountActions.registerUser({registerModel: this.registerModel}));
   }
 }
 
