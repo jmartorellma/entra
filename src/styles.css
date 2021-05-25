@@ -29,6 +29,23 @@ body {
     margin-bottom: 12px;
 }
 
+.icon-error {
+    color: red;
+    height: 80px !important;
+    width: 80px !important;
+    font-size: 80px;
+    margin: 0 0 20px 0; 
+}
+
+.error-text {
+    text-align: center;
+}
+
+.spinner-container {
+    opacity: 0.5;
+    background-color: grey;
+}
+
 .custom-snackbar {
     background-color: var(--primary-color);
     color: white !important;

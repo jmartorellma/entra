@@ -1,5 +1,14 @@
-<h1 mat-dialog-title>ERROR</h1>
-<div mat-dialog-content>{{data.message}}.</div>
-<div mat-dialog-actions>
-    <button mat-button (click)="onClose()">Cerrar</button>
+<div fxLayout="column" fxLayoutAlign="start stretch">
+    <div fxLayout="row" fxLayoutAlign="center center" fxFlex="grow">
+        <h1 mat-dialog-title>ERROR</h1>
+    </div>
+    <div mat-dialog-content fxLayout="column" fxLayoutAlign="start stretch" fxFlex="auto">
+        <div fxLayout="column" fxLayoutAlign="center center">
+            <mat-icon class="icon-error" aria-hidden="false" aria-label="ErrorOutline icon">error_outline</mat-icon>
+        </div>
+        <p class="error-text">{{data.message}}</p>
+    </div>
+    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center" fxFlex="grow">
+        <button mat-raised-button color="primary" (click)="onClose()">Cerrar</button>
+    </div>
 </div>

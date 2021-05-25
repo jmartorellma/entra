@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { Observable, of, throwError } from 'rxjs';
+import { CredentialsModel } from '../models/credentialsModel';
 import { RegisterModel } from '../models/registerModel';
 
 @Injectable({
@@ -11,12 +13,17 @@ export class AccountService {
   private authUrl = 'https://localhost:44381/Auth';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private oidcSecurityService: OidcSecurityService
   ) { }
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
+
+  login(credentials: CredentialsModel) {
+    this.oidcSecurityService.authorize({customParams: { username: credentials.Username, password: credentials.Password }});
+  }
 
   registerUser(registerModel: RegisterModel): Observable<any> {
     const url = `${this.authUrl}/Register`;

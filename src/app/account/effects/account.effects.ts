@@ -20,13 +20,33 @@ export class AccountEffects {
         private dialog: MatDialog
     ) {}
 
+    login$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AccountActions.login),
+            map((data) => {
+                this.accountService.login(data.credentials);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    loginError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AccountActions.loginError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
     registerUser$ = createEffect(() =>
         this.actions$.pipe(
             ofType(AccountActions.registerUser),
             mergeMap((m) =>
                 this.accountService.registerUser(m.registerModel).pipe(
                     map((result) =>
-                        AccountActions.registerUserSuccess({payload: result})
+                        AccountActions.registerUserSuccess({ payload: result })
                     ),
                     catchError((error) => 
                         of(AccountActions.registerUserError({ payload: error }))
@@ -68,8 +88,8 @@ export class AccountEffects {
 
     dialogMessage(error: any) {
         this.dialog.open(ErrorDialogComponent, {
-            width: '250px',
-            data: {message: error.error}
+            width: '300px',
+            data: { message: error.error }
         });
     }
 }

@@ -1,4 +1,4 @@
-import { registerUser, registerUserError, registerUserSuccess } from '../actions';
+import { login, loginError, loginSuccess, registerUser, registerUserError, registerUserSuccess } from '../actions';
 import { Action, createReducer, on } from '@ngrx/store';
 
 export interface AccountState {
@@ -15,6 +15,24 @@ export const initialState: AccountState = {
 
 const _accountReducer = createReducer(
     initialState,
+    on(login, (state) => ({
+        ...state,
+        loggedIn: false,
+        error: null,
+        pending: true,
+    })),
+    on(loginSuccess, (state, action) => ({
+        ...state,
+        loggedIn: true,
+        error: null,
+        pending: false,
+    })),
+    on(loginError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        loggedIn: false,
+        pending: false,
+    })),
     on(registerUser, (state) => ({
         ...state,
         loggedIn: false,

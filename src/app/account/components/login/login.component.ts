@@ -1,12 +1,12 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { Observable } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import * as AccountActions from '../../actions';
 import { CredentialsModel } from '../../models/credentialsModel';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducer';
+import { AccountState } from '../../reducers';
 
 
 @Component({
@@ -28,20 +28,18 @@ export class LoginComponent implements OnInit {
   public password: FormControl;
   public loginForm: FormGroup;
   public errorLogin: any;
-  public isSubmit: boolean;
   public hide: boolean;
-
-  //loginState$: LoginState;
+  public accountState$: AccountState | undefined;
 
   constructor( 
-    //private store: Store<AppState>, 
+    private store: Store<AppState>, 
     private formBuilder: FormBuilder,
-    private oidcSecurityService: OidcSecurityService,
     private router: Router)
   {
-    //this.store.select('login').subscribe(login => this.loginState$ = login);
+    this.store.select('account').subscribe(account => 
+      this.accountState$ = account
+    );
 
-    this.isSubmit = false;
     this.hide = true;
     this.username = new FormControl('', [Validators.required]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(6)]);
@@ -53,17 +51,26 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void { 
+    const query = window.location.search.substring(1);
+    if(query) {
+      const param = query.split('=');
+      if(param) {
+        const errorMessage = decodeURIComponent(param[1]);
+        if(errorMessage) {
+          this.store.dispatch(AccountActions.loginError({payload: {error: errorMessage}}));  
+          window.history.replaceState({}, document.title, "/accounts/login");
+        }
+      }      
+    }  
   }
 
-  public login(){
-    this.isSubmit = true;
-    
+  login() {    
     const credentials: CredentialsModel = {
       Username: this.username.value,
       Password: this.password.value,
     };
-    // this.store.dispatch(LoginAction.login({credentials}));
-    this.oidcSecurityService.authorize({customParams: { username: credentials.Username, password: credentials.Password }});
+    
+    this.store.dispatch(AccountActions.login({credentials}));    
   }
 
   goRegister() {

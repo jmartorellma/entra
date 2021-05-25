@@ -1,4 +1,4 @@
-<div fxFill fxLayout="column">
+<div *ngIf="accountState$ !== undefined && !accountState$.pending" fxFill fxLayout="column">
     <div fxLayout="column" fxFlex="auto"></div>
     <div fxLayout="row" fxLayoutAlign="center center" [@fadeInOut]>
         <mat-card fxLayout="column" class="mat-elevation-z4 register-card" fxFlex="33" fxFlex.sm="66" fxFlex.xs="90">
@@ -114,9 +114,6 @@
                         </span>               
                     </section>  
                     <section class="button-section" fxLayout="column" fxLayoutAlign="strat stretch">
-                        <!-- <h3 class="customError" *ngIf="userState$.error && bSubmitted">
-                            That email is already assigned to another user.
-                        </h3> -->
                         <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid">Registrarse</button>
                     </section>  
                 </form>  
@@ -130,4 +127,8 @@
         </mat-card>   
     </div>
     <div fxLayout="column" fxFlex="auto"></div>
+</div>
+
+<div *ngIf="accountState$ === undefined || accountState$.pending" class="spinner-container" fxFill fxLayout="column" fxLayoutAlign="center center">
+    <mat-spinner></mat-spinner>
 </div>

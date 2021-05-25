@@ -11,7 +11,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AccountModule } from './account/account.module';
@@ -50,7 +54,11 @@ import { ErrorDialogComponent } from './shared/components/error-dialog/error-dia
     EffectsModule.forRoot(EffectsArray),
     BrowserAnimationsModule,
     MatToolbarModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatIconModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
     FlexLayoutModule,
     AuthConfigModule
   ],

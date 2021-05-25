@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import * as AccountActions from '../../actions';
+import { AccountState } from '../../reducers';
 
 
 @Component({
@@ -25,9 +26,6 @@ import * as AccountActions from '../../actions';
 
 export class RegisterComponent implements OnInit {
 
-  // loginState$: LoginState;
-  // userState$: UserState;
-
   public registerModel: RegisterModel | undefined;
   public username: FormControl;
   public name: FormControl;
@@ -40,25 +38,16 @@ export class RegisterComponent implements OnInit {
   public isSubmit: boolean;
   public hide: boolean;
   public hideConfirm: boolean;
+  public accountState$: AccountState | undefined;
   
   constructor(
     private store: Store<AppState>, 
     private formBuilder: FormBuilder,
     public router: Router)
   {  
-
-    // this.store.select('login').subscribe(login => this.loginState$ = login);
-    // this.store.select('user').subscribe(userState => {
-    //   this.userState$ = userState;
-    //   if ((userState.user !== null) && (!this.loginState$.loggedIn))
-    //   {
-    //     const credentials = {
-    //       email: userState.user?.profile.email,
-    //       password: userState.user?.profile.password,
-    //     };
-    //     this.store.dispatch(LoginAction.login({credentials}));
-    //   }
-    // });
+    this.store.select('account').subscribe(account => 
+      this.accountState$ = account
+    );
 
     this.isSubmit = false;
     this.hide = true;

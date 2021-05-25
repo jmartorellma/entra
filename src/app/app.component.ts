@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as AccountActions from './account/actions';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { filter } from 'rxjs/operators';
+import { AppState } from './app.reducer';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +15,7 @@ export class AppComponent implements OnInit {
   title = 'angular-client-entra-app';
 
   constructor(
+    private store: Store<AppState>,
     private oidcSecurityService: OidcSecurityService,
     private router: Router) {}
 
@@ -19,7 +23,10 @@ export class AppComponent implements OnInit {
     this.oidcSecurityService
     .checkAuth()
     .subscribe((isAuthenticated) => {
-      console.log('app authenticated', isAuthenticated)
+      console.log('app authenticated', isAuthenticated);
+      if(isAuthenticated) {
+        this.store.dispatch(AccountActions.loginSuccess());  
+      }
     });
 
     this.router.events
