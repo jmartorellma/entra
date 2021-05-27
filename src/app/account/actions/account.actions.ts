@@ -8,7 +8,8 @@ export const login = createAction(
 );
 
 export const loginSuccess = createAction(
-    '[ACCOUNT] Login Success'
+    '[ACCOUNT] Login Success',
+    props<{ username: string | undefined }>()
 );
 
 export const loginError = createAction(
@@ -27,6 +28,21 @@ export const registerUserSuccess = createAction(
 );
 
 export const registerUserError = createAction(
+    '[ACCOUNT] Register User Error',
+    props<{ payload: any }>()
+);
+
+export const resetPassword = createAction(
+    '[ACCOUNT] Register User',
+    props<{ email: string }>()
+);
+
+export const resetPasswordSuccess = createAction(
+    '[ACCOUNT] Register User Success',
+    props<{ payload: any }>()
+);
+
+export const resetPasswordError = createAction(
     '[ACCOUNT] Register User Error',
     props<{ payload: any }>()
 );

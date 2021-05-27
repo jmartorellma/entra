@@ -33,10 +33,6 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  logout() {
-    this.oidcSecurityService.logoff();
-  }
-
   showSecretResult(){
     this.callApiSecert()
       .subscribe((data: ApiResul) => this.secretResult = data.result);

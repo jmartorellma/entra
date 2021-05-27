@@ -1,4 +1,4 @@
-import { login, loginError, loginSuccess, registerUser, registerUserError, registerUserSuccess } from '../actions';
+import { login, loginError, loginSuccess, registerUser, registerUserError, registerUserSuccess, resetPassword, resetPasswordError, resetPasswordSuccess } from '../actions';
 import { Action, createReducer, on } from '@ngrx/store';
 
 export interface AccountState {
@@ -35,13 +35,11 @@ const _accountReducer = createReducer(
     })),
     on(registerUser, (state) => ({
         ...state,
-        loggedIn: false,
         error: null,
         pending: true,
     })),
     on(registerUserSuccess, (state, action) => ({
         ...state,
-        loggedIn: false,
         error: null,
         pending: false,
     })),
@@ -52,7 +50,25 @@ const _accountReducer = createReducer(
             status: payload.status,
             message: payload.message
         },
-        loggedIn: false,
+        pending: false,
+    })),
+    on(resetPassword, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(resetPasswordSuccess, (state, action) => ({
+        ...state,
+        error: null,
+        pending: false,
+    })),
+    on(resetPasswordError, (state, { payload }) => ({
+        ...state,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        },
         pending: false,
     }))
   );

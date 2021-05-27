@@ -7,6 +7,8 @@ import { CredentialsModel } from '../../models/credentialsModel';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { AccountState } from '../../reducers';
+import { MatDialog } from '@angular/material/dialog';
+import { ResetPasswordDialogComponent } from '../reset-password-dialog/reset-password-dialog.component';
 
 
 @Component({
@@ -34,7 +36,8 @@ export class LoginComponent implements OnInit {
   constructor( 
     private store: Store<AppState>, 
     private formBuilder: FormBuilder,
-    private router: Router)
+    private router: Router,
+    private dialog: MatDialog)
   {
     this.store.select('account').subscribe(account => 
       this.accountState$ = account
@@ -78,7 +81,15 @@ export class LoginComponent implements OnInit {
   }
 
   goReset() {
+    const resetDialog = this.dialog.open(ResetPasswordDialogComponent, {
+      data: { email: '' }
+    });
 
+    resetDialog.afterClosed().subscribe(result => {
+      const email = result;
+      if(email !== undefined && email !== null && email.trim() !== '' )
+      this.store.dispatch(AccountActions.resetPassword({email}));    
+    });
   }
 }
 

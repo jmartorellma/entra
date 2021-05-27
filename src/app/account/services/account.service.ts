@@ -30,4 +30,12 @@ export class AccountService {
     return this.http.post<RegisterModel>(url, registerModel, this.httpOptions);
   }
 
+  resetPassword(email: string) {
+    const url = `${this.authUrl}/ResetPasswordRequest`;
+    return this.http.post<RegisterModel>(url, {Email: email}, this.httpOptions);
+  }
+
+  logout() {
+    this.oidcSecurityService.logoff();
+  }
 }

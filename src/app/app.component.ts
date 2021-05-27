@@ -5,6 +5,8 @@ import * as AccountActions from './account/actions';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { filter } from 'rxjs/operators';
 import { AppState } from './app.reducer';
+import { AccountState } from './account/reducers';
+import { UserModel } from './profile/models/userModel';
 
 @Component({
   selector: 'app-root',
@@ -12,26 +14,41 @@ import { AppState } from './app.reducer';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'angular-client-entra-app';
+   private accountState$: AccountState | undefined;
+   private userData: UserModel | undefined; 
 
   constructor(
     private store: Store<AppState>,
     private oidcSecurityService: OidcSecurityService,
-    private router: Router) {}
+    private router: Router) {
+      this.oidcSecurityService.userData$.subscribe((data) =>
+        this.userData = data 
+      );
+      this.store.select('account').subscribe(account => 
+        this.accountState$ = account
+      );
+    }
 
-  ngOnInit(){
+  ngOnInit() {
     this.oidcSecurityService
     .checkAuth()
     .subscribe((isAuthenticated) => {
       console.log('app authenticated', isAuthenticated);
-      if(isAuthenticated) {
-        this.store.dispatch(AccountActions.loginSuccess());  
+      if(isAuthenticated && localStorage.getItem('loggedCurrentSession') !== null) {
+        localStorage.removeItem('loggedCurrentSession');
+        this.store.dispatch(AccountActions.loginSuccess({username: this.userData?.userName})); 
       }
+      else
+      {
+        if(isAuthenticated) {
+          this.store.dispatch(AccountActions.loginSuccess({username: undefined})); 
+        }        
+      }      
     });
 
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((value: any) => {
+      .subscribe(() => {
           if (localStorage.getItem('angular-client-entra-app_storageCustomRequestParams')){
             localStorage.removeItem('angular-client-entra-app_storageCustomRequestParams');
           }          
@@ -39,3 +56,4 @@ export class AppComponent implements OnInit {
     );
   }
 }
+

@@ -24,11 +24,25 @@ export class AccountEffects {
         this.actions$.pipe(
             ofType(AccountActions.login),
             map((data) => {
+                localStorage.setItem('loggedCurrentSession', '1');
                 this.accountService.login(data.credentials);
             })
         ),
         { dispatch: false }
     );
+
+    loginSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AccountActions.loginSuccess),
+            map((param) => {
+                if(param.username !== undefined) {
+                    this.snakBarMessage({message: "Bienvenido " + param.username});
+                }
+            })
+        ),
+        { dispatch: false }
+    );
+
 
     loginError$ = createEffect(() =>
         this.actions$.pipe(
@@ -70,6 +84,42 @@ export class AccountEffects {
     registerUserError$ = createEffect(() =>
         this.actions$.pipe(
             ofType(AccountActions.registerUserError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    resetPassword$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AccountActions.resetPassword),
+            mergeMap((m) =>
+                this.accountService.resetPassword(m.email).pipe(
+                    map((result) =>
+                        AccountActions.resetPasswordSuccess({ payload: result })
+                    ),
+                    catchError((error) => 
+                        of(AccountActions.resetPasswordError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+  
+    resetPasswordSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AccountActions.resetPasswordSuccess),
+            map((result) => {
+                this.snakBarMessage(result.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    resetPasswordError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AccountActions.resetPasswordError),
             map((err) => {
                 this.dialogMessage(err.payload);
             })

@@ -51,6 +51,12 @@ body {
     color: white !important;
 }
 
+.custom-snackbar span {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
 app-login,
 app-register,
 app-profile,
