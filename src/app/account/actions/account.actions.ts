@@ -34,16 +34,16 @@ export const registerUserError = createAction(
 );
 
 export const resetPassword = createAction(
-    '[ACCOUNT] Register User',
+    '[ACCOUNT] Reset Password',
     props<{ resetModel: ResetPasswordRequestModel }>()
 );
 
 export const resetPasswordSuccess = createAction(
-    '[ACCOUNT] Register User Success',
+    '[ACCOUNT] Reset Password Success',
     props<{ payload: any }>()
 );
 
 export const resetPasswordError = createAction(
-    '[ACCOUNT] Register User Error',
+    '[ACCOUNT] Reset Password Error',
     props<{ payload: any }>()
 );

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Observable } from 'rxjs';
+import { AppConfiguration } from "read-appsettings-json";
 import { CredentialsModel } from '../models/credentialsModel';
 import { RegisterModel } from '../models/registerModel';
 import { ResetPasswordRequestModel } from '../models/resetPasswordRequestModel';
@@ -11,7 +12,7 @@ import { ResetPasswordRequestModel } from '../models/resetPasswordRequestModel';
 })
 export class AccountService {
 
-  private authUrl = 'https://localhost:44381/Auth';
+  private authUrl = `${AppConfiguration.Setting().identityEndpoint}/Auth`;
 
   constructor(
     private http: HttpClient,
@@ -33,7 +34,7 @@ export class AccountService {
 
   resetPassword(model: ResetPasswordRequestModel) {
     const url = `${this.authUrl}/ResetPasswordRequest`;
-    return this.http.post<RegisterModel>(url, model, this.httpOptions);
+    return this.http.post<ResetPasswordRequestModel>(url, model, this.httpOptions);
   }
 
   logout() {

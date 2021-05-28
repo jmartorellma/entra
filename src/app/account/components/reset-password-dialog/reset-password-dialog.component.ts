@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -22,8 +23,8 @@ export class ResetPasswordDialogComponent implements OnInit {
     this.resetDialog.close();
   }
 
-  onOkClick(email: string) {
-    this.email = email;
+  onOkClick(form: NgForm) {
+    this.email = form.value.email;
     this.resetDialog.close(this.email);
   }
 }
