@@ -1,4 +1,5 @@
-import { login, loginError, loginSuccess, registerUser, registerUserError, registerUserSuccess, resetPassword, resetPasswordError, resetPasswordSuccess } from '../actions';
+import { login, loginError, loginSuccess, registerUser, registerUserError, 
+         registerUserSuccess, resetPassword, resetPasswordError, resetPasswordSuccess } from '../actions';
 import { Action, createReducer, on } from '@ngrx/store';
 
 export interface AccountState {

@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CredentialsModel } from '../models/credentialsModel';
 import { RegisterModel } from '../models/registerModel';
+import { ResetPasswordRequestModel } from '../models/resetPasswordRequestModel';
 
 @Injectable({
   providedIn: 'root'
@@ -30,9 +31,9 @@ export class AccountService {
     return this.http.post<RegisterModel>(url, registerModel, this.httpOptions);
   }
 
-  resetPassword(email: string) {
+  resetPassword(model: ResetPasswordRequestModel) {
     const url = `${this.authUrl}/ResetPasswordRequest`;
-    return this.http.post<RegisterModel>(url, {Email: email}, this.httpOptions);
+    return this.http.post<RegisterModel>(url, model, this.httpOptions);
   }
 
   logout() {

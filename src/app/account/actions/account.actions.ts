@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { CredentialsModel } from '../models/credentialsModel';
 import { RegisterModel } from '../models/registerModel';
+import { ResetPasswordRequestModel } from '../models/resetPasswordRequestModel';
 
 export const login = createAction(
     '[ACCOUNT] Login',
@@ -34,7 +35,7 @@ export const registerUserError = createAction(
 
 export const resetPassword = createAction(
     '[ACCOUNT] Register User',
-    props<{ email: string }>()
+    props<{ resetModel: ResetPasswordRequestModel }>()
 );
 
 export const resetPasswordSuccess = createAction(

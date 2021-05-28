@@ -95,7 +95,7 @@ export class AccountEffects {
         this.actions$.pipe(
             ofType(AccountActions.resetPassword),
             mergeMap((m) =>
-                this.accountService.resetPassword(m.email).pipe(
+                this.accountService.resetPassword(m.resetModel).pipe(
                     map((result) =>
                         AccountActions.resetPasswordSuccess({ payload: result })
                     ),

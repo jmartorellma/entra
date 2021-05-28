@@ -14,7 +14,6 @@ import { UserModel } from './profile/models/userModel';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-   private accountState$: AccountState | undefined;
    private userData: UserModel | undefined; 
 
   constructor(
@@ -23,9 +22,6 @@ export class AppComponent implements OnInit {
     private router: Router) {
       this.oidcSecurityService.userData$.subscribe((data) =>
         this.userData = data 
-      );
-      this.store.select('account').subscribe(account => 
-        this.accountState$ = account
       );
     }
 

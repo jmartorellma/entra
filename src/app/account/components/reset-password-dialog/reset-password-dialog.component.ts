@@ -1,6 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogData } from 'src/app/shared/components/error-dialog/error-dialog.component';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-reset-password-dialog',
@@ -9,9 +8,12 @@ import { DialogData } from 'src/app/shared/components/error-dialog/error-dialog.
 })
 export class ResetPasswordDialogComponent implements OnInit {
 
+  public email: string;
+
   constructor(
-    public resetDialog: MatDialogRef<ResetPasswordDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ResetDialogData) {}
+    public resetDialog: MatDialogRef<ResetPasswordDialogComponent>) {
+      this.email = '';
+    }
 
   ngOnInit(): void {
   }
@@ -20,10 +22,10 @@ export class ResetPasswordDialogComponent implements OnInit {
     this.resetDialog.close();
   }
 
-  onClose(): void {
-    this.resetDialog.close();
+  onOkClick(email: string) {
+    this.email = email;
+    this.resetDialog.close(this.email);
   }
-
 }
 
 export interface ResetDialogData {
