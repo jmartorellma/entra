@@ -44,11 +44,16 @@ body {
 .spinner-container {
     opacity: 0.5;
     background-color: grey;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 .custom-snackbar {
     background-color: var(--primary-color);
     color: white !important;
+    margin-top: 95px !important;
 }
 
 .custom-snackbar span {
@@ -63,6 +68,5 @@ app-profile,
 app-home {
     overflow-y: auto;
     flex-grow: 1;
+    margin: 20px;
 }
-
- 

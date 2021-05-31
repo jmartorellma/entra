@@ -36,10 +36,6 @@ import { ErrorDialogComponent } from './shared/components/error-dialog/error-dia
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    AccountModule,
-    ProfileModule,
-    ShopModule,
     HttpClientModule,
     StoreModule.forRoot(appReducers, {
       runtimeChecks: {
@@ -60,7 +56,11 @@ import { ErrorDialogComponent } from './shared/components/error-dialog/error-dia
     MatDialogModule,
     MatProgressSpinnerModule,
     FlexLayoutModule,
-    AuthConfigModule
+    AppRoutingModule,
+    AccountModule,
+    ProfileModule,
+    ShopModule,
+    AuthConfigModule    
   ],
   providers: [],
   bootstrap: [AppComponent]

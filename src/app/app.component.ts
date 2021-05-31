@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as AccountActions from './account/actions';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { filter } from 'rxjs/operators';
 import { AppState } from './app.reducer';
-import { AccountState } from './account/reducers';
 import { UserModel } from './profile/models/userModel';
 
 @Component({
@@ -14,7 +13,9 @@ import { UserModel } from './profile/models/userModel';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-   private userData: UserModel | undefined; 
+
+  private userData: UserModel | undefined; 
+  public loaded: boolean | undefined;;
 
   constructor(
     private store: Store<AppState>,
@@ -23,7 +24,7 @@ export class AppComponent implements OnInit {
       this.oidcSecurityService.userData$.subscribe((data) =>
         this.userData = data 
       );
-    }
+  }
 
   ngOnInit() {
     this.oidcSecurityService
@@ -38,7 +39,7 @@ export class AppComponent implements OnInit {
       {
         if(isAuthenticated) {
           this.store.dispatch(AccountActions.loginSuccess({username: undefined})); 
-        }        
+        }       
       }      
     });
 
@@ -51,5 +52,6 @@ export class AppComponent implements OnInit {
       }
     );
   }
+
 }
 

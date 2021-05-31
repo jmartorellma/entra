@@ -43,11 +43,13 @@ export class AccountEffects {
         { dispatch: false }
     );
 
-
     loginError$ = createEffect(() =>
         this.actions$.pipe(
             ofType(AccountActions.loginError),
             map((err) => {
+                if(localStorage.getItem('loggedCurrentSession') !== null) {
+                    localStorage.removeItem('loggedCurrentSession');
+                }
                 this.dialogMessage(err.payload);
             })
         ),
@@ -122,6 +124,39 @@ export class AccountEffects {
             ofType(AccountActions.resetPasswordError),
             map((err) => {
                 this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    logout$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AccountActions.logout),
+            map(() => {
+                localStorage.setItem('loggedOutCurrentSession', '1');
+                this.accountService.logout();
+            })
+        ),
+        { dispatch: false }
+    );
+
+    logoutSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AccountActions.logoutSuccess),
+            map(() => {
+                this.snakBarMessage({message: "Nos vemos pronto!"});
+                this.router.navigate(['shop','home']);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    logoutError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AccountActions.logoutError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+                this.router.navigate(['shop','home']);
             })
         ),
         { dispatch: false }

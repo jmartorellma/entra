@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AccountState } from 'src/app/account/reducers';
+import { AppState } from 'src/app/app.reducer';
+
 
 @Component({
   selector: 'app-home',
@@ -8,11 +12,20 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  public accountState$: AccountState | undefined;
+
+  constructor(
+    private store: Store<AppState>,
+    private router: Router) {
+      this.store.select('account').subscribe(account => 
+        this.accountState$ = account
+      );
+    }
 
   ngOnInit() {
 
   }
+
 
   login() {
     this.router.navigate(['accounts','login']);

@@ -47,3 +47,16 @@ export const resetPasswordError = createAction(
     '[ACCOUNT] Reset Password Error',
     props<{ payload: any }>()
 );
+
+export const logout = createAction(
+    '[ACCOUNT] Logout'
+);
+
+export const logoutSuccess = createAction(
+    '[ACCOUNT] Logout Success'
+);
+
+export const logoutError = createAction(
+    '[ACCOUNT] Logout Error',
+    props<{ payload: any }>()
+);

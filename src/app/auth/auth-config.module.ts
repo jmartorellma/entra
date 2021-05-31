@@ -7,7 +7,7 @@ export function configureAuth(oidcConfigService: OidcConfigService): () => Promi
     oidcConfigService.withConfig({            
         stsServer: 'https://localhost:44381',
         redirectUrl: window.location.origin,
-        postLogoutRedirectUri: window.location.origin,
+        postLogoutRedirectUri: window.location.origin + '/accounts/logout',
         clientId: 'angular-client-entra-app',
         scope: 'openid profile offline_access api_entra',
         responseType: 'code',

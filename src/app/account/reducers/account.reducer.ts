@@ -1,4 +1,4 @@
-import { login, loginError, loginSuccess, registerUser, registerUserError, 
+import { login, loginError, loginSuccess, logout, logoutError, logoutSuccess, registerUser, registerUserError, 
          registerUserSuccess, resetPassword, resetPasswordError, resetPasswordSuccess } from '../actions';
 import { Action, createReducer, on } from '@ngrx/store';
 
@@ -30,8 +30,8 @@ const _accountReducer = createReducer(
     })),
     on(loginError, (state, {payload}) => ({
         ...state,
-        error: payload.error,
         loggedIn: false,
+        error: payload.error,
         pending: false,
     })),
     on(registerUser, (state) => ({
@@ -71,7 +71,25 @@ const _accountReducer = createReducer(
             message: payload.message
         },
         pending: false,
-    }))
+    })),
+    on(logout, (state) => ({
+        ...state,
+        loggedIn: true,
+        error: null,
+        pending: true,
+    })),
+    on(logoutSuccess, (state, action) => ({
+        ...state,
+        loggedIn: false,
+        error: null,
+        pending: false,
+    })),
+    on(logoutError, (state, {payload}) => ({
+        ...state,
+        loggedIn: true,
+        error: payload.error,
+        pending: false,
+    })),
   );
 
 

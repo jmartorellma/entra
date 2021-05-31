@@ -1,4 +1,52 @@
-<div>HOME</div>
+<div *ngIf="accountState$ !== undefined && !accountState$.pending" fxFill fxLayout="column">
+  <div class="slider-container" fxLayout="column" fxLayoutAlign="start stretch">
+    <carousel class="full-height">
+      <slide class="full-height">
+        <img class="full-height" src="../../../../assets/img/slider/mercado.jpg" alt="first slide" style="display: block; width: 100%;">
+      </slide>
+      <slide class="full-height">
+        <img class="full-height" src="../../../../assets/img/slider/carniseria.jpg" alt="second slide" style="display: block; width: 100%;">
+      </slide>
+      <slide class="full-height">
+        <img class="full-height" src="../../../../assets/img/slider/2-mercat-ds.jpg" alt="third slide" style="display: block; width: 100%;">
+      </slide>
+    </carousel>
 
-<button (click)="login()">Login</button>
-<button (click)="profile()">Profile</button>
+
+    <!-- <div id="carouselIndicators" class="carousel carousel-dark slide full-height" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner full-height">
+        <div class="carousel-item full-height active">
+          <img class="d-block w-100 full-height" src="../../../../assets/img/slider/mercado.jpg" alt="First slide">
+        </div>
+        <div class="carousel-item full-height">
+          <img class="d-block w-100 full-height" src="../../../../assets/img/slider/carniseria.jpg" alt="Second slide">
+        </div>
+        <div class="carousel-item full-height">
+          <img class="d-block w-100 full-height" src="../../../../assets/img/slider/2-mercat-ds.jpg" alt="Third slide">
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div> -->
+
+
+  
+
+
+</div>
+
+<div *ngIf="accountState$ === undefined || accountState$.pending" class="spinner-container" fxFill fxLayout="column" fxLayoutAlign="center center">
+  <mat-spinner></mat-spinner>
+</div>

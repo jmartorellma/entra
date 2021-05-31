@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AccountState } from 'src/app/account/reducers';
+import { AppState } from 'src/app/app.reducer';
+import * as AccountActions from '../../../account/actions';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +12,16 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
+  public accountState$: AccountState | undefined;
+
   constructor(
+    private store: Store<AppState>,
     private router: Router) 
-    { }
+    { 
+      this.store.select('account').subscribe(account => 
+        this.accountState$ = account
+      );
+    }
 
   ngOnInit(): void {
   }
@@ -18,4 +29,36 @@ export class HeaderComponent implements OnInit {
   goHome(): void {
     this.router.navigate(['shop','home']);
   }
+
+  goProducts() {
+
+  }
+
+  goShops() {
+    
+  }
+
+  goSearch() {
+    
+  }
+
+  goCart() {
+    
+  }
+
+  goProfile() {
+    if(this.accountState$ !== undefined && this.accountState$.loggedIn) {
+      this.router.navigate(['profiles','profile']);
+    }
+    else {
+      this.router.navigate(['accounts','login']);
+    }    
+  }
+
+  logout() {
+    if(this.accountState$ !== undefined && this.accountState$.loggedIn) {
+      this.store.dispatch(AccountActions.logout());  
+    }    
+  }
+
 }

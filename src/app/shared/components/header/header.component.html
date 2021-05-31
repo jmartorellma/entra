@@ -6,7 +6,28 @@
                 <img class="logo" src="assets/img/logo.jpg" alt="logo entra">
             </div>
             <div class="text-logo">NTRA</div>
-        </div>        
-        <div></div>
+        </div> 
+              
+        <div fxLayout="row" fxLayoutGap.sm="8px" fxLayoutGap="25px" fxShow.sm="true" fxShow.gt-sm="true" fxShow="false">
+            <button mat-icon-button color="primary" (click)="goProducts()" title="Productos" aria-label="ballot icon">
+                <mat-icon>ballot</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" (click)="goShops()" title="Tiendas" aria-label="store icon">
+                <mat-icon>store</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" (click)="goSearch()" title="Buscar" aria-label="search icon">
+                <mat-icon>search</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" (click)="goCart()" title="Carro" aria-label="shopping_cart icon">
+                <mat-icon>shopping_cart</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" (click)="goProfile()" title="Cuenta" aria-label="account_circle icon">
+                <mat-icon>account_circle</mat-icon>
+            </button>
+            <button *ngIf="accountState$ !== undefined && accountState$.loggedIn" 
+                    mat-icon-button color="primary" (click)="logout()" title="Salir" aria-label="logout icon">
+                <mat-icon>logout</mat-icon>
+            </button>
+        </div>
     </mat-toolbar>
 </header>
