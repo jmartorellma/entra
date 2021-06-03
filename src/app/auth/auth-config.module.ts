@@ -16,7 +16,7 @@ export function configureAuth(oidcConfigService: OidcConfigService): () => Promi
         renewTimeBeforeTokenExpiresInSeconds: 30,
         storage: localStorage,
         secureRoutes: [
-          'https://localhost:44367/secret'
+            'https://localhost:44367/Users',
         ]
     });
 }

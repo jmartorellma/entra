@@ -32,18 +32,18 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  showSecretResult(){
-    this.callApiSecert()
-      .subscribe((data: ApiResul) => this.secretResult = data.result);
+  getUsers(){
+    this.getApiUsers()
+      .subscribe((data: UserDTO) => console.log(data));
   }
 
-  callApiSecert(): Observable<ApiResul> {
-    const configSecert = 'https://localhost:44367/secret';
-    return this.http.get<ApiResul>(configSecert)
+  getApiUsers(): Observable<UserDTO> {
+    const configSecert = 'https://localhost:44367/Users';
+    return this.http.get<UserDTO>(configSecert)
       .pipe(
         tap(
           data => data,
-          error => error
+          error => console.log(error)
         )
       );
   }
@@ -54,7 +54,7 @@ export class ProfileComponent implements OnInit {
   }
 
   callApiOpen(): Observable<ApiResul> {
-    const configOpen = 'https://localhost:44367/opened';
+    const configOpen = 'https://localhost:44367/users/opened';
     return this.http.get<ApiResul>(configOpen)
       .pipe(
         tap(
@@ -64,6 +64,17 @@ export class ProfileComponent implements OnInit {
       );
   }
 
+}
+
+export interface UserDTO {
+  Id: number;
+  Name: string; 
+  Surname: string;
+  IsActive: boolean;
+  UserName: string;
+  Email: string; 
+  PhoneNumber: string;
+  CreationDate: Date;
 }
 
 export interface ApiResul{

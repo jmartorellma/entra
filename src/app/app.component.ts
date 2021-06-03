@@ -15,7 +15,7 @@ import { UserModel } from './profile/models/userModel';
 export class AppComponent implements OnInit {
 
   private userData: UserModel | undefined; 
-  public loaded: boolean | undefined;;
+  public loaded: boolean;
 
   constructor(
     private store: Store<AppState>,
@@ -24,6 +24,12 @@ export class AppComponent implements OnInit {
       this.oidcSecurityService.userData$.subscribe((data) =>
         this.userData = data 
       );
+
+      this.loaded = false;
+      window.addEventListener('DOMContentLoaded', (event) => {
+        console.log('DOM fully loaded and parsed');
+        this.loaded = true;
+    });
   }
 
   ngOnInit() {
