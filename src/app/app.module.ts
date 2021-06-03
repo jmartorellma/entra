@@ -19,6 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+import { AdminModule } from './admin/admin.module';
 import { AccountModule } from './account/account.module';
 import { ProfileModule } from './profile/profile.module';
 import { ShopModule } from './shop/shop.module';
@@ -27,6 +28,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { ErrorDialogComponent } from './shared/components/error-dialog/error-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -58,6 +60,7 @@ import { ErrorDialogComponent } from './shared/components/error-dialog/error-dia
     MatProgressSpinnerModule,
     FlexLayoutModule,
     AppRoutingModule,
+    AdminModule,
     AccountModule,
     ProfileModule,
     ShopModule,
