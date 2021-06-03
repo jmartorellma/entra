@@ -68,5 +68,4 @@ app-profile,
 app-home {
     overflow-y: auto;
     flex-grow: 1;
-    margin: 20px;
 }
