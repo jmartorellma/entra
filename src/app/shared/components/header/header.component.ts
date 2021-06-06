@@ -13,6 +13,7 @@ import * as AccountActions from '../../../account/actions';
 export class HeaderComponent implements OnInit {
 
   public accountState$: AccountState | undefined;
+  //public profileState$: ProfileState | undefined;
 
   constructor(
     private store: Store<AppState>,
@@ -28,6 +29,14 @@ export class HeaderComponent implements OnInit {
 
   goHome(): void {
     this.router.navigate(['shop','home']);
+  }
+
+  goAdmin() {
+    this.router.navigate(['admin','users'])
+  }
+
+  goAdminProducts() {
+
   }
 
   goProducts() {

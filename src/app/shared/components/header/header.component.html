@@ -9,6 +9,15 @@
         </div> 
               
         <div fxLayout="row" fxLayoutGap.sm="8px" fxLayoutGap="25px" fxShow.sm="true" fxShow.gt-sm="true" fxShow="false">
+            <button *ngIf="accountState$ !== undefined && accountState$.loggedIn && accountState$.userClaims && 
+                           (accountState$.userClaims.role === 'SuperUser' || accountState$.userClaims.role === 'Admin')" 
+                    mat-icon-button color="primary" (click)="goAdmin()" title="Administación" aria-label="ballot icon">
+                <mat-icon>manage_accounts</mat-icon>
+            </button>
+             <button *ngIf="accountState$ !== undefined && accountState$.loggedIn && accountState$.userClaims && accountState$.userClaims.role === 'Shop'" 
+                    mat-icon-button color="primary" (click)="goAdminProducts()" title="Gestión Productos" aria-label="ballot icon">
+                <mat-icon>admin_panel_settings</mat-icon>
+            </button>
             <button mat-icon-button color="primary" (click)="goProducts()" title="Productos" aria-label="ballot icon">
                 <mat-icon>ballot</mat-icon>
             </button>

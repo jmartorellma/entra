@@ -4,12 +4,14 @@ import { Action, createReducer, on } from '@ngrx/store';
 
 export interface AccountState {
     loggedIn: boolean;
+    userClaims: any;
     error: any;
     pending: boolean;
 }
 
 export const initialState: AccountState = {
     loggedIn: false,
+    userClaims: null,
     error: null,
     pending: false
 };
@@ -19,18 +21,21 @@ const _accountReducer = createReducer(
     on(login, (state) => ({
         ...state,
         loggedIn: false,
+        userClaims: null,
         error: null,
         pending: true,
     })),
     on(loginSuccess, (state, action) => ({
         ...state,
         loggedIn: true,
+        userClaims: action.userData,
         error: null,
         pending: false,
     })),
     on(loginError, (state, {payload}) => ({
         ...state,
         loggedIn: false,
+        userClaims: null,
         error: payload.error,
         pending: false,
     })),
@@ -81,6 +86,7 @@ const _accountReducer = createReducer(
     on(logoutSuccess, (state, action) => ({
         ...state,
         loggedIn: false,
+        userClaims: null,
         error: null,
         pending: false,
     })),

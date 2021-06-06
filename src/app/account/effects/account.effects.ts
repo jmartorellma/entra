@@ -35,8 +35,8 @@ export class AccountEffects {
         this.actions$.pipe(
             ofType(AccountActions.loginSuccess),
             map((param) => {
-                if(param.username !== undefined) {
-                    this.snakBarMessage({message: "Bienvenido " + param.username});
+                if(param.userData?.userName !== undefined && param.userData.showWelcome) {
+                    this.snakBarMessage({message: "Bienvenido " + param.userData?.userName});
                 }
             })
         ),

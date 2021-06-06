@@ -1,0 +1,16 @@
+.add-user-container {
+    margin: 15px 0;
+}
+
+.mat-table {
+    width: 100%;
+}
+
+.mat-column-actions {
+    width: 135px;
+}
+
+.edit-button {
+    margin-right: 6px;
+}
+

@@ -1,11 +1,10 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as AccountActions from './account/actions';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { filter } from 'rxjs/operators';
 import { AppState } from './app.reducer';
-import { UserModel } from './profile/models/userModel';
 
 @Component({
   selector: 'app-root',
@@ -14,13 +13,14 @@ import { UserModel } from './profile/models/userModel';
 })
 export class AppComponent implements OnInit {
 
-  private userData: UserModel | undefined; 
+  private userData: any; 
   public loaded: boolean;
 
   constructor(
     private store: Store<AppState>,
     private oidcSecurityService: OidcSecurityService,
     private router: Router) {
+      this.userData = null;
       this.oidcSecurityService.userData$.subscribe((data) =>
         this.userData = data 
       );
@@ -39,12 +39,13 @@ export class AppComponent implements OnInit {
       console.log('app authenticated', isAuthenticated);
       if(isAuthenticated && localStorage.getItem('loggedCurrentSession') !== null) {
         localStorage.removeItem('loggedCurrentSession');
-        this.store.dispatch(AccountActions.loginSuccess({username: this.userData?.userName})); 
+        this.store.dispatch(AccountActions.loginSuccess({userData: this.userData})); 
       }
       else
       {
         if(isAuthenticated) {
-          this.store.dispatch(AccountActions.loginSuccess({username: undefined})); 
+          this.userData.showWelcome = false;
+          this.store.dispatch(AccountActions.loginSuccess({userData: this.userData})); 
         }       
       }      
     });
