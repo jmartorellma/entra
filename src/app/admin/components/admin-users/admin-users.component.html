@@ -9,47 +9,49 @@
             <button mat-raised-button color="primary" (click)="createUser()">Nuevo Usuario</button>
         </div>
 
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <div class="table-container">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         
-            <ng-container matColumnDef="userName">
-                <th mat-header-cell *matHeaderCellDef> Usuario </th>
-                <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
-            </ng-container>
-            
-            <ng-container matColumnDef="email">
-                <th mat-header-cell *matHeaderCellDef> Email </th>
-                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-            </ng-container>
-            
-            <ng-container matColumnDef="role">
-                <th mat-header-cell *matHeaderCellDef> Rol </th>
-                <td mat-cell *matCellDef="let element"> {{element.role}} </td>
-            </ng-container>
-            
-            <ng-container matColumnDef="creationDate">
-                <th mat-header-cell *matHeaderCellDef> Fecha Alta </th>
-                <td mat-cell *matCellDef="let element"> {{element.creationDate | date: 'dd/MM/yyyy'}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="actions" style="width: 60px;"> 
-                <th mat-header-cell *matHeaderCellDef></th>
-                <mat-cell *matCellDef="let row" fxLayoutGap.sm="8px">
-                    <button class="edit-button" mat-icon-button color="accent" (click)="editUser()">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                    <button mat-icon-button color="warn" (click)="deleteUser()">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-               </mat-cell>
-            </ng-container>
-            
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            
-            <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-            </tr>
-        </table>
+                <ng-container matColumnDef="userName">
+                    <th mat-header-cell *matHeaderCellDef> Usuario </th>
+                    <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef> Email </th>
+                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="role">
+                    <th mat-header-cell *matHeaderCellDef> Rol </th>
+                    <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="creationDate">
+                    <th mat-header-cell *matHeaderCellDef> Fecha Alta </th>
+                    <td mat-cell *matCellDef="let element"> {{element.creationDate | date: 'dd/MM/yyyy'}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="actions"> 
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <mat-cell *matCellDef="let row" fxLayoutGap.sm="8px">
+                        <button class="edit-button" mat-icon-button color="accent" (click)="editUser()">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" (click)="deleteUser()">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                   </mat-cell>
+                </ng-container>
+                
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
+            </table>
+        </div>        
     </div>    
 </div>
 
