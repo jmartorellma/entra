@@ -1,12 +1,14 @@
 .register-card {
     margin-top: 40px;
+    min-height: 650px;
 }
 
 .register-content {
     margin: 20px 0;
 }
-.button-section {
-    margin-top: 15px;;
+
+.sections-container {
+    margin-top: 15px;
 }
 
 .actions-container {

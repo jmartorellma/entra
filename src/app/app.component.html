@@ -1,11 +1,9 @@
 <div fxFill fxLayout="column">
     <app-header></app-header>
-    <main fxLayout="column" fxFlex="grow">
-        <router-outlet></router-outlet>
-    </main> 
+    <router-outlet></router-outlet>
     <app-footer></app-footer>
 </div>
 
 <div *ngIf="!loaded" class="spinner-container" fxFill fxLayout="column" fxLayoutAlign="center center">
     <mat-spinner></mat-spinner>
-  </div>
+</div>
