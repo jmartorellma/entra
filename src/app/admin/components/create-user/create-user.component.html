@@ -1,0 +1,136 @@
+<div *ngIf="adminState$ !== undefined && !adminState$.pending" fxFill fxLayout="column" fxLayoutAlign="strat center" fxFlex="grow">
+    <div class="main-content" fxLayout="column" fxLayoutAlign="start stretch" fxFlex="grow">
+        <h1>Crear usuario</h1>
+        <form  fxLayout="column" fxLayoutAlign="space-around stretch" fxFlex="grow" [formGroup]="createForm" (ngSubmit)="createUser()">
+            <div class="inputs-container" fxFlex="grow" fxLayout="column" fxLayoutAlign="space-around stretch">
+                <!-- Username -->
+                <section fxLayout="column" fxLayoutAlign="strat stretch">
+                    <mat-form-field appearence="fill">
+                        <mat-label>Usuario</mat-label>
+                        <input matInput type="text" [formControl]="userName" required />
+                        <mat-error *ngIf="userName.hasError('pattern') && !userName.hasError('required')">
+                            Carácter inválido
+                        </mat-error>
+                        <mat-error *ngIf="(userName.hasError('minlength') || userName.hasError('maxlength')) && !userName.hasError('required')">
+                            El campo Usuario debe ser de entre 6 y 30 carácteres
+                        </mat-error>
+                        <mat-error *ngIf="userName.hasError('required')">
+                            Campo Usuario <strong>obligatorio</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </section> 
+                <!-- Name -->
+                <section fxLayout="column" fxLayoutAlign="strat stretch">
+                    <mat-form-field appearence="fill">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput type="text" [formControl]="name" required />
+                        <mat-error *ngIf="name.hasError('pattern') && !name.hasError('required')">
+                            Carácter inválido
+                        </mat-error>
+                        <mat-error *ngIf="name.hasError('maxlength') && !name.hasError('required')">
+                            El campo Nombre debe ser de como máximo 55 carácteres
+                        </mat-error>
+                        <mat-error *ngIf="name.hasError('required')">
+                            Campo Nombre <strong>obligatorio</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </section> 
+                <!-- Surname -->
+                <section fxLayout="column" fxLayoutAlign="strat stretch">
+                    <mat-form-field appearence="fill">
+                        <mat-label>Apellidos</mat-label>
+                        <input matInput type="text" [formControl]="surname" required/>
+                        <mat-error *ngIf="surname.hasError('pattern')">
+                            Carácter inválido
+                        </mat-error>
+                        <mat-error *ngIf="surname.hasError('maxlength') && !surname.hasError('required')">
+                            El campo Apellidos debe ser de como máximo 55 carácteres
+                        </mat-error>
+                        <mat-error *ngIf="surname.hasError('required')">
+                            Campo Apellidos <strong>obligatorio</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </section>  
+                <!-- PhoneNumber -->
+                <section fxLayout="column" fxLayoutAlign="strat stretch">
+                    <mat-form-field appearence="fill">
+                        <mat-label>Teléfono</mat-label>
+                        <input matInput type="text" [formControl]="phoneNumber" required/>
+                        <mat-error *ngIf="phoneNumber.hasError('pattern')">
+                            Carácter inválido
+                        </mat-error>
+                        <mat-error *ngIf="(phoneNumber.hasError('minlength') || phoneNumber.hasError('maxlength')) && !phoneNumber.hasError('required')">
+                            El campo Teléfono debe tener 9 carácteres
+                        </mat-error>
+                        <mat-error *ngIf="phoneNumber.hasError('required')">
+                            Campo Teléfono <strong>obligatorio</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </section> 
+                <!-- Email -->
+                <section fxLayout="column" fxLayoutAlign="strat stretch">
+                    <mat-form-field appearence="fill">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" [formControl]="email" required placeholder="xxxxx@xxxx.xxx"/>
+                        <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+                            Campo Email si formato de email válido
+                        </mat-error>
+                        <mat-error *ngIf="email.hasError('required')">
+                            Campo Email <strong>obligatorio</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </section> 
+                <!-- Role -->
+                <section fxLayout="column" fxLayoutAlign="strat stretch">
+                    <mat-form-field appearence="fill">
+                        <mat-label>Rol</mat-label>
+                        <mat-select [formControl]="role" required>
+                            <mat-option *ngFor="let role of roleList$ | keyvalue" [value]="role.value">
+                                {{role.value}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="role.hasError('required')">
+                            Campo Rol <strong>obligatorio</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </section> 
+                <!-- Password -->
+                <section fxLayout="column" fxLayoutAlign="strat stretch">
+                    <mat-form-field appearence="fill">
+                        <mat-label>Password</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required/>
+                        <mat-icon matSuffix color="primary" (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <mat-error *ngIf="password.hasError('minlength') && !password.hasError('required')">
+                            El campo Password debe tener almenos 6 carácteres
+                        </mat-error>
+                        <mat-error *ngIf="password.hasError('required')">
+                            Campo Password <strong>obligatorio</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </section>  
+                <!-- Confirm Password -->
+                <section fxLayout="column" fxLayoutAlign="strat stretch">
+                    <mat-form-field appearence="fill">
+                        <mat-label>Confirmar Password</mat-label>
+                        <input matInput [type]="hideConfirm ? 'password' : 'text'" [formControl]="confirmPassword" required/>
+                        <mat-icon matSuffix color="primary" (click)="hideConfirm = !hideConfirm">{{hideConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <mat-error *ngIf="confirmPassword.hasError('required')">
+                            Campo Confirmar Password <strong>obligatorio</strong>
+                        </mat-error>                    
+                    </mat-form-field>  
+                    <span class="customError" *ngIf="createForm.errors">
+                        <span *ngIf="createForm.errors.matchPasswords">Los capmos de Password no coinciden</span>
+                    </span>               
+                </section>  
+                <section fxFlex="15" fxLayout="column" fxLayoutAlign="center stretch">
+                    <button mat-raised-button color="primary" type="submit" [disabled]="!createForm.valid">Crear</button>
+                </section>
+            </div>                  
+        </form>
+    </div>
+</div>
+
+<div *ngIf="adminState$ === undefined || adminState$.pending" class="spinner-container" fxFill fxLayout="column" fxLayoutAlign="center center">
+    <mat-spinner></mat-spinner>
+</div>
+

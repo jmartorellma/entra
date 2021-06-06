@@ -16,7 +16,8 @@ body {
 }
 
 .main-content {
-    max-width: 1240px;
+    max-width: 1240px !important;
+    width: 100%;
     padding: 16px;
 }
 
@@ -70,6 +71,8 @@ body {
 app-login,
 app-register,
 app-admin-users,
+app-create-user,
+app-edit-user,
 app-profile,
 app-home {
     overflow-y: auto;

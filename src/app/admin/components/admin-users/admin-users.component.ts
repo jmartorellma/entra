@@ -17,11 +17,12 @@ export class AdminUsersComponent implements OnInit {
   public userlist: UserDTO | any;
   public dataSource: any;
   public displayedColumns: string[];
+  public currentRole$: any;
 
   constructor(
     private store: Store<AppState>,
     private router: Router) { 
-      this.userlist = [];
+      // this.userlist = [];
       this.displayedColumns = ['userName', 'email', 'role', 'creationDate', 'actions']
       this.store.select('admin').subscribe(admin => {
         this.adminState$ = admin;
@@ -29,7 +30,10 @@ export class AdminUsersComponent implements OnInit {
           this.userlist = admin?.userList;
           this.dataSource = new MatTableDataSource(this.userlist);
         }        
-    });
+      });
+      this.store.select('account').subscribe(account => {
+        this.currentRole$ = account?.userClaims.role;       
+      });
   }
 
   ngOnInit(): void {
@@ -43,10 +47,12 @@ export class AdminUsersComponent implements OnInit {
   }
 
   createUser() {
-    this.router.navigate(['admin','edituser']);
+    this.router.navigate(['admin','create']);
   }
 
-  editUser() {}
+  editUser(row: UserDTO) {
+    this.router.navigate(['admin',`${row.id}`]);
+  }
 
-  deleteUser() {}
+  deleteUser(row: UserDTO) {}
 }
