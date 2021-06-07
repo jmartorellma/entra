@@ -77,7 +77,7 @@
                         <mat-label>Email</mat-label>
                         <input matInput type="email" [formControl]="email" required placeholder="xxxxx@xxxx.xxx"/>
                         <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
-                            Campo Email si formato de email válido
+                            Campo Email sin formato de email válido
                         </mat-error>
                         <mat-error *ngIf="email.hasError('required')">
                             Campo Email <strong>obligatorio</strong>

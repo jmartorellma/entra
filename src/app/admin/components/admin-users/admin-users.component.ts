@@ -18,7 +18,7 @@ export class AdminUsersComponent implements OnInit, AfterViewInit  {
   @ViewChild(MatSort)
   sort: MatSort = new MatSort;
   public adminState$: any;
-  public userlist: UserDTO | any;
+  public userlist: UserDTO[] | any;
   public dataSource: any;
   public displayedColumns: string[];
   public currentRole$: any;
