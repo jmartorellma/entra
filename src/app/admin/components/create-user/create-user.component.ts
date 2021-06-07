@@ -20,6 +20,7 @@ export class CreateUserComponent implements OnInit {
   public surname: FormControl;
   public phoneNumber: FormControl;
   public email: FormControl;
+  public isActive: FormControl;
   public role: FormControl;
   public password: FormControl;
   public confirmPassword: FormControl;
@@ -48,6 +49,7 @@ export class CreateUserComponent implements OnInit {
       this.surname= new FormControl('', [Validators.required, Validators.maxLength(55), Validators.pattern('[a-zA-Z áéíóúÁÉÍÓÚÑñÇç]*')]);
       this.phoneNumber = new FormControl(null, [Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern('[0-9]*')]);
       this.email = new FormControl('', [Validators.required, Validators.email]);
+      this.isActive = new FormControl(true);
       this.role = new FormControl('', [Validators.required]);
       this.password = new FormControl('', [Validators.required, Validators.minLength(6)]);
       this.confirmPassword = new FormControl('', [Validators.required]);
@@ -59,12 +61,11 @@ export class CreateUserComponent implements OnInit {
         surname: this.surname,
         phoneNumber: this.phoneNumber,
         email: this.email,
+        isActive: this.isActive,
         role: this.role,
         password: this.password,
         confirmPassword: this.confirmPassword
       }, options);
-
-
   }
 
   ngOnInit(): void {}
@@ -76,6 +77,7 @@ export class CreateUserComponent implements OnInit {
       Surname: this.surname.value,
       PhoneNumber: this.phoneNumber.value,
       Email: this.email.value,
+      IsActive: this.isActive.value,
       Role: this.role.value,
       Password: this.password.value,
       ConfirmPassword: this.confirmPassword.value,

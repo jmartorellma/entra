@@ -3,6 +3,10 @@
         <h1>Crear usuario</h1>
         <form  fxLayout="column" fxLayoutAlign="space-around stretch" fxFlex="grow" [formGroup]="createForm" (ngSubmit)="createUser()">
             <div class="inputs-container" fxFlex="grow" fxLayout="column" fxLayoutAlign="space-around stretch">
+                <!-- Active -->
+                <section fxLayout="row" fxLayoutAlign="end center">
+                    <mat-slide-toggle color="primary" [formControl]="isActive"><strong>Activo</strong></mat-slide-toggle>
+                </section> 
                 <!-- Username -->
                 <section fxLayout="column" fxLayoutAlign="strat stretch">
                     <mat-form-field appearence="fill">

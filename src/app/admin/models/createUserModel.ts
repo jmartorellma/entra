@@ -4,6 +4,7 @@ export interface CreateUserModel {
     Surname: string;
     PhoneNumber: string;
     Email: string;
+    IsActive: boolean;
     Role: string;
     Password: string;
     ConfirmPassword: string;

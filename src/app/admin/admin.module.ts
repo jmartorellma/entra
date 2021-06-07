@@ -13,7 +13,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { AdminShopsComponent } from './components/admin-shops/admin-shops.component';
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { CreateUserComponent } from './components/create-user/create-user.component';
@@ -25,7 +24,6 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
 @NgModule({
   declarations: [
     AdminUsersComponent,
-    AdminShopsComponent,
     CreateUserComponent,
     EditUserComponent,
     DeleteDialogComponent,
