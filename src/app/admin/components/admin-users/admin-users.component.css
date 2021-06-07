@@ -15,7 +15,7 @@ mat-form-field {
 }
 
 .table-container {
-    overflow-x: auto; 
+    overflow: auto; 
     padding: 15px;
 }
 

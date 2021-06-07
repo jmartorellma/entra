@@ -4,7 +4,7 @@ import { AppConfiguration } from 'read-appsettings-json';
 import { Observable } from 'rxjs';
 import { UserDTO } from 'src/app/profile/models/userDTO';
 import { CreateUserModel } from '../models/createUserModel';
-import { EditUserModel } from '../models/editUserModel';
+import { EditUserModel, EditUserPasswordModel } from '../models/editUserModel';
 
 @Injectable({
   providedIn: 'root'
@@ -30,12 +30,18 @@ export class AdminService {
   }
 
   createUser(createModel: CreateUserModel): Observable<UserDTO> {
-    const url = this.usersUrl;
-    return this.http.post<UserDTO>(url, createModel, this.httpOptions);
+    return this.http.post<UserDTO>(this.usersUrl, createModel, this.httpOptions);
   }
 
   updateUser(updateModel: EditUserModel): Observable<UserDTO> {
-    const url = this.usersUrl;
-    return this.http.put<UserDTO>(url, updateModel, this.httpOptions);
+    return this.http.put<UserDTO>(this.usersUrl, updateModel, this.httpOptions);
+  }
+
+  updateUserPassword(updatePasswordModel: EditUserPasswordModel): Observable<UserDTO> {
+    return this.http.put<UserDTO>(`${this.usersUrl}/Password`, updatePasswordModel, this.httpOptions);
+  }
+
+  deleteUser(id: number): Observable<number> {
+    return this.http.delete<number>(`${this.usersUrl}/${id}`);
   }
 }

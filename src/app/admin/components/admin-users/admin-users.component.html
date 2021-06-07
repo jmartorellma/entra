@@ -11,25 +11,25 @@
         </div>        
         <div>
             <div class="table-container">
-                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
             
                     <ng-container matColumnDef="userName">
-                        <th mat-header-cell *matHeaderCellDef><strong>Usuario</strong></th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header><strong>Usuario</strong></th>
                         <td mat-cell [ngClass]="{'inactive': !element.isActive}" *matCellDef="let element">{{element.userName}}</td>
                     </ng-container>
                     
                     <ng-container matColumnDef="email">
-                        <th mat-header-cell *matHeaderCellDef><strong>Email</strong></th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header><strong>Email</strong></th>
                         <td mat-cell [ngClass]="{'inactive': !element.isActive}" *matCellDef="let element">{{element.email}}</td>
                     </ng-container>
                     
                     <ng-container matColumnDef="role">
-                        <th mat-header-cell *matHeaderCellDef><strong>Rol</strong></th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header><strong>Rol</strong></th>
                         <td mat-cell [ngClass]="{'inactive': !element.isActive}" *matCellDef="let element">{{element.role}}</td>
                     </ng-container>
                     
                     <ng-container matColumnDef="creationDate">
-                        <th mat-header-cell *matHeaderCellDef><strong>Fecha Alta</strong></th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header><strong>Fecha Alta</strong></th>
                         <td mat-cell [ngClass]="{'inactive': !element.isActive}" *matCellDef="let element">{{element.creationDate | date: 'dd/MM/yyyy'}}</td>
                     </ng-container>
         

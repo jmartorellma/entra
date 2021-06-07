@@ -14,4 +14,5 @@ export interface EditUserPasswordModel {
     OldPassword: string;
     Password: string;
     ConfirmPassword: string;
+    IsProfile: boolean;
 }

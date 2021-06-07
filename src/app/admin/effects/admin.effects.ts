@@ -3,6 +3,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { AppConfiguration } from "read-appsettings-json";
 import { of } from "rxjs";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { ErrorDialogComponent } from "src/app/shared/components/error-dialog/error-dialog.component";
@@ -130,7 +131,7 @@ export class AdminEffects {
         this.actions$.pipe(
             ofType(AdminActions.updateUserSuccess),
             map((param) => {
-                this.snakBarMessage({message: `Usuario ${param.user.userName} creado correctamente`});
+                this.snakBarMessage({message: `Usuario ${param.user.userName} actualizado correctamente`});
                 this.router.navigate(['admin','users']);
             })
         ),
@@ -147,10 +148,84 @@ export class AdminEffects {
         { dispatch: false }
     );
 
+    updateUserPassword$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.updateUserPassword),
+            mergeMap((param) =>
+                this.adminService.updateUserPassword(param.passModel).pipe(
+                    map((result) =>
+                        AdminActions.updateUserPasswordSuccess({ user: result })
+                    ),
+                    catchError((error) => 
+                        of(AdminActions.updateUserPasswordError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    updateUserPasswordSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.updateUserPasswordSuccess),
+            map((param) => {
+                this.snakBarMessage({message: `Contraseña ${param.user.userName} actualizada correctamente`});
+                this.router.navigate(['admin','users']);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    updateUserPasswordError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.updateUserPasswordError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    deleteUser$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.deleteUser),
+            mergeMap((param) =>
+                this.adminService.deleteUser(param.userId).pipe(
+                    map((result) =>
+                        AdminActions.deleteUserSuccess({ userId: result })
+                    ),
+                    catchError((error) => 
+                        of(AdminActions.deleteUserError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    deleteUserSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.deleteUserSuccess),
+            map(() => {
+                this.snakBarMessage({message: "Usuario eliminado correctamente"});
+                this.router.navigate(['admin','users']);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    deleteUserError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.deleteUserError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
 
     snakBarMessage(result: any) {
         this.snackBar.open(result.message, undefined, {
-            duration: 5000,
+            duration: AppConfiguration.Setting().snackBarDuration,
             panelClass: ['custom-snackbar'],
             horizontalPosition: 'end',
             verticalPosition: 'top',

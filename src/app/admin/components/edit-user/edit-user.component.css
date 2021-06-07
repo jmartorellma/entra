@@ -5,3 +5,7 @@ h1 {
 .inputs-container {
     margin: 16px;
 }
+
+mat-icon {
+    cursor: pointer;
+}

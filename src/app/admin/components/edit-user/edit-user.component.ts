@@ -131,27 +131,11 @@ export class EditUserComponent implements OnInit {
       Id: this.user$.id,
       OldPassword: this.oldPassword.value,
       Password: this.password.value,
-      ConfirmPassword: this.confirmPassword.value
+      ConfirmPassword: this.confirmPassword.value,
+      IsProfile: false
     }
 
     this.store.dispatch(AdminAction.updateUserPassword({passModel: upPass}));
   }
-
-  // loadUser() {
-  //   this.route.paramMap.subscribe(params => {
-      
-  //     if(param != null) {
-  //       const id: number = parseInt(param, 10);
-  //       if (id !== undefined && id !== null && id !== 0) {
-  //         this.store.select('admin').subscribe(admin => {
-  //           const user = admin.userList?.find(u => u.id === id);
-  //           if(user) {
-  //             this.createForm(user);
-  //           }
-  //         });
-  //       }
-  //     }
-  //   });
-  // }
 
 }

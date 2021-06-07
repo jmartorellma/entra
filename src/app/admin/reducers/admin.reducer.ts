@@ -111,6 +111,22 @@ const _adminReducer = createReducer(
         ...state,
         error: payload.error,
         pending: false,
+    })),
+    on(AdminActions.deleteUser, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(AdminActions.deleteUserSuccess, (state, action) => ({
+        ...state,
+        userList: [...state.userList.filter(u => u.id !== action.userId)],
+        error: null,
+        pending: false,
+    })),
+    on(AdminActions.deleteUserError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
     }))
   );
 

@@ -76,3 +76,18 @@ export const updateUserPasswordError = createAction(
     '[ADMIN] UpdateUserPassword Error',
     props<{ payload: any }>()
 );
+
+export const deleteUser = createAction(
+    '[ADMIN] DeleteUser',
+    props<{ userId: number }>()
+);
+
+export const deleteUserSuccess = createAction(
+    '[ADMIN] DeleteUser Success',
+    props<{ userId: number }>()
+);
+
+export const deleteUserError = createAction(
+    '[ADMIN] DeleteUser Error',
+    props<{ payload: any }>()
+);
