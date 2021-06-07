@@ -110,6 +110,43 @@ export class AdminEffects {
         { dispatch: false }
     );
 
+    updateUser$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.updateUser),
+            mergeMap((param) =>
+                this.adminService.updateUser(param.user).pipe(
+                    map((result) =>
+                        AdminActions.updateUserSuccess({ user: result })
+                    ),
+                    catchError((error) => 
+                        of(AdminActions.updateUserError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    updateUserSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.updateUserSuccess),
+            map((param) => {
+                this.snakBarMessage({message: `Usuario ${param.user.userName} creado correctamente`});
+                this.router.navigate(['admin','users']);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    updateUserError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.updateUserError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
 
     snakBarMessage(result: any) {
         this.snackBar.open(result.message, undefined, {

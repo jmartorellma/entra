@@ -1,6 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { UserDTO } from "src/app/profile/models/userDTO";
 import { CreateUserModel } from "../models/createUserModel";
+import { EditUserModel, EditUserPasswordModel } from "../models/editUserModel";
 
 
 export const loadUsers = createAction(
@@ -43,5 +44,35 @@ export const createUserSuccess = createAction(
 
 export const createUserError = createAction(
     '[ADMIN] CreateUser Error',
+    props<{ payload: any }>()
+);
+
+export const updateUser = createAction(
+    '[ADMIN] UpdateUser',
+    props<{ user: EditUserModel }>()
+);
+
+export const updateUserSuccess = createAction(
+    '[ADMIN] UpdateUser Success',
+    props<{ user: UserDTO }>()
+);
+
+export const updateUserError = createAction(
+    '[ADMIN] UpdateUser Error',
+    props<{ payload: any }>()
+);
+
+export const updateUserPassword = createAction(
+    '[ADMIN] UpdateUserPassword',
+    props<{ passModel: EditUserPasswordModel }>()
+);
+
+export const updateUserPasswordSuccess = createAction(
+    '[ADMIN] UpdateUserPassword Success',
+    props<{ user: UserDTO }>()
+);
+
+export const updateUserPasswordError = createAction(
+    '[ADMIN] UpdateUserPassword Error',
     props<{ payload: any }>()
 );

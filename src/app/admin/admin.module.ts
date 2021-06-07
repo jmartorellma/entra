@@ -17,6 +17,7 @@ import { AdminUsersComponent } from './components/admin-users/admin-users.compon
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { CreateUserComponent } from './components/create-user/create-user.component';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatButtonModule,
     MatDividerModule,
     MatSelectModule,
+    MatSlideToggleModule,
     FlexLayoutModule,
   ]
 })

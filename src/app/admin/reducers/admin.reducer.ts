@@ -65,6 +65,52 @@ const _adminReducer = createReducer(
         ...state,
         error: payload.error,
         pending: false,
+    })),
+    on(AdminActions.updateUser, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(AdminActions.updateUserSuccess, (state, action) => ({
+        ...state,
+        userList: state.userList.map(u => {
+            if(u.id === action.user.id) {
+                return { ...u, ...action.user }; 
+            }
+            else {
+                return u;
+            }
+        }),
+        error: null,
+        pending: false,
+    })),
+    on(AdminActions.updateUserError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(AdminActions.updateUserPassword, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(AdminActions.updateUserPasswordSuccess, (state, action) => ({
+        ...state,
+        userList: state.userList.map(u => {
+            if(u.id === action.user.id) {
+                return { ...u, ...action.user }; 
+            }
+            else {
+                return u;
+            }
+        }),
+        error: null,
+        pending: false,
+    })),
+    on(AdminActions.updateUserPasswordError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
     }))
   );
 
