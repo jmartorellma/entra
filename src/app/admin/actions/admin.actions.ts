@@ -139,8 +139,6 @@ export const updateShopError = createAction(
     props<{ payload: any }>()
 );
 
-
-
 export const deleteShop = createAction(
     '[ADMIN] Deleteshop',
     props<{ shopId: number }>()

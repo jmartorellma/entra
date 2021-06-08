@@ -1,5 +1,5 @@
 export interface EditShopModel {
-    Id: string,           
+    Id: number,           
     IsActive: boolean,      
     Code: string,          
     Name: string,          

@@ -18,35 +18,30 @@ export class CreateShopComponent implements OnInit {
   public adminState$: AdminState | undefined;
   public userShopList$: UserDTO[];
 
-    public nif: FormControl;
-    public isActive: FormControl;      
-    public code: FormControl;          
-    public name: FormControl;          
-    public phone: FormControl;         
-    public email: FormControl;         
-    public taxes: FormControl;         
-    public minAmountTaxes: FormControl;
-    public address: FormControl;       
-    public city: FormControl;          
-    public web: FormControl;    
-    public owner: FormControl; 
-    public createForm: FormGroup;
+  public nif: FormControl;
+  public isActive: FormControl;      
+  public code: FormControl;          
+  public name: FormControl;          
+  public phone: FormControl;         
+  public email: FormControl;         
+  public taxes: FormControl;         
+  public minAmountTaxes: FormControl;
+  public address: FormControl;       
+  public city: FormControl;          
+  public web: FormControl;    
+  public owner: FormControl; 
+  public createForm: FormGroup;
   
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private store: Store<AppState>) { 
       this.userShopList$ = [];
-      let reload = false;
-      this.store.select('admin').subscribe(account => {
-        this.adminState$ = account;
-        if(!reload && (this.adminState$.userList === null || this.adminState$.userList.length === 0)) {
-          reload = true;
-          this.store.dispatch(AdminActions.loadUsers());          
-        }
-        else {
-          this.userShopList$ = account.userList.filter(u => u.role === 'Shop')
-        }       
+      this.store.select('admin').subscribe(admin => {
+        this.adminState$ = admin;
+        if(this.adminState$ !== undefined && this.adminState$.userList.length > 0) {
+          this.userShopList$ = admin.userList.filter(u => u.role === 'Shop')       
+        }     
       });
 
       this.nif = new FormControl('', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]);
@@ -79,6 +74,7 @@ export class CreateShopComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.store.dispatch(AdminActions.loadUsers());
   }
 
   createShop() {

@@ -55,9 +55,10 @@ export class EditUserComponent implements OnInit {
       this.hide = true;
       this.hideOld = true;
       this.hideConfirm = true;  
+      
       this.store.select('admin').subscribe(account => {
         this.adminState$ = account;
-        if(this.adminState$.userList !== null && this.adminState$.userList.length > 0) {
+        if(this.adminState$ !== undefined && this.adminState$.userList.length > 0) {
           const u = this.adminState$.userList?.find(u => u.id === parseInt(this.route.snapshot.params.id, 10));
           if(u) {
             this.user$ = u;
@@ -89,7 +90,7 @@ export class EditUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(AdminAction.loadUsers());
+    this.store.dispatch(AdminAction.loadUsers());   
   }
 
   loadUser() {
@@ -106,7 +107,7 @@ export class EditUserComponent implements OnInit {
       phoneNumber: this.phoneNumber,
       email: this.email,
       isActive: this.isActive
-    });
+    });  
   }
 
   updateUser() {

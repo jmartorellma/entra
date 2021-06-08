@@ -37,9 +37,11 @@ export class CreateUserComponent implements OnInit {
     private store: Store<AppState>) { 
       this.store.dispatch(AdminActions.loadRoles());
 
-      this.store.select('admin').subscribe(account => {
-        this.adminState$ = account;
-        this.roleList$ = this.adminState$.roleList;        
+      this.store.select('admin').subscribe(admin => {
+        this.adminState$ = admin;
+        if(this.adminState$ !== undefined) {
+          this.roleList$ = this.adminState$.roleList; 
+        }               
       }); 
 
       this.roleList$ = [];
@@ -70,7 +72,9 @@ export class CreateUserComponent implements OnInit {
       }, options);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.dispatch(AdminActions.loadRoles());  
+  }
 
   createUser() {
     this.createModel = {

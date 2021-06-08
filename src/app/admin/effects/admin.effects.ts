@@ -269,7 +269,7 @@ export class AdminEffects {
             ofType(AdminActions.createShopSuccess),
             map((param) => {
                 this.snakBarMessage({message: `Tienda ${param.shop.name} creada correctamente`});
-                this.router.navigate(['admin','users']);
+                this.router.navigate(['admin','shops']);
             })
         ),
         { dispatch: false }
