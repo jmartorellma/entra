@@ -1,3 +1,4 @@
 export interface DeleteDialogDataModel {
-    UserName: string;
+    model: string;
+    text: string;
 }

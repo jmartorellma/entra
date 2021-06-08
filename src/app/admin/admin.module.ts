@@ -5,7 +5,6 @@ import { AdminRoutingModule } from './admin-routing.module';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,6 +18,9 @@ import { CreateUserComponent } from './components/create-user/create-user.compon
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import { CreateShopComponent } from './components/create-shop/create-shop.component';
+import { EditShopComponent } from './components/edit-shop/edit-shop.component';
+import { AdminShopsComponent } from './components/admin-shops/admin-shops.component';
 
 
 @NgModule({
@@ -27,6 +29,9 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
     CreateUserComponent,
     EditUserComponent,
     DeleteDialogComponent,
+    CreateShopComponent,
+    EditShopComponent,
+    AdminShopsComponent,
   ],
   imports: [
     CommonModule,
@@ -35,7 +40,6 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatTableModule,
-    MatSortModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,

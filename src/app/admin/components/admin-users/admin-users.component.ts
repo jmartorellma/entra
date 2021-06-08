@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -14,9 +13,7 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
   templateUrl: './admin-users.component.html',
   styleUrls: ['./admin-users.component.css']
 })
-export class AdminUsersComponent implements OnInit, AfterViewInit  {  
-  @ViewChild(MatSort)
-  sort: MatSort = new MatSort;
+export class AdminUsersComponent implements OnInit {  
   public adminState$: any;
   public userlist: UserDTO[] | any;
   public dataSource: any;
@@ -45,26 +42,26 @@ export class AdminUsersComponent implements OnInit, AfterViewInit  {
     this.dataSource = new MatTableDataSource(this.userlist);
   }
 
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-  }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   createUser() {
-    this.router.navigate(['admin','create']);
+    this.router.navigate(['admin','create-user']);
+  }
+
+  goShops() {
+    this.router.navigate(['admin','shops']);
   }
 
   editUser(row: UserDTO) {
-    this.router.navigate(['admin',`${row.id}`]);
+    this.router.navigate(['admin', 'user',`${row.id}`]);
   }
 
   deleteUser(row: UserDTO) {
     const deleteDialog = this.dialog.open(DeleteDialogComponent, {
-      data: { UserName: row.userName }
+      data: { model: row.userName, text: 'usuario' }
     });
 
     deleteDialog.afterClosed().subscribe(result => {

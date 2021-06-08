@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutAlign="start stretch">
-    <h1 mat-dialog-title>Eliminar usuario</h1>
+    <h1 mat-dialog-title>Eliminar {{data.text}}</h1>
     <div class="content" mat-dialog-content fxLayout="column" fxLayoutAlign="start stretch">
-        <p>Estás seguro que quieres eliminar del sistema el usuario <strong>{{data.UserName}}</strong></p>
+        <p>Estás seguro que quieres eliminar del sistema a <strong>{{data.model}}</strong></p>
       </div>
     <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-around end">
         <button mat-raised-button color="primary"(click)="onDeleteClick()">Eliminar</button>

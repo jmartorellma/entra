@@ -1,9 +1,11 @@
 import { Action, createReducer, on } from "@ngrx/store";
+import { ShopDTO } from "src/app/backoffice/models/ShopDTO";
 import { UserDTO } from "src/app/profile/models/userDTO";
 import * as AdminActions from '../actions';
 
 export interface AdminState {
     userList: UserDTO[];
+    shopList: ShopDTO[];
     roleList: string[];
     error: any;
     pending: boolean;
@@ -11,6 +13,7 @@ export interface AdminState {
 
 export const initialState: AdminState = {
     userList: [],
+    shopList: [],
     roleList: [],
     error: null,
     pending: false
@@ -127,7 +130,78 @@ const _adminReducer = createReducer(
         ...state,
         error: payload.error,
         pending: false,
-    }))
+    })),
+    on(AdminActions.loadShops, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(AdminActions.loadShopsSuccess, (state, action) => ({
+        ...state,
+        shopList: [...action.shopList],
+        error: null,
+        pending: false,
+    })),
+    on(AdminActions.loadShopsError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(AdminActions.createShop, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(AdminActions.createShopSuccess, (state, action) => ({
+        ...state,
+        error: null,
+        shopList: [...state.shopList, action.shop],
+        pending: false,
+    })),
+    on(AdminActions.createShopError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(AdminActions.updateShop, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(AdminActions.updateShopSuccess, (state, action) => ({
+        ...state,
+        shopList: state.shopList.map(s => {
+            if(s.id === action.shop.id) {
+                return { ...s, ...action.shop }; 
+            }
+            else {
+                return s;
+            }
+        }),
+        error: null,
+        pending: false,
+    })),
+    on(AdminActions.updateShopError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(AdminActions.deleteShop, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(AdminActions.deleteShopSuccess, (state, action) => ({
+        ...state,
+        shopList: [...state.shopList.filter(s => s.id !== action.shopId)],
+        error: null,
+        pending: false,
+    })),
+    on(AdminActions.deleteShopError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
   );
 
 

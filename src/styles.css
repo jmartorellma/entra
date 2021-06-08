@@ -73,6 +73,10 @@ app-register,
 app-admin-users,
 app-create-user,
 app-edit-user,
+app-admin-shops,
+app-create-shop,
+app-edit-shop,
+app-shop-admin,
 app-profile,
 app-home {
     overflow-y: auto;

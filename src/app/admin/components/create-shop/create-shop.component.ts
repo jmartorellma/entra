@@ -6,11 +6,12 @@ import { UserDTO } from 'src/app/profile/models/userDTO';
 import { CreateShopModel } from '../../models/createShopModel';
 import { AdminState } from '../../reducers';
 import * as AdminActions from '../../actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-shop',
   templateUrl: './create-shop.component.html',
-  styleUrls: ['./create-shop.component.css']
+  styleUrls: ['./create-shop.component.css', '../edit-user/edit-user.component.css']
 })
 export class CreateShopComponent implements OnInit {
 
@@ -33,11 +34,17 @@ export class CreateShopComponent implements OnInit {
   
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private store: Store<AppState>) { 
       this.userShopList$ = [];
+      let reload = false;
       this.store.select('admin').subscribe(account => {
         this.adminState$ = account;
-        if(account.userList !== null && account.userList.length > 0) {
+        if(!reload && (this.adminState$.userList === null || this.adminState$.userList.length === 0)) {
+          reload = true;
+          this.store.dispatch(AdminActions.loadUsers());          
+        }
+        else {
           this.userShopList$ = account.userList.filter(u => u.role === 'Shop')
         }       
       });
@@ -50,7 +57,7 @@ export class CreateShopComponent implements OnInit {
       this.email = new FormControl('', [Validators.required, Validators.email]);
       this.taxes = new FormControl(0, [Validators.required, Validators.min(0)]);
       this.minAmountTaxes = new FormControl(0, [Validators.required, Validators.min(0)]);
-      this.address = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(200), Validators.pattern('[a-zA-Z0-9 áéíóúÁÉÍÓÚÑñÇç]*')]);
+      this.address = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]);
       this.city = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100), Validators.pattern('[a-zA-Z0-9 áéíóúÁÉÍÓÚÑñÇç]*')]);
       this.web = new FormControl('');
       this.owner = new FormControl('');
@@ -88,10 +95,14 @@ export class CreateShopComponent implements OnInit {
       City: this.city.value,
       Web: this.web.value,
       Picture: '',
-      OwnerId: this.owner.value
+      OwnerId: this.owner.value.id
     };
 
     this.store.dispatch(AdminActions.createShop({shop: createModel}));
+  }
+
+  goShops() {
+    this.router.navigate(['admin','shops']);
   }
 
 }

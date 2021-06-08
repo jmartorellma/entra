@@ -32,11 +32,11 @@ export class HeaderComponent implements OnInit {
   }
 
   goAdmin() {
-    this.router.navigate(['admin','users'])
+    this.router.navigate(['admin','users']);
   }
 
-  goAdminProducts() {
-
+  goShopAdmin() {
+    this.router.navigate(['backoffice','shop-admin']);
   }
 
   goProducts() {

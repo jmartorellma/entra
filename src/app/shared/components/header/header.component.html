@@ -15,7 +15,7 @@
                 <mat-icon>manage_accounts</mat-icon>
             </button>
              <button *ngIf="accountState$ !== undefined && accountState$.loggedIn && accountState$.userClaims && accountState$.userClaims.role === 'Shop'" 
-                    mat-icon-button color="primary" (click)="goAdminProducts()" title="Gestión Productos" aria-label="ballot icon">
+                    mat-icon-button color="primary" (click)="goShopAdmin()" title="Gestión Tienda" aria-label="ballot icon">
                 <mat-icon>admin_panel_settings</mat-icon>
             </button>
             <button mat-icon-button color="primary" (click)="goProducts()" title="Productos" aria-label="ballot icon">

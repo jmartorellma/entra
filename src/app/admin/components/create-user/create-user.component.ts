@@ -6,6 +6,7 @@ import * as AdminActions from '../../actions';
 import { CustomValidator } from 'src/app/shared/validators/customValidator';
 import { CreateUserModel } from '../../models/createUserModel';
 import { AdminState } from '../../reducers';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-user',
@@ -32,6 +33,7 @@ export class CreateUserComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private store: Store<AppState>) { 
       this.store.dispatch(AdminActions.loadRoles());
 
@@ -84,6 +86,10 @@ export class CreateUserComponent implements OnInit {
     };
 
     this.store.dispatch(AdminActions.createUser({user: this.createModel}));
+  }
+
+  goUsers() {
+    this.router.navigate(['admin','users']);
   }
 
 }

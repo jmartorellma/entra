@@ -1,11 +1,11 @@
 <div *ngIf="adminState$ !== undefined && !adminState$.pending" fxFill fxLayout="column" fxLayoutAlign="strat center" fxFlex="grow">
     <div class="main-content" fxLayout="column" fxLayoutAlign="start stretch" fxFlex="grow">
-        <h1>Crear usuario</h1>
-        <form  fxLayout="column" fxLayoutAlign="space-around stretch" fxFlex="grow" [formGroup]="createForm" (ngSubmit)="createUser()">
+        <h1>Crear tienda</h1>
+        <form  fxLayout="column" fxLayoutAlign="space-around stretch" fxFlex="grow" [formGroup]="createForm" (ngSubmit)="createShop()">
             <div class="inputs-container" fxFlex="grow" fxLayout="column" fxLayoutAlign="space-around stretch">
                 <!-- Active -->
                 <section fxLayout="row" fxLayoutAlign="end center">
-                    <mat-slide-toggle color="primary" [formControl]="isActive"><strong>Activo</strong></mat-slide-toggle>
+                    <mat-slide-toggle color="primary" [formControl]="isActive"><strong>Activa</strong></mat-slide-toggle>
                 </section> 
                 <!-- NIF -->
                 <section fxLayout="column" fxLayoutAlign="strat stretch">
@@ -151,23 +151,23 @@
                     <mat-form-field appearence="fill">
                         <mat-label>Propietario</mat-label>
                         <mat-select [formControl]="owner" required>
-                            <mat-option *ngFor="let user of userShopList$ | keyvalue" [value]="user.value">
-                                {{user.value}}
+                            <mat-option *ngFor="let user of userShopList$" [value]="user">
+                                {{user.userName}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="user.hasError('required')">
+                        <mat-error *ngIf="owner.hasError('required')">
                             Campo Propietario <strong>obligatorio</strong>
                         </mat-error>
                     </mat-form-field>
-                </section> 
-
-
-
+                </section>
                 <section fxFlex="15" fxLayout="column" fxLayoutAlign="center stretch">
                     <button mat-raised-button color="primary" type="submit" [disabled]="!createForm.valid">Crear</button>
                 </section>
             </div>                  
         </form>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <span class="back" (click)="goShops()">Volver a Tiendas</span>
+        </div>
     </div>
 </div>
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { UserDTO } from 'src/app/profile/models/userDTO';
@@ -38,6 +38,7 @@ export class EditUserComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private store: Store<AppState>,
     private route: ActivatedRoute) { 
       this.user$ = {
@@ -53,21 +54,16 @@ export class EditUserComponent implements OnInit {
       }  
       this.hide = true;
       this.hideOld = true;
-      this.hideConfirm = true;
-      let reload = false;   
+      this.hideConfirm = true;  
       this.store.select('admin').subscribe(account => {
         this.adminState$ = account;
-        if(!reload && (this.adminState$.userList === null || this.adminState$.userList.length === 0)) {
-          reload = true;
-          this.store.dispatch(AdminAction.loadUsers());
-        }
-        else {
+        if(this.adminState$.userList !== null && this.adminState$.userList.length > 0) {
           const u = this.adminState$.userList?.find(u => u.id === parseInt(this.route.snapshot.params.id, 10));
           if(u) {
             this.user$ = u;
             this.loadUser();
           } 
-        }         
+        }       
       });
       
       this.loadUser();  
@@ -92,7 +88,9 @@ export class EditUserComponent implements OnInit {
       }, optionsPassword);      
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.dispatch(AdminAction.loadUsers());
+  }
 
   loadUser() {
     this.userName = new FormControl(this.user$.userName, [Validators.required, Validators.minLength(6), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9]*')]);
@@ -136,6 +134,10 @@ export class EditUserComponent implements OnInit {
     }
 
     this.store.dispatch(AdminAction.updateUserPassword({passModel: upPass}));
+  }
+
+  goUsers() {
+    this.router.navigate(['admin','users']);
   }
 
 }

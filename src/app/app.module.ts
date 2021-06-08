@@ -20,6 +20,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AdminModule } from './admin/admin.module';
+import { BackofficeModule } from './backoffice/backoffice.module';
 import { AccountModule } from './account/account.module';
 import { ProfileModule } from './profile/profile.module';
 import { ShopModule } from './shop/shop.module';
@@ -61,6 +62,7 @@ import { ErrorDialogComponent } from './shared/components/error-dialog/error-dia
     FlexLayoutModule,
     AppRoutingModule,
     AdminModule,
+    BackofficeModule,
     AccountModule,
     ProfileModule,
     ShopModule,

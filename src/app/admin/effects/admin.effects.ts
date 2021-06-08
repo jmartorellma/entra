@@ -222,6 +222,144 @@ export class AdminEffects {
         { dispatch: false }
     );
 
+    loadShops$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.loadShops),
+            mergeMap(() =>
+                this.adminService.getShops().pipe(
+                    map((result) =>
+                        AdminActions.loadShopsSuccess({ shopList: result })
+                    ),
+                    catchError((error) => 
+                        of(AdminActions.loadShopsError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    loadShopsError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.loadShopsError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    createShop$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.createShop),
+            mergeMap((param) =>
+                this.adminService.createShop(param.shop).pipe(
+                    map((result) =>
+                        AdminActions.createShopSuccess({ shop: result })
+                    ),
+                    catchError((error) => 
+                        of(AdminActions.createShopError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    createShopSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.createShopSuccess),
+            map((param) => {
+                this.snakBarMessage({message: `Tienda ${param.shop.name} creada correctamente`});
+                this.router.navigate(['admin','users']);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    createShopError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.createShopError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    updateShop$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.updateShop),
+            mergeMap((param) =>
+                this.adminService.updateShop(param.shop).pipe(
+                    map((result) =>
+                        AdminActions.updateShopSuccess({ shop: result })
+                    ),
+                    catchError((error) => 
+                        of(AdminActions.updateShopError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    updateShopSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.updateShopSuccess),
+            map((param) => {
+                this.snakBarMessage({message: `Tienda ${param.shop.name} actualizada correctamente`});
+                this.router.navigate(['admin','shops']);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    updateShopError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.updateShopError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    deleteShop$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.deleteShop),
+            mergeMap((param) =>
+                this.adminService.deleteShop(param.shopId).pipe(
+                    map((result) =>
+                        AdminActions.deleteShopSuccess({ shopId: result })
+                    ),
+                    catchError((error) => 
+                        of(AdminActions.deleteShopError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    deleteShopSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.deleteShopSuccess),
+            map(() => {
+                this.snakBarMessage({message: "Tienda eliminada correctamente"});
+                this.router.navigate(['admin','shops']);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    deleteShopError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.deleteShopError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    
 
     snakBarMessage(result: any) {
         this.snackBar.open(result.message, undefined, {

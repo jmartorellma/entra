@@ -1,11 +1,12 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { AuthModule, OidcConfigService } from 'angular-auth-oidc-client';
+import { AppConfiguration } from 'read-appsettings-json';
 import { CustomStorage } from './customStorage';
 
 export function configureAuth(oidcConfigService: OidcConfigService): () => Promise<any> {
     return () =>
     oidcConfigService.withConfig({            
-        stsServer: 'https://localhost:44381',
+        stsServer: AppConfiguration.Setting().identityEndpoint,
         redirectUrl: window.location.origin,
         postLogoutRedirectUri: window.location.origin + '/accounts/logout',
         clientId: 'angular-client-entra-app',
@@ -16,7 +17,8 @@ export function configureAuth(oidcConfigService: OidcConfigService): () => Promi
         renewTimeBeforeTokenExpiresInSeconds: 30,
         storage: localStorage,
         secureRoutes: [
-            'https://localhost:44367/Users',
+            `${AppConfiguration.Setting().apiEndpoint}/Users`,
+            `${AppConfiguration.Setting().apiEndpoint}/Shop`,
         ]
     });
 }
