@@ -1,10 +1,16 @@
 import { createAction, props } from "@ngrx/store";
 import { ShopDTO } from "src/app/backoffice/models/ShopDTO";
 import { UserDTO } from "src/app/profile/models/userDTO";
+import { CreatePaymentStatusModel } from "../models/createPaymentStatusModel";
+import { CreatePurchaseTypeModel } from "../models/createPurchaseTypeModel";
 import { CreateShopModel } from "../models/createShopModel";
 import { CreateUserModel } from "../models/createUserModel";
+import { EditPaymentStatusModel } from "../models/editPaymentStatusModel";
+import { EditPurchaseTypeModel } from "../models/editPurchaseTypeModel";
 import { EditShopModel } from "../models/editShopModel";
 import { EditUserModel, EditUserPasswordModel } from "../models/editUserModel";
+import { PaymentStatusDTO } from "../models/PaymentStatusDTO";
+import { PurchaseTypeDTO } from "../models/PurchaseTypeDTO";
 
 
 export const loadUsers = createAction(
@@ -152,4 +158,122 @@ export const deleteShopSuccess = createAction(
 export const deleteShopError = createAction(
     '[ADMIN] Deleteshop Error',
     props<{ payload: any }>()
+);
+
+export const loadPaymentStatusSuccess = createAction(
+    '[ADMIN] LoadPaymentStatus Success',
+    props<{ paymentStatusList: PaymentStatusDTO[] }>()
+);
+
+export const loadPaymentStatusError = createAction(
+    '[ADMIN] LoadPaymentStatus Error',
+    props<{ payload: any }>()
+);
+
+export const createPaymentStatus = createAction(
+    '[ADMIN] CreatePaymentStatus',
+    props<{ paymentStatus: CreatePaymentStatusModel }>()
+);
+
+export const createPaymentStatusSuccess = createAction(
+    '[ADMIN] CreatePaymentStatus Success',
+    props<{ paymentStatus: PaymentStatusDTO }>()
+);
+
+export const createPaymentStatusError = createAction(
+    '[ADMIN] CreatePaymentStatus Error',
+    props<{ payload: any }>()
+);
+
+export const updatePaymentStatus = createAction(
+    '[ADMIN] UpdatePaymentStatus',
+    props<{ paymentStatus: EditPaymentStatusModel }>()
+);
+
+export const updatePaymentStatusSuccess = createAction(
+    '[ADMIN] UpdatePaymentStatus Success',
+    props<{ paymentStatus: PaymentStatusDTO }>()
+);
+
+export const updatePaymentStatusError = createAction(
+    '[ADMIN] UpdatePaymentStatus Error',
+    props<{ payload: any }>()
+);
+
+export const deletePaymentStatus = createAction(
+    '[ADMIN] DeletePaymentStatus',
+    props<{ paymentStatusId: number }>()
+);
+
+export const deletePaymentStatusSuccess = createAction(
+    '[ADMIN] DeletePaymentStatus Success',
+    props<{ paymentStatusId: number }>()
+);
+
+export const deletePaymentStatusError = createAction(
+    '[ADMIN] DeletePaymentStatus Error',
+    props<{ payload: any }>()
+);
+
+export const loadPurchaseTypes = createAction(
+    '[ADMIN] LoadPurchaseTypes'
+);
+
+export const loadPurchaseTypesSuccess = createAction(
+    '[ADMIN] LoadPurchaseTypes Success',
+    props<{ purchaseTypeList: PurchaseTypeDTO[] }>()
+);
+
+export const loadPurchaseTypesError = createAction(
+    '[ADMIN] LoadPurchaseTypes Error',
+    props<{ payload: any }>()
+);
+
+export const createPurchaseType = createAction(
+    '[ADMIN] CreatePurchaseType',
+    props<{ purchaseType: CreatePurchaseTypeModel }>()
+);
+
+export const createPurchaseTypeSuccess = createAction(
+    '[ADMIN] CreatePurchaseType Success',
+    props<{ purchaseType: PurchaseTypeDTO }>()
+);
+
+export const createPurchaseTypeError = createAction(
+    '[ADMIN] CreatePurchaseType Error',
+    props<{ payload: any }>()
+);
+
+export const updatePurchaseType = createAction(
+    '[ADMIN] UpdatePurchaseType',
+    props<{ purchaseType: EditPurchaseTypeModel }>()
+);
+
+export const updatePurchaseTypeSuccess = createAction(
+    '[ADMIN] UpdatePurchaseType Success',
+    props<{ purchaseType: PurchaseTypeDTO }>()
+);
+
+export const updatePurchaseTypeError = createAction(
+    '[ADMIN] UpdatePurchaseType Error',
+    props<{ payload: any }>()
+);
+
+export const deletePurchaseType = createAction(
+    '[ADMIN] DeletePurchaseType',
+    props<{ purchaseTypeId: number }>()
+);
+
+export const deletePurchaseTypeSuccess = createAction(
+    '[ADMIN] DeletePurchaseType Success',
+    props<{ purchaseTypeId: number }>()
+);
+
+export const deletePurchaseTypeError = createAction(
+    '[ADMIN] DeletePurchaseType Error',
+    props<{ payload: any }>()
+);
+
+export const loadPaymentStatus = createAction(
+    '[ADMIN] LoadPaymentStatus'
 );

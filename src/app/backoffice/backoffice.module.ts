@@ -18,6 +18,8 @@ import { CategoriesAdminComponent } from './components/categories-admin/categori
 import { ProvidersAdminComponent } from './components/providers-admin/providers-admin.component';
 import { PurchasesAdminComponent } from './components/purchases-admin/purchases-admin.component';
 import { DeliveriesAdminComponent } from './components/deliveries-admin/deliveries-admin.component';
+import { EditShopComponent } from './components/edit-shop/edit-shop.component';
+import { PaymentMethodsAdminComponent } from './components/payment-methods-admin/payment-methods-admin.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { DeliveriesAdminComponent } from './components/deliveries-admin/deliveri
     CategoriesAdminComponent,
     ProvidersAdminComponent,
     PurchasesAdminComponent,
-    DeliveriesAdminComponent
+    DeliveriesAdminComponent,
+    EditShopComponent,
+    PaymentMethodsAdminComponent
   ],
   imports: [
     CommonModule,

@@ -18,7 +18,16 @@ export function configureAuth(oidcConfigService: OidcConfigService): () => Promi
         storage: localStorage,
         secureRoutes: [
             `${AppConfiguration.Setting().apiEndpoint}/Users`,
-            `${AppConfiguration.Setting().apiEndpoint}/Shop`,
+            `${AppConfiguration.Setting().apiEndpoint}/Shops`,
+            `${AppConfiguration.Setting().apiEndpoint}/Cart`,
+            `${AppConfiguration.Setting().apiEndpoint}/Category`,
+            `${AppConfiguration.Setting().apiEndpoint}/Delivery`,
+            `${AppConfiguration.Setting().apiEndpoint}/PaymentMethod`,
+            `${AppConfiguration.Setting().apiEndpoint}/PaymentStatus`,
+            `${AppConfiguration.Setting().apiEndpoint}/Product`,
+            `${AppConfiguration.Setting().apiEndpoint}/Provider`,
+            `${AppConfiguration.Setting().apiEndpoint}/Purchase`,
+            `${AppConfiguration.Setting().apiEndpoint}/PurchaseType`,
         ]
     });
 }

@@ -8,6 +8,9 @@ import { of } from "rxjs";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { ErrorDialogComponent } from "src/app/shared/components/error-dialog/error-dialog.component";
 import * as AdminActions from '../actions';
+import { AdminPaymentStatusService } from "../services/admin-payment-status.service";
+import { AdminPurchaseTypesService } from "../services/admin-purchase-types.service";
+import { AdminShopService } from "../services/admin-shop.service";
 import { AdminService } from "../services/admin.service";
 
 
@@ -17,6 +20,9 @@ export class AdminEffects {
     constructor(
         private actions$: Actions,
         private adminService: AdminService,
+        private adminShopService: AdminShopService,
+        private adminPaymentStatusService: AdminPaymentStatusService,
+        private adminPurchaseTypesService: AdminPurchaseTypesService,
         private router: Router,
         private snackBar: MatSnackBar,
         private dialog: MatDialog
@@ -226,7 +232,7 @@ export class AdminEffects {
         this.actions$.pipe(
             ofType(AdminActions.loadShops),
             mergeMap(() =>
-                this.adminService.getShops().pipe(
+                this.adminShopService.getShops().pipe(
                     map((result) =>
                         AdminActions.loadShopsSuccess({ shopList: result })
                     ),
@@ -252,7 +258,7 @@ export class AdminEffects {
         this.actions$.pipe(
             ofType(AdminActions.createShop),
             mergeMap((param) =>
-                this.adminService.createShop(param.shop).pipe(
+                this.adminShopService.createShop(param.shop).pipe(
                     map((result) =>
                         AdminActions.createShopSuccess({ shop: result })
                     ),
@@ -289,7 +295,7 @@ export class AdminEffects {
         this.actions$.pipe(
             ofType(AdminActions.updateShop),
             mergeMap((param) =>
-                this.adminService.updateShop(param.shop).pipe(
+                this.adminShopService.updateShop(param.shop).pipe(
                     map((result) =>
                         AdminActions.updateShopSuccess({ shop: result })
                     ),
@@ -326,7 +332,7 @@ export class AdminEffects {
         this.actions$.pipe(
             ofType(AdminActions.deleteShop),
             mergeMap((param) =>
-                this.adminService.deleteShop(param.shopId).pipe(
+                this.adminShopService.deleteShop(param.shopId).pipe(
                     map((result) =>
                         AdminActions.deleteShopSuccess({ shopId: result })
                     ),
@@ -357,10 +363,286 @@ export class AdminEffects {
             })
         ),
         { dispatch: false }
+    ); 
+
+    loadPaymentStatus$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.loadPaymentStatus),
+            mergeMap(() =>
+                this.adminPaymentStatusService.getPaymentStatus().pipe(
+                    map((result) =>
+                        AdminActions.loadPaymentStatusSuccess({ paymentStatusList: result })
+                    ),
+                    catchError((error) => 
+                        of(AdminActions.loadPaymentStatusError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    loadPaymentStatusError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.loadPaymentStatusError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    createPaymentStatus$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.createPaymentStatus),
+            mergeMap((param) =>
+                this.adminPaymentStatusService.createPaymentStatus(param.paymentStatus).pipe(
+                    map((result) =>
+                        AdminActions.createPaymentStatusSuccess({ paymentStatus: result })
+                    ),
+                    catchError((error) => 
+                        of(AdminActions.createPaymentStatusError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    createPaymentStatusSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.createPaymentStatusSuccess),
+            map((param) => {
+                this.snakBarMessage({message: `Estado de pago ${param.paymentStatus.name} creado correctamente`});
+                this.router.navigate(['admin','payments']);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    createPaymentStatusError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.createPaymentStatusError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    updatePaymentStatus$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.updatePaymentStatus),
+            mergeMap((param) =>
+                this.adminPaymentStatusService.updatePaymentStatus(param.paymentStatus).pipe(
+                    map((result) =>
+                        AdminActions.updatePaymentStatusSuccess({ paymentStatus: result })
+                    ),
+                    catchError((error) => 
+                        of(AdminActions.updatePaymentStatusError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    updatePaymentStatusSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.updatePaymentStatusSuccess),
+            map((param) => {
+                this.snakBarMessage({message: `Estado de pago ${param.paymentStatus.name} actualizado correctamente`});
+                this.router.navigate(['admin','payments']);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    updatePaymentStatusError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.updatePaymentStatusError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    deletePaymentStatus$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.deletePaymentStatus),
+            mergeMap((param) =>
+                this.adminPaymentStatusService.deletePaymentStatus(param.paymentStatusId).pipe(
+                    map((result) =>
+                        AdminActions.deletePaymentStatusSuccess({ paymentStatusId: result })
+                    ),
+                    catchError((error) => 
+                        of(AdminActions.deletePaymentStatusError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    deletePaymentStatusSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.deletePaymentStatusSuccess),
+            map(() => {
+                this.snakBarMessage({message: "Estado de pago eliminado correctamente"});
+                this.router.navigate(['admin','payments']);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    deletePaymentStatusError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.deletePaymentStatusError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+
+
+
+    loadPurchaseTypes$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.loadPurchaseTypes),
+            mergeMap(() =>
+                this.adminPurchaseTypesService.getPurchaseTypes().pipe(
+                    map((result) =>
+                        AdminActions.loadPurchaseTypesSuccess({ purchaseTypeList: result })
+                    ),
+                    catchError((error) => 
+                        of(AdminActions.loadPurchaseTypesError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    loadPurchaseTypesError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.loadPurchaseTypesError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    createPurchaseType$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.createPurchaseType),
+            mergeMap((param) =>
+                this.adminPurchaseTypesService.createPurchaseType(param.purchaseType).pipe(
+                    map((result) =>
+                        AdminActions.createPurchaseTypeSuccess({ purchaseType: result })
+                    ),
+                    catchError((error) => 
+                        of(AdminActions.createPurchaseTypeError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    createPurchaseTypeSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.createPurchaseTypeSuccess),
+            map((param) => {
+                this.snakBarMessage({message: `Tipo de compra ${param.purchaseType.name} creado correctamente`});
+                this.router.navigate(['admin','payments']);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    createPurchaseTypeError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.createPurchaseTypeError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    updatePurchaseType$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.updatePurchaseType),
+            mergeMap((param) =>
+                this.adminPurchaseTypesService.updatePurchaseType(param.purchaseType).pipe(
+                    map((result) =>
+                        AdminActions.updatePurchaseTypeSuccess({ purchaseType: result })
+                    ),
+                    catchError((error) => 
+                        of(AdminActions.updatePurchaseTypeError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    updatePurchaseTypeSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.updatePurchaseTypeSuccess),
+            map((param) => {
+                this.snakBarMessage({message: `Tipo de compra ${param.purchaseType.name} actualizado correctamente`});
+                this.router.navigate(['admin','payments']);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    updatePurchaseTypeError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.updatePurchaseTypeError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    deletePurchaseType$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.deletePurchaseType),
+            mergeMap((param) =>
+                this.adminPurchaseTypesService.deletePurchaseType(param.purchaseTypeId).pipe(
+                    map((result) =>
+                        AdminActions.deletePurchaseTypeSuccess({ purchaseTypeId: result })
+                    ),
+                    catchError((error) => 
+                        of(AdminActions.deletePurchaseTypeError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    deletePurchaseTypeSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.deletePurchaseTypeSuccess),
+            map(() => {
+                this.snakBarMessage({message: "Tipo de compra eliminado correctamente"});
+                this.router.navigate(['admin','payments']);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    deletePurchaseTypeError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.deletePurchaseTypeError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
     );
 
     
-
     snakBarMessage(result: any) {
         this.snackBar.open(result.message, undefined, {
             duration: AppConfiguration.Setting().snackBarDuration,

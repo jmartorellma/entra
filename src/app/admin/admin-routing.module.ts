@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminGuard } from '../auth/admin.guard';
 import { AuthGuard } from '../auth/auth.guard';
+import { AdminPaymentsComponent } from './components/admin-payments/admin-payments.component';
 import { AdminShopsComponent } from './components/admin-shops/admin-shops.component';
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 import { CreateShopComponent } from './components/create-shop/create-shop.component';
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'shops', component: AdminShopsComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'create-shop', component: CreateShopComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'shop/:id', component: EditShopComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'user/:id', component: EditUserComponent, canActivate: [AuthGuard, AdminGuard] }
+  { path: 'user/:id', component: EditUserComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'payments', component: AdminPaymentsComponent, canActivate: [AuthGuard, AdminGuard] }
 ];
 
 @NgModule({

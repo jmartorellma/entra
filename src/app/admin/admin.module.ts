@@ -10,17 +10,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { CreateUserComponent } from './components/create-user/create-user.component';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { CreateShopComponent } from './components/create-shop/create-shop.component';
 import { EditShopComponent } from './components/edit-shop/edit-shop.component';
 import { AdminShopsComponent } from './components/admin-shops/admin-shops.component';
+import { AdminPaymentsComponent } from './components/admin-payments/admin-payments.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { AdminShopsComponent } from './components/admin-shops/admin-shops.compon
     CreateShopComponent,
     EditShopComponent,
     AdminShopsComponent,
+    AdminPaymentsComponent,
   ],
   imports: [
     CommonModule,

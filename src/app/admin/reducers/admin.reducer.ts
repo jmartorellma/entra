@@ -2,11 +2,15 @@ import { Action, createReducer, on } from "@ngrx/store";
 import { ShopDTO } from "src/app/backoffice/models/ShopDTO";
 import { UserDTO } from "src/app/profile/models/userDTO";
 import * as AdminActions from '../actions';
+import { PaymentStatusDTO } from "../models/PaymentStatusDTO";
+import { PurchaseTypeDTO } from "../models/PurchaseTypeDTO";
 
 export interface AdminState {
     userList: UserDTO[];
     shopList: ShopDTO[];
     roleList: string[];
+    paymentStatusList: PaymentStatusDTO[];
+    purchaseTypeList: PurchaseTypeDTO[];
     error: any;
     pending: boolean;
 }
@@ -15,6 +19,8 @@ export const initialState: AdminState = {
     userList: [],
     shopList: [],
     roleList: [],
+    paymentStatusList: [],
+    purchaseTypeList: [],
     error: null,
     pending: false
 };
@@ -198,6 +204,148 @@ const _adminReducer = createReducer(
         pending: false,
     })),
     on(AdminActions.deleteShopError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(AdminActions.loadPaymentStatus, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(AdminActions.loadPaymentStatusSuccess, (state, action) => ({
+        ...state,
+        paymentStatusList: [...action.paymentStatusList],
+        error: null,
+        pending: false,
+    })),
+    on(AdminActions.loadPaymentStatusError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(AdminActions.createPaymentStatus, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(AdminActions.createPaymentStatusSuccess, (state, action) => ({
+        ...state,
+        error: null,
+        paymentStatusList: [...state.shopList, action.paymentStatus],
+        pending: false,
+    })),
+    on(AdminActions.createPaymentStatusError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(AdminActions.updatePaymentStatus, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(AdminActions.updatePaymentStatusSuccess, (state, action) => ({
+        ...state,
+        paymentStatusList: state.paymentStatusList.map(p => {
+            if(p.id === action.paymentStatus.id) {
+                return { ...p, ...action.paymentStatus }; 
+            }
+            else {
+                return p;
+            }
+        }),
+        error: null,
+        pending: false,
+    })),
+    on(AdminActions.updatePaymentStatusError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(AdminActions.deletePaymentStatus, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(AdminActions.deletePaymentStatusSuccess, (state, action) => ({
+        ...state,
+        paymentStatusList: [...state.paymentStatusList.filter(p => p.id !== action.paymentStatusId)],
+        error: null,
+        pending: false,
+    })),
+    on(AdminActions.deletePaymentStatusError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(AdminActions.loadPurchaseTypes, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(AdminActions.loadPurchaseTypesSuccess, (state, action) => ({
+        ...state,
+        purchaseTypeList: [...action.purchaseTypeList],
+        error: null,
+        pending: false,
+    })),
+    on(AdminActions.loadPurchaseTypesError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(AdminActions.createPurchaseType, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(AdminActions.createPurchaseTypeSuccess, (state, action) => ({
+        ...state,
+        error: null,
+        purchaseTypeList: [...state.shopList, action.purchaseType],
+        pending: false,
+    })),
+    on(AdminActions.createPurchaseTypeError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(AdminActions.updatePurchaseType, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(AdminActions.updatePurchaseTypeSuccess, (state, action) => ({
+        ...state,
+        purchaseTypeList: state.purchaseTypeList.map(p => {
+            if(p.id === action.purchaseType.id) {
+                return { ...p, ...action.purchaseType }; 
+            }
+            else {
+                return p;
+            }
+        }),
+        error: null,
+        pending: false,
+    })),
+    on(AdminActions.updatePurchaseTypeError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(AdminActions.deletePurchaseType, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(AdminActions.deletePurchaseTypeSuccess, (state, action) => ({
+        ...state,
+        purchaseTypeList: [...state.purchaseTypeList.filter(p => p.id !== action.purchaseTypeId)],
+        error: null,
+        pending: false,
+    })),
+    on(AdminActions.deletePurchaseTypeError, (state, {payload}) => ({
         ...state,
         error: payload.error,
         pending: false,
