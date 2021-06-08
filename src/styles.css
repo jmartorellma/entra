@@ -72,16 +72,33 @@ body {
     margin-left: 15px;
 }
 
+/* Account */
 app-login,
 app-register,
+/* Admin */
 app-admin-users,
 app-create-user,
 app-edit-user,
 app-admin-shops,
 app-create-shop,
 app-edit-shop,
+app-admin-payments,
+app-create-payment-status,
+app-edit-payment-status,
+app-create-purchase-type,
+app-edit-purchase-type,
+/* Backoffice */
+app-categories-admin,
+app-deliveries-admin,
+app-edit-shop,
+app-payment-methods-admin,
+app-products-admin,
+app-providers-admin,
+app-purchases-admin,
 app-shop-admin,
+/* Profile */
 app-profile,
+/* Shop */
 app-home {
     overflow-y: auto;
     flex-grow: 1;

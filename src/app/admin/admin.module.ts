@@ -22,6 +22,10 @@ import { CreateShopComponent } from './components/create-shop/create-shop.compon
 import { EditShopComponent } from './components/edit-shop/edit-shop.component';
 import { AdminShopsComponent } from './components/admin-shops/admin-shops.component';
 import { AdminPaymentsComponent } from './components/admin-payments/admin-payments.component';
+import { CreatePaymentStatusComponent } from './components/create-payment-status/create-payment-status.component';
+import { EditPaymentStatusComponent } from './components/edit-payment-status/edit-payment-status.component';
+import { CreatePurchaseTypeComponent } from './components/create-purchase-type/create-purchase-type.component';
+import { EditPurchaseTypeComponent } from './components/edit-purchase-type/edit-purchase-type.component';
 
 
 @NgModule({
@@ -34,6 +38,10 @@ import { AdminPaymentsComponent } from './components/admin-payments/admin-paymen
     EditShopComponent,
     AdminShopsComponent,
     AdminPaymentsComponent,
+    CreatePaymentStatusComponent,
+    EditPaymentStatusComponent,
+    CreatePurchaseTypeComponent,
+    EditPurchaseTypeComponent,
   ],
   imports: [
     CommonModule,
