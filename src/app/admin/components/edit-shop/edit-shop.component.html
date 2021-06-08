@@ -1,157 +1,163 @@
 <div *ngIf="adminState$ !== undefined && !adminState$.pending" fxFill fxLayout="column" fxLayoutAlign="strat center" fxFlex="grow">
     <div class="main-content" fxLayout="column" fxLayoutAlign="start stretch" fxFlex="grow">
-        <h1>Crear tienda</h1>
-        <form  fxLayout="column" fxLayoutAlign="space-around stretch" fxFlex="grow" [formGroup]="editForm" (ngSubmit)="editShop()">
-            <div class="inputs-container" fxFlex="grow" fxLayout="column" fxLayoutAlign="space-around stretch">
-                <!-- Active -->
-                <section fxLayout="row" fxLayoutAlign="end center">
-                    <mat-slide-toggle color="primary" [formControl]="isActive"><strong>Activa</strong></mat-slide-toggle>
-                </section> 
-                <!-- Code -->
-                <section fxLayout="column" fxLayoutAlign="strat stretch">
-                    <mat-form-field appearence="fill">
-                        <mat-label>Código</mat-label>
-                        <input matInput type="text" [formControl]="code" required />
-                        <mat-error *ngIf="code.hasError('pattern') && !code.hasError('required')">
-                            Carácter inválido
-                        </mat-error>
-                        <mat-error *ngIf="(code.hasError('minlength') || code.hasError('maxlength')) && !code.hasError('required')">
-                            El campo Código debe ser de entre 6 y 55 carácteres
-                        </mat-error>
-                        <mat-error *ngIf="code.hasError('required')">
-                            Campo Código <strong>obligatorio</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </section> 
-                <!-- Name -->
-                <section fxLayout="column" fxLayoutAlign="strat stretch">
-                    <mat-form-field appearence="fill">
-                        <mat-label>Nombre</mat-label>
-                        <input matInput type="text" [formControl]="name" required/>
-                        <mat-error *ngIf="name.hasError('pattern')">
-                            Carácter inválido
-                        </mat-error>
-                        <mat-error *ngIf="name.hasError('maxlength') && !name.hasError('required')">
-                            El campo Nombre debe ser de entre 3 y 55 carácteres
-                        </mat-error>
-                        <mat-error *ngIf="name.hasError('required')">
-                            Campo Nombre <strong>obligatorio</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </section>  
-                <!-- Phone -->
-                <section fxLayout="column" fxLayoutAlign="strat stretch">
-                    <mat-form-field appearence="fill">
-                        <mat-label>Teléfono</mat-label>
-                        <input matInput type="text" [formControl]="phone" required/>
-                        <mat-error *ngIf="phone.hasError('pattern')">
-                            Carácter inválido
-                        </mat-error>
-                        <mat-error *ngIf="(phone.hasError('minlength') || phone.hasError('maxlength')) && !phone.hasError('required')">
-                            El campo Teléfono debe tener 9 carácteres
-                        </mat-error>
-                        <mat-error *ngIf="phone.hasError('required')">
-                            Campo Teléfono <strong>obligatorio</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </section> 
-                <!-- Email -->
-                <section fxLayout="column" fxLayoutAlign="strat stretch">
-                    <mat-form-field appearence="fill">
-                        <mat-label>Email</mat-label>
-                        <input matInput type="email" [formControl]="email" required placeholder="xxxxx@xxxx.xxx"/>
-                        <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
-                            Campo Email sin formato de email válido
-                        </mat-error>
-                        <mat-error *ngIf="email.hasError('required')">
-                            Campo Email <strong>obligatorio</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </section>
-                <!-- Taxes -->
-                <section fxLayout="column" fxLayoutAlign="strat stretch">
-                    <mat-form-field appearence="fill">
-                        <mat-label>Gastos Envío</mat-label>
-                        <input matInput type="number" [formControl]="taxes" required/>
-                        <mat-error *ngIf="taxes.hasError('min') && !taxes.hasError('required')">
-                            Campo Gastos Envío igual o mayor que 0
-                        </mat-error>
-                        <mat-error *ngIf="taxes.hasError('required')">
-                            Campo Gastos Envío <strong>obligatorio</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </section>
-                <!-- MinAmountTaxes -->
-                <section fxLayout="column" fxLayoutAlign="strat stretch">
-                    <mat-form-field appearence="fill">
-                        <mat-label>Cantidad Gastos Envío Gratis</mat-label>
-                        <input matInput type="number" [formControl]="minAmountTaxes" required/>
-                        <mat-error *ngIf="minAmountTaxes.hasError('min') && !minAmountTaxes.hasError('required')">
-                            Campo Cantidad Gastos Envío Gratis igual o mayor que 0
-                        </mat-error>
-                        <mat-error *ngIf="minAmountTaxes.hasError('required')">
-                            Campo Cantidad Gastos Envío Gratis <strong>obligatorio</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </section>    
-                <!-- Address -->
-                <section fxLayout="column" fxLayoutAlign="strat stretch">
-                    <mat-form-field appearence="fill">
-                        <mat-label>Dirección</mat-label>
-                        <input matInput type="text" [formControl]="address" required/>
-                        <mat-error *ngIf="address.hasError('pattern')">
-                            Carácter inválido
-                        </mat-error>
-                        <mat-error *ngIf="address.hasError('maxlength') && !address.hasError('required')">
-                            El campo Dirección debe ser de entre 3 y 200 carácteres
-                        </mat-error>
-                        <mat-error *ngIf="address.hasError('required')">
-                            Campo Dirección <strong>obligatorio</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </section>
-                <!-- City -->
-                <section fxLayout="column" fxLayoutAlign="strat stretch">
-                    <mat-form-field appearence="fill">
-                        <mat-label>Ciudad</mat-label>
-                        <input matInput type="text" [formControl]="city" required/>
-                        <mat-error *ngIf="city.hasError('pattern')">
-                            Carácter inválido
-                        </mat-error>
-                        <mat-error *ngIf="city.hasError('maxlength') && !city.hasError('required')">
-                            El campo Ciudad debe ser de entre 3 y 100 carácteres
-                        </mat-error>
-                        <mat-error *ngIf="city.hasError('required')">
-                            Campo Ciudad <strong>obligatorio</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </section>
-                <!-- Web -->
-                <section fxLayout="column" fxLayoutAlign="strat stretch">
-                    <mat-form-field appearence="fill">
-                        <mat-label>Web</mat-label>
-                        <input matInput type="text" [formControl]="web" />
-                    </mat-form-field>
-                </section>
-                <!-- Owner -->
-                <section fxLayout="column" fxLayoutAlign="strat stretch">
-                    <mat-form-field appearence="fill">
-                        <mat-label>Propietario</mat-label>
-                        <mat-select [formControl]="owner" required>
-                            <mat-option *ngFor="let user of userShopList$" [value]="user">
-                                {{user.userName}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="owner.hasError('required')">
-                            Campo Propietario <strong>obligatorio</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </section>
-                <section fxFlex="15" fxLayout="column" fxLayoutAlign="center stretch">
-                    <button mat-raised-button color="primary" type="submit" [disabled]="!editForm.valid">Crear</button>
-                </section>
-            </div>                  
-        </form>
+        <h1>Editar tienda</h1>
+        <div>
+            <form  fxLayout="column" fxLayoutAlign="space-around stretch" fxFlex="grow" [formGroup]="editForm" (ngSubmit)="editShop()">
+                <div class="inputs-container" fxFlex="grow" fxLayout="column" fxLayoutAlign="space-around stretch">
+                    <!-- Active -->
+                    <section fxLayout="row" fxLayoutAlign="end center">
+                        <mat-slide-toggle color="primary" [formControl]="isActive"><strong>Activa</strong></mat-slide-toggle>
+                    </section> 
+                    <!-- Code -->
+                    <section fxLayout="column" fxLayoutAlign="strat stretch">
+                        <mat-form-field appearence="fill">
+                            <mat-label>Código</mat-label>
+                            <input matInput type="text" [formControl]="code" required />
+                            <mat-error *ngIf="code.hasError('pattern') && !code.hasError('required')">
+                                Carácter inválido
+                            </mat-error>
+                            <mat-error *ngIf="(code.hasError('minlength') || code.hasError('maxlength')) && !code.hasError('required')">
+                                El campo Código debe ser de entre 6 y 55 carácteres
+                            </mat-error>
+                            <mat-error *ngIf="code.hasError('required')">
+                                Campo Código <strong>obligatorio</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </section> 
+                    <!-- Name -->
+                    <section fxLayout="column" fxLayoutAlign="strat stretch">
+                        <mat-form-field appearence="fill">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput type="text" [formControl]="name" required/>
+                            <mat-error *ngIf="name.hasError('pattern')">
+                                Carácter inválido
+                            </mat-error>
+                            <mat-error *ngIf="name.hasError('maxlength') && !name.hasError('required')">
+                                El campo Nombre debe ser de entre 3 y 55 carácteres
+                            </mat-error>
+                            <mat-error *ngIf="name.hasError('required')">
+                                Campo Nombre <strong>obligatorio</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </section>  
+                    <!-- Phone -->
+                    <section fxLayout="column" fxLayoutAlign="strat stretch">
+                        <mat-form-field appearence="fill">
+                            <mat-label>Teléfono</mat-label>
+                            <input matInput type="text" [formControl]="phone" required/>
+                            <mat-error *ngIf="phone.hasError('pattern')">
+                                Carácter inválido
+                            </mat-error>
+                            <mat-error *ngIf="(phone.hasError('minlength') || phone.hasError('maxlength')) && !phone.hasError('required')">
+                                El campo Teléfono debe tener 9 carácteres
+                            </mat-error>
+                            <mat-error *ngIf="phone.hasError('required')">
+                                Campo Teléfono <strong>obligatorio</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </section> 
+                    <!-- Email -->
+                    <section fxLayout="column" fxLayoutAlign="strat stretch">
+                        <mat-form-field appearence="fill">
+                            <mat-label>Email</mat-label>
+                            <input matInput type="email" [formControl]="email" required placeholder="xxxxx@xxxx.xxx"/>
+                            <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+                                Campo Email sin formato de email válido
+                            </mat-error>
+                            <mat-error *ngIf="email.hasError('required')">
+                                Campo Email <strong>obligatorio</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </section>
+                    <!-- Taxes -->
+                    <section fxLayout="column" fxLayoutAlign="strat stretch">
+                        <mat-form-field appearence="fill">
+                            <mat-label>Gastos Envío</mat-label>
+                            <input matInput type="number" [formControl]="taxes" required/>
+                            <mat-error *ngIf="taxes.hasError('min') && !taxes.hasError('required')">
+                                Campo Gastos Envío igual o mayor que 0
+                            </mat-error>
+                            <mat-error *ngIf="taxes.hasError('required')">
+                                Campo Gastos Envío <strong>obligatorio</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </section>
+                    <!-- MinAmountTaxes -->
+                    <section fxLayout="column" fxLayoutAlign="strat stretch">
+                        <mat-form-field appearence="fill">
+                            <mat-label>Cantidad Gastos Envío Gratis</mat-label>
+                            <input matInput type="number" [formControl]="minAmountTaxes" required/>
+                            <mat-error *ngIf="minAmountTaxes.hasError('min') && !minAmountTaxes.hasError('required')">
+                                Campo Cantidad Gastos Envío Gratis igual o mayor que 0
+                            </mat-error>
+                            <mat-error *ngIf="minAmountTaxes.hasError('required')">
+                                Campo Cantidad Gastos Envío Gratis <strong>obligatorio</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </section>    
+                    <!-- Address -->
+                    <section fxLayout="column" fxLayoutAlign="strat stretch">
+                        <mat-form-field appearence="fill">
+                            <mat-label>Dirección</mat-label>
+                            <input matInput type="text" [formControl]="address" required/>
+                            <mat-error *ngIf="address.hasError('pattern')">
+                                Carácter inválido
+                            </mat-error>
+                            <mat-error *ngIf="address.hasError('maxlength') && !address.hasError('required')">
+                                El campo Dirección debe ser de entre 3 y 200 carácteres
+                            </mat-error>
+                            <mat-error *ngIf="address.hasError('required')">
+                                Campo Dirección <strong>obligatorio</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </section>
+                    <!-- City -->
+                    <section fxLayout="column" fxLayoutAlign="strat stretch">
+                        <mat-form-field appearence="fill">
+                            <mat-label>Ciudad</mat-label>
+                            <input matInput type="text" [formControl]="city" required/>
+                            <mat-error *ngIf="city.hasError('pattern')">
+                                Carácter inválido
+                            </mat-error>
+                            <mat-error *ngIf="city.hasError('maxlength') && !city.hasError('required')">
+                                El campo Ciudad debe ser de entre 3 y 100 carácteres
+                            </mat-error>
+                            <mat-error *ngIf="city.hasError('required')">
+                                Campo Ciudad <strong>obligatorio</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </section>
+                    <!-- Web -->
+                    <section fxLayout="column" fxLayoutAlign="strat stretch">
+                        <mat-form-field appearence="fill">
+                            <mat-label>Web</mat-label>
+                            <input matInput type="text" [formControl]="web" />
+                        </mat-form-field>
+                    </section>
+                    <!-- Owner -->
+                    <section fxLayout="column" fxLayoutAlign="strat stretch">
+                        <mat-form-field appearence="fill">
+                            <mat-label>Propietario</mat-label>
+                            <mat-select [formControl]="owner" required>
+                                <mat-form-field fxLayout="column" fxLayoutAlign="start stretch">
+                                    <mat-label class="filter-label">Buscar usuario...</mat-label>
+                                    <input matInput type="text" (keyup)="onKey($event)">
+                                </mat-form-field>                            
+                                <mat-option *ngFor="let user of filteredUserShopList" [value]="user">
+                                    {{user.userName}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="owner.hasError('required')">
+                                Campo Propietario <strong>obligatorio</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </section>
+                    <section fxFlex="15" fxLayout="column" fxLayoutAlign="center stretch">
+                        <button mat-raised-button color="primary" type="submit" [disabled]="!editForm.valid">Crear</button>
+                    </section>
+                </div>                  
+            </form>
+        </div>
         <div fxLayout="row" fxLayoutAlign="center center">
             <span class="back" (click)="goShops()">Volver a Tiendas</span>
         </div>

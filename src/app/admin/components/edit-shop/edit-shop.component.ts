@@ -29,15 +29,18 @@ export class EditShopComponent implements OnInit {
   public owner: FormControl = new FormControl; 
 
   public shop$: ShopDTO;
+  public userOwner$: UserDTO | undefined;
   public editForm: FormGroup;
   public adminState$: AdminState | undefined;
   public userShopList$: UserDTO[];
+  public filteredUserShopList: UserDTO[];
 
   constructor(private fb: FormBuilder,
     private router: Router,
     private store: Store<AppState>,
     private route: ActivatedRoute) {
       this.userShopList$ = [];
+      this.filteredUserShopList = [];
       this.shop$ = {
         id:  0, 
         nif: '', 
@@ -60,13 +63,18 @@ export class EditShopComponent implements OnInit {
       this.store.select('admin').subscribe(admin => {
         this.adminState$ = admin;
         if(this.adminState$ !== undefined && this.adminState$.shopList.length > 0) {
-          const s = this.adminState$.shopList?.find(s => s.id === parseInt(this.route.snapshot.params.id, 10));
+          const s = this.adminState$.shopList.find(s => s.id === parseInt(this.route.snapshot.params.id, 10));
           if(s) {
             this.shop$ = s;
+            this.userShopList$ = this.adminState$.userList.filter(u => u.role === 'Shop'); 
+            this.filteredUserShopList = this.userShopList$;
+            this.userOwner$ = this.adminState$.userList.find(u => u.id === s.ownerId);
+            // if(this.userOwner$ !== undefined) {
+            //   this.owner.setValue(this.userOwner$);
+            // }
             this.loadShop();
           } 
-        }  
-          
+        }            
       });
       
       this.loadShop();
@@ -101,7 +109,7 @@ export class EditShopComponent implements OnInit {
     this.address = new FormControl(this.shop$.address, [Validators.required, Validators.minLength(3), Validators.maxLength(200)]);
     this.city = new FormControl(this.shop$.city, [Validators.required, Validators.minLength(3), Validators.maxLength(100), Validators.pattern('[a-zA-Z0-9 áéíóúÁÉÍÓÚÑñÇç]*')]);
     this.web = new FormControl(this.shop$.web);
-    this.owner = new FormControl(this.shop$.owner);
+    this.owner = new FormControl(this.userOwner$);
     this.editForm = this.fb.group({
       isActive: this.isActive,
       code: this.code,
@@ -116,6 +124,16 @@ export class EditShopComponent implements OnInit {
       owner: this.owner
     });
   }
+
+  onKey(event: any) { 
+    if(event !== undefined && event.target !== undefined && event.target.value !== undefined )
+    this.filteredUserShopList = this.search(event.target.value);
+    }
+    
+  search(value: string) { 
+    return this.userShopList$.filter(u => u.userName.toLowerCase().startsWith(value.toLowerCase()));
+  }
+
 
   editShop() {
     const up: EditShopModel = {
