@@ -4,7 +4,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
-import { UserDTO } from 'src/app/profile/models/userDTO';
 import * as AdminAction from '../../actions';
 import { PaymentStatusDTO } from '../../models/PaymentStatusDTO';
 import { PurchaseTypeDTO } from '../../models/PurchaseTypeDTO';
@@ -13,7 +12,7 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
 @Component({
   selector: 'app-admin-payments',
   templateUrl: './admin-payments.component.html',
-  styleUrls: ['./admin-payments.component.css', '../edit-user/edit-user.component.css']
+  styleUrls: ['./admin-payments.component.css', '../admin-users/admin-users.component.css']
 })
 export class AdminPaymentsComponent implements OnInit {
   public adminState$: any;
@@ -50,11 +49,11 @@ export class AdminPaymentsComponent implements OnInit {
   }
 
   createPaymentStatus() {
-    this.router.navigate(['admin','create-status']);
+    this.router.navigate(['admin','create-payment-status']);
   }
 
   editPaymentStatus(row: PaymentStatusDTO) {
-    this.router.navigate(['admin', 'status',`${row.id}`]);
+    this.router.navigate(['admin', 'payment-status',`${row.id}`]);
   }
 
   deletePaymentStatus(row: PaymentStatusDTO) {
@@ -64,17 +63,17 @@ export class AdminPaymentsComponent implements OnInit {
 
     deleteDialog.afterClosed().subscribe(result => {
       if(result) {
-        this.store.dispatch(AdminAction.deleteUser({ userId: row.id }));    
+        this.store.dispatch(AdminAction.deletePaymentStatus({ paymentStatusId: row.id }));    
       }     
     });
   }
 
   createPurchaseType() {
-    this.router.navigate(['admin','create-type']);
+    this.router.navigate(['admin','create-purchase-type']);
   }
 
   editPurchaseType(row: PurchaseTypeDTO) {
-    this.router.navigate(['admin', 'type',`${row.id}`]);
+    this.router.navigate(['admin', 'purchase-type',`${row.id}`]);
   }
 
   deletePurchaseType(row: PurchaseTypeDTO) {
@@ -84,13 +83,13 @@ export class AdminPaymentsComponent implements OnInit {
 
     deleteDialog.afterClosed().subscribe(result => {
       if(result) {
-        this.store.dispatch(AdminAction.deleteUser({ userId: row.id }));    
+        this.store.dispatch(AdminAction.deletePurchaseType({ purchaseTypeId: row.id }));    
       }     
     });
   }
 
   goUsers() {
-    this.router.navigate(['admin','shops']);
+    this.router.navigate(['admin','users']);
   }
 
 }

@@ -47,12 +47,16 @@ export class AdminUsersComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  createUser() {
-    this.router.navigate(['admin','create-user']);
-  }
-
   goShops() {
     this.router.navigate(['admin','shops']);
+  }
+
+  goPayments() {
+    this.router.navigate(['admin','payments']);
+  }
+
+  createUser() {
+    this.router.navigate(['admin','create-user']);
   }
 
   editUser(row: UserDTO) {

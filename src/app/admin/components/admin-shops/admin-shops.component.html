@@ -1,12 +1,11 @@
 <div *ngIf="adminState$ !== undefined && !adminState$.pending" fxFill fxLayout="column" fxLayoutAlign="start center" fxFlex="grow">
     <div class="main-content" fxLayout="column" fxLayoutAlign="start stretch" fxFlex="grow">
         <h1>Tiendas</h1>
-        <div class="buttons-container"  fxLayout="row" fxLayoutAlign="space-between center">
-            <button mat-raised-button color="primary" (click)="goUsers()">Usuarios</button> 
+        <nav class="buttons-container"  fxLayout="row" fxLayoutAlign="end center">
             <button mat-raised-button color="primary" (click)="createShop()">Nueva Tienda</button>
-        </div> 
+        </nav> 
             
-        <div fxLayout="column" fxLayoutAlign="start-stretch">
+        <div fxLayout="column" fxLayoutAlign="start-stretch" fxFlex="grow">
             <mat-form-field >
                 <mat-label>Buscar</mat-label>
                 <input matInput (keyup)="applyFilter($event)" placeholder="Buscar tienda" #input>
@@ -59,6 +58,9 @@
                     </tr>
                 </table>
             </div> 
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <span class="back" (click)="goUsers()">Volver a Usuarios</span>
         </div>
     </div>    
 </div>

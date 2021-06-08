@@ -1,12 +1,11 @@
 <div *ngIf="adminState$ !== undefined && !adminState$.pending" fxFill fxLayout="column" fxLayoutAlign="start center" fxFlex="grow">
     <div class="main-content" fxLayout="column" fxLayoutAlign="start stretch" fxFlex="grow">
-        <h1>Estados de pagos</h1>
-        <div class="buttons-container"  fxLayout="row" fxLayoutAlign="space-between center">
-            <button mat-raised-button color="primary" (click)="createStatus()">Nuevo estado</button>
-        </div> 
-            
-        <div fxLayout="column" fxLayoutAlign="start-stretch"> 
-            <div class="table-container">
+        <h1>Estados de pagos y Tipos de compra</h1>
+        <div fxLayout="column" fxLayoutAlign="start-stretch" fxFlex="grow"> 
+            <div class="buttons-container"  fxLayout="row" fxLayoutAlign="end center">
+                <button mat-raised-button color="primary" (click)="createPaymentStatus()">Nuevo estado</button>
+            </div> 
+            <div fxLayout="column" fxLayoutAlign="start-stretch" class="table-container">
                 <table mat-table [dataSource]="dataSourceStatus" class="mat-elevation-z8">
             
                     <ng-container matColumnDef="code">
@@ -17,7 +16,8 @@
                     <ng-container matColumnDef="name">
                         <th mat-header-cell *matHeaderCellDef><strong>Nombre</strong></th>
                         <td mat-cell  *matCellDef="let element">{{element.name}}</td>
-                    
+                    </ng-container>
+
                     <ng-container matColumnDef="creationDate">
                         <th mat-header-cell *matHeaderCellDef><strong>Fecha Alta</strong></th>
                         <td mat-cell *matCellDef="let element">{{element.creationDate | date: 'dd/MM/yyyy'}}</td>
@@ -26,10 +26,10 @@
                     <ng-container matColumnDef="actions"> 
                         <th mat-header-cell *matHeaderCellDef></th>
                         <mat-cell *matCellDef="let row" fxLayoutGap.sm="8px">
-                            <button class="edit-button" mat-icon-button color="accent" (click)="editStatus(row)">
+                            <button class="edit-button" mat-icon-button color="accent" (click)="editPaymentStatus(row)">
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            <button mat-icon-button color="warn" (click)="deleteStatus(row)">
+                            <button mat-icon-button color="warn" (click)="deletePaymentStatus(row)">
                                 <mat-icon>delete</mat-icon>
                             </button>
                        </mat-cell>
@@ -44,9 +44,10 @@
                 </table>
             </div>
             
-            <div class="inputs-container"><mat-divider></mat-divider></div>
-            
-            <div class="table-container">
+            <div class="buttons-container purchase-container"  fxLayout="row" fxLayoutAlign="end center">
+                <button mat-raised-button color="primary" (click)="createPurchaseType()">Nuevo tipo</button>
+            </div> 
+            <div fxLayout="column" fxLayoutAlign="start-stretch" class="table-container">
                 <table mat-table [dataSource]="dataSourcePurchases" class="mat-elevation-z8">
             
                     <ng-container matColumnDef="code">
@@ -57,7 +58,8 @@
                     <ng-container matColumnDef="name">
                         <th mat-header-cell *matHeaderCellDef><strong>Nombre</strong></th>
                         <td mat-cell  *matCellDef="let element">{{element.name}}</td>
-                    
+                    </ng-container>
+
                     <ng-container matColumnDef="creationDate">
                         <th mat-header-cell *matHeaderCellDef><strong>Fecha Alta</strong></th>
                         <td mat-cell *matCellDef="let element">{{element.creationDate | date: 'dd/MM/yyyy'}}</td>
@@ -66,10 +68,10 @@
                     <ng-container matColumnDef="actions"> 
                         <th mat-header-cell *matHeaderCellDef></th>
                         <mat-cell *matCellDef="let row" fxLayoutGap.sm="8px">
-                            <button class="edit-button" mat-icon-button color="accent" (click)="editType(row)">
+                            <button class="edit-button" mat-icon-button color="accent" (click)="editPurchaseType(row)">
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            <button mat-icon-button color="warn" (click)="deleteType(row)">
+                            <button mat-icon-button color="warn" (click)="deletePurchaseType(row)">
                                 <mat-icon>delete</mat-icon>
                             </button>
                        </mat-cell>

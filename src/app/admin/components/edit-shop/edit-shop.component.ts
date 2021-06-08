@@ -69,9 +69,6 @@ export class EditShopComponent implements OnInit {
             this.userShopList$ = this.adminState$.userList.filter(u => u.role === 'Shop'); 
             this.filteredUserShopList = this.userShopList$;
             this.userOwner$ = this.adminState$.userList.find(u => u.id === s.ownerId);
-            // if(this.userOwner$ !== undefined) {
-            //   this.owner.setValue(this.userOwner$);
-            // }
             this.loadShop();
           } 
         }            

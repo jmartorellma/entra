@@ -1,10 +1,11 @@
 <div *ngIf="adminState$ !== undefined && !adminState$.pending" fxFill fxLayout="column" fxLayoutAlign="start center" fxFlex="grow">
     <div class="main-content" fxLayout="column" fxLayoutAlign="start stretch" fxFlex="grow">
-        <h1>Usuarios</h1>
-        <div class="buttons-container"  fxLayout="row" fxLayoutAlign="space-between center">
+        <nav class="buttons-container"  fxLayout="row" fxLayoutAlign="space-between center" fxLayout.xs="column" fxLayoutAlign.xs="space-around stretch">
             <button mat-raised-button color="primary" (click)="goShops()">Tiendas</button> 
+            <button mat-raised-button color="primary" (click)="goPayments()">Pagos</button> 
             <button mat-raised-button color="primary" (click)="createUser()">Nuevo Usuario</button>
-        </div>             
+        </nav>       
+        <h1>Usuarios</h1>      
         <div fxLayout="column" fxLayoutAlign="start-stretch">
             <mat-form-field >
                 <mat-label>Buscar</mat-label>
