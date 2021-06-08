@@ -15,7 +15,6 @@ import { EditUserModel, EditUserPasswordModel } from '../models/editUserModel';
 export class AdminService {
 
   private usersUrl = `${AppConfiguration.Setting().apiEndpoint}/Users`;
-  private shopUrl = `${AppConfiguration.Setting().apiEndpoint}/Shops`;
 
   constructor(
     private http: HttpClient
@@ -47,22 +46,6 @@ export class AdminService {
 
   deleteUser(id: number): Observable<number> {
     return this.http.delete<number>(`${this.usersUrl}/${id}`);
-  }
-
-  getShops(): Observable<ShopDTO[]> {
-    return this.http.get<ShopDTO[]>(this.shopUrl);
-  }
-
-  createShop(createShopModel: CreateShopModel): Observable<ShopDTO> {
-    return this.http.post<ShopDTO>(this.shopUrl, createShopModel, this.httpOptions);
-  }
-
-  updateShop(editShopModel: EditShopModel): Observable<ShopDTO> {
-    return this.http.put<ShopDTO>(this.shopUrl, editShopModel, this.httpOptions);
-  }
-
-  deleteShop(id: number): Observable<number> {
-    return this.http.delete<number>(`${this.shopUrl}/${id}`);
   }
   
 }
