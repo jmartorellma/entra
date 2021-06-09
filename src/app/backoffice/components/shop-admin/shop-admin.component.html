@@ -6,10 +6,11 @@
           <div class="shop-container" fxLayout="column" fxLayoutAlign="start stretch" fxFlex="auto" fxFlex.gt-xs="40%">
               <div class="picture-container" fxLayout="column" fxLayoutAlign="center center">
                 <div class="picture-wrapper">
-                  <img class="shop-image" [src]="(shop$.picture === undefined || shop$.picture === '') ? '../../../../assets/img/item-no-picture.png' : shop$.picture"  />
+                  <img class="shop-image" [src]="(shop$.picture === undefined || shop$.picture === '') ? '../../../../assets/img/item-no-picture.png' : getImgPath(shop$.picture)"  />
                 </div>
                 <div class="change-picture-button" fxLayout="column" fxLayoutAlign="start center">
-                  <button mat-raised-button color="primary" (click)="changePicture()">Cambiar imagen</button>
+                  <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
+                  <button mat-raised-button color="primary" (click)="file.click()">Cambiar imagen</button>
                 </div>
               </div>
               
