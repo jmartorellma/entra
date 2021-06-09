@@ -4,19 +4,20 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
-import { CategoryDTO } from '../../models/CategoryDTO';
+import { ProviderDTO } from '../../models/ProviderDTO';
 import { BackofficeState } from '../../reducers';
 import * as BackofficeActions from '../../actions';
 import { DeleteDialogBackofficeComponent } from '../delete-dialog-backoffice/delete-dialog-backoffice.component';
 
-@Component({
-  selector: 'app-backoffice-categories',
-  templateUrl: './backoffice-categories.component.html',
-  styleUrls: ['./backoffice-categories.component.css']
-})
-export class BackofficeCategoriesComponent implements OnInit {
 
-  public categoryList: CategoryDTO[];
+@Component({
+  selector: 'app-backoffice-providers',
+  templateUrl: './backoffice-providers.component.html',
+  styleUrls: ['./backoffice-providers.component.css']
+})
+export class BackofficeProvidersComponent implements OnInit {
+
+  public providerList: ProviderDTO[];
   public dataSource: any;
   public displayedColumns: string[];
   public backofficeState$: BackofficeState | undefined;
@@ -26,39 +27,39 @@ export class BackofficeCategoriesComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog) { 
 
-      this.categoryList = [];
-      this.displayedColumns = ['code', 'name', 'creationDate', 'actions']
+      this.providerList = [];
+      this.displayedColumns = ['code', 'name', 'web', 'creationDate', 'actions']
 
       this.store.select('backoffice').subscribe(backoffice => {
         this.backofficeState$ = backoffice;
         if(backoffice !== undefined && backoffice !== null && backoffice.categoryList != null) {
-          this.categoryList = backoffice?.categoryList;
-          this.dataSource = new MatTableDataSource(this.categoryList);
+          this.providerList = backoffice?.providerList;
+          this.dataSource = new MatTableDataSource(this.providerList);
         }        
       });
   }
 
   ngOnInit(): void {
-    this.store.dispatch(BackofficeActions.loadCategories());
-    this.dataSource = new MatTableDataSource(this.categoryList);
+    this.store.dispatch(BackofficeActions.loadProviders());
+    this.dataSource = new MatTableDataSource(this.providerList);
   }
 
-  createCategory() {
-    this.router.navigate(['backoffice','category', 0]);
+  createProvider() {
+    this.router.navigate(['backoffice','provider', 0]);
   }
 
-  editCategory(row: CategoryDTO) {
-    this.router.navigate(['backoffice', 'category', row.id]);
+  editProvider(row: ProviderDTO) {
+    this.router.navigate(['backoffice', 'provider', row.id]);
   }
 
-  deleteCategory(row: CategoryDTO) {
+  deleteProvider(row: ProviderDTO) {
     const deleteDialog = this.dialog.open(DeleteDialogBackofficeComponent, {
-      data: { model: row.name, text: 'categoría' }
+      data: { model: row.name, text: 'proveedor' }
     });
 
     deleteDialog.afterClosed().subscribe(result => {
       if(result) {
-        this.store.dispatch(BackofficeActions.deleteCategory({ id: row.id }));    
+        this.store.dispatch(BackofficeActions.deleteProvider({ id: row.id }));    
       }     
     });
   }
@@ -66,5 +67,4 @@ export class BackofficeCategoriesComponent implements OnInit {
   goBackoffice() {
     this.router.navigate(['backoffice','shop-admin']);
   }
-
 }

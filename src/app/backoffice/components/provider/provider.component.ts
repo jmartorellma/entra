@@ -1,26 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { BackofficeState } from '../../reducers';
-import * as BackofficeActions from '../../actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
-import { CategoryDTO } from '../../models/CategoryDTO';
-import { EditCategoryModel } from '../../models/editCategoryModel';
-import { CreateCategoryModel } from '../../models/createCategoryModel';
+import { ProviderDTO } from '../../models/ProviderDTO';
+import { BackofficeState } from '../../reducers';
+import * as BackofficeActions from '../../actions';
+import { EditProviderModel } from '../../models/editProviderModel';
+import { CreateProviderModel } from '../../models/createProviderModel';
 
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css']
+  selector: 'app-provider',
+  templateUrl: './provider.component.html',
+  styleUrls: ['./provider.component.css']
 })
-export class CategoryComponent implements OnInit {
+export class ProviderComponent implements OnInit {
 
   public code: FormControl;
   public name: FormControl;
+  public web: FormControl;
   public backofficeState$: BackofficeState | undefined;
   public editForm: FormGroup;
-  public catregory: CategoryDTO | undefined; 
+  public provider: ProviderDTO | undefined; 
   public isUpdate: boolean;
 
   constructor(
@@ -33,59 +34,66 @@ export class CategoryComponent implements OnInit {
       this.store.select('backoffice').subscribe(backoffice => {
         this.backofficeState$ = backoffice;  
         if(parseInt(this.route.snapshot.params.id, 10) != 0 && backoffice !== undefined) {
-          const c = backoffice.categoryList.find(c => c.id == parseInt(this.route.snapshot.params.id, 10))
-          if(c){
+          const p = backoffice.providerList.find(p => p.id == parseInt(this.route.snapshot.params.id, 10))
+          if(p){
             this.isUpdate = true;
-            this.catregory = c;
-            this.loadCategory(c);
+            this.provider = p;
+            this.loadProvider(p);
           }
         }             
       }); 
 
       this.code = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9]*')]);
       this.name = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(55), Validators.pattern('[a-zA-Z áéíóúÁÉÍÓÚÑñÇç]*')]);
+      this.web = new FormControl('');
 
       this.editForm = this.fb.group({
         code: this.code,
         name: this.name,
+        web: this.web
       });
   }
 
-  loadCategory(c: CategoryDTO) {
-    this.code = new FormControl(c.code, [Validators.required, Validators.minLength(6), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9]*')]);
-    this.name = new FormControl(c.name, [Validators.required, Validators.minLength(6), Validators.maxLength(55), Validators.pattern('[a-zA-Z áéíóúÁÉÍÓÚÑñÇç]*')]);
+  loadProvider(p: ProviderDTO) {
+    this.code = new FormControl(p.code, [Validators.required, Validators.minLength(6), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9]*')]);
+    this.name = new FormControl(p.name, [Validators.required, Validators.minLength(6), Validators.maxLength(55), Validators.pattern('[a-zA-Z áéíóúÁÉÍÓÚÑñÇç]*')]);
+    this.web = new FormControl(p.web);
 
     this.editForm = this.fb.group({
       code: this.code,
       name: this.name,
+      web: this.web
     });
   }
 
   ngOnInit(): void {
     if(parseInt(this.route.snapshot.params.id, 10) != 0) {
-      this.store.dispatch(BackofficeActions.loadCategories());
+      this.store.dispatch(BackofficeActions.loadProviders());
     }
   }
 
   editCategory() {
-    if(this.isUpdate && this.catregory !== undefined) {
-      const editModel: EditCategoryModel = {
-        Id: this.catregory.id,
+    if(this.isUpdate && this.provider !== undefined) {
+      const editModel: EditProviderModel = {
+        Id: this.provider.id,
         Code: this.code.value,
         Name: this.name.value,
+        Web: this.web.value
       };
-      this.store.dispatch(BackofficeActions.updateCategory({category: editModel}));
+      this.store.dispatch(BackofficeActions.updateProvider({provider: editModel}));
     } else { 
-      const createModel: CreateCategoryModel = {
+      const createModel: CreateProviderModel = {
         Code: this.code.value,
         Name: this.name.value,
+        Web: this.web.value
       };
-      this.store.dispatch(BackofficeActions.createCategory({category: createModel}));
+      this.store.dispatch(BackofficeActions.createProvider({provider: createModel}));
     }
   }
 
   goCategories() {
-    this.router.navigate(['backoffice','backoffice-categories']);
+    this.router.navigate(['backoffice','backoffice-providers']);
   }
+
 
 }

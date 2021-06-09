@@ -84,6 +84,27 @@ body {
     padding-left: 15px !important;
 }
 
+.table-container {
+    overflow: auto; 
+    padding: 15px;
+}
+
+.mat-table {
+    width: 100%;
+}
+
+.mat-column-actions {
+    width: 135px;
+}
+
+.mat-cell {
+    padding: 0 8px;
+  }
+
+.edit-button {
+    margin-right: 6px;
+}
+
 /* Account */
 app-login,
 app-register,
@@ -100,14 +121,13 @@ app-edit-payment-status,
 app-create-purchase-type,
 app-edit-purchase-type,
 /* Backoffice */
-app-categories-admin,
-app-deliveries-admin,
 app-edit-shop,
-app-payment-methods-admin,
-app-products-admin,
-app-providers-admin,
-app-purchases-admin,
+app-product,
 app-shop-admin,
+app-backoffice-categories,
+app-backoffice-providers,
+app-category,
+app-provider,
 /* Profile */
 app-profile,
 /* Shop */

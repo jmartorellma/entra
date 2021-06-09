@@ -1,6 +1,6 @@
 <div *ngIf="backofficeState$ !== undefined && !backofficeState$.pending" fxFill fxLayout="column" fxLayoutAlign="strat center" fxFlex="grow">
     <div class="main-content" fxLayout="column" fxLayoutAlign="start stretch" fxFlex="grow">
-        <h1>Categoría</h1>
+        <h1><span *ngIf="isUpdate">Actualizar</span><span *ngIf="!isUpdate">Crear</span> Categoría</h1>
         <div>
             <form  fxLayout="column" fxLayoutAlign="space-around stretch" fxFlex="grow" [formGroup]="editForm" (ngSubmit)="editCategory()">
                 <div class="inputs-container" fxFlex="grow" fxLayout="column" fxLayoutAlign="space-around stretch">
@@ -37,7 +37,9 @@
                         </mat-form-field>
                     </section>
                     <section fxFlex="15" fxLayout="column" fxLayoutAlign="center stretch">
-                        <button mat-raised-button color="primary" type="submit" [disabled]="!editForm.valid">Crear</button>
+                        <button mat-raised-button color="primary" type="submit" [disabled]="!editForm.valid">
+                            <span *ngIf="isUpdate">Actualizar</span><span *ngIf="!isUpdate">Crear</span>
+                        </button>
                     </section>
                 </div>                  
             </form>

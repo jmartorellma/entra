@@ -40,13 +40,13 @@
 
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="grow">
                   <nav class="buttons-container"  fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" fxLayoutAlign.xs="space-around stretch">
-                    <button mat-raised-button color="primary" (click)="goCategories()">Categorías</button> 
-                    <button mat-raised-button color="primary" (click)="goProviders()">Pagos</button> 
-                    <button mat-raised-button color="primary" (click)="addProduct()">NuevoProducto</button> 
+                    <button mat-button color="primary" (click)="goCategories()">Categorías</button> 
+                    <button mat-button color="primary" (click)="goProviders()">Proveedores</button> 
+                    <button mat-raised-button color="primary" (click)="addProduct()">Nuevo Producto</button> 
                   </nav>       
                   <h1>Productos</h1>      
                   <div fxLayout="column" fxLayoutAlign="start-stretch">
-                      <mat-form-field >
+                      <mat-form-field class="filter-container">
                           <mat-label>Buscar</mat-label>
                           <input matInput (keyup)="applyFilterProduct($event)" placeholder="Buscar producto" #input>
                       </mat-form-field>   

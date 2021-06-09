@@ -14,29 +14,32 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { ShopAdminComponent } from './components/shop-admin/shop-admin.component';
-import { ProductsAdminComponent } from './components/products-admin/products-admin.component';
-import { CategoriesAdminComponent } from './components/categories-admin/categories-admin.component';
-import { ProvidersAdminComponent } from './components/providers-admin/providers-admin.component';
-import { PurchasesAdminComponent } from './components/purchases-admin/purchases-admin.component';
-import { DeliveriesAdminComponent } from './components/deliveries-admin/deliveries-admin.component';
 import { EditShopComponent } from './components/edit-shop/edit-shop.component';
-import { PaymentMethodsAdminComponent } from './components/payment-methods-admin/payment-methods-admin.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductComponent } from './components/product/product.component';
+import { BackofficeCategoriesComponent } from './components/backoffice-categories/backoffice-categories.component';
+import { DeleteDialogBackofficeComponent } from './components/delete-dialog-backoffice/delete-dialog-backoffice.component';
+import { CategoryComponent } from './components/category/category.component';
+import { BackofficeProvidersComponent } from './components/backoffice-providers/backoffice-providers.component';
+import { ProviderComponent } from './components/provider/provider.component';
 
 
 @NgModule({
   declarations: [
     ShopAdminComponent,
-    ProductsAdminComponent,
-    CategoriesAdminComponent,
-    ProvidersAdminComponent,
-    PurchasesAdminComponent,
-    DeliveriesAdminComponent,
     EditShopComponent,
-    PaymentMethodsAdminComponent
+    ProductComponent,
+    BackofficeCategoriesComponent,
+    DeleteDialogBackofficeComponent,
+    CategoryComponent,
+    BackofficeProvidersComponent,
+    ProviderComponent,
   ],
   imports: [
     CommonModule,
     BackofficeRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatTableModule,
     MatSortModule,
