@@ -1,0 +1,11 @@
+<div fxLayout="column" fxLayoutAlign="start stretch">
+    <h1 mat-dialog-title>Eliminar {{data.text}}</h1>
+    <div class="content" mat-dialog-content fxLayout="column" fxLayoutAlign="start stretch">
+        <p>Estás seguro que quieres eliminar <strong>{{data.model}}</strong> del sistema?</p>
+      </div>
+    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-around end">
+        <button mat-raised-button color="primary"(click)="onDeleteClick()">Eliminar</button>
+        <button mat-stroked-button (click)="onNoClick()" cdkFocusInitial>Cancelar</button>  
+    </div>
+</div>
+
