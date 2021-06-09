@@ -1,25 +1,75 @@
 <div *ngIf="backofficeState$ !== undefined && !backofficeState$.pending" fxFill fxLayout="column" fxLayoutAlign="start center" fxFlex="grow">
     <div class="main-content" fxLayout="column" fxLayoutAlign="start stretch" fxFlex="grow">
+      <div>
+        <div fxLayout="column" fxLayoutAlign="center stretch" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="start stretch" fxFlex="grow">
 
-        <div fxLayout="row" fxLayoutAlign="space-around center">
-            <button class="button-new" mat-raised-button color="primary" (click)="goProducts()">Productos</button>
-            <button class="button-new" mat-raised-button color="primary" (click)="goCategories()">Categorías</button>
-            <button class="button-new" mat-raised-button color="primary" (click)="goProviders()">Proveedores</button>
-            <button class="button-new" mat-raised-button color="primary" (click)="goPurchases()">Pedidos</button>
-            <button class="button-new" mat-raised-button color="primary" (click)="goDeliveries()">Entregas</button>
+          <div class="shop-container" fxLayout="column" fxLayoutAlign="start stretch" fxFlex="auto" fxFlex.gt-xs="40%">
+              <div class="picture-container" fxLayout="column" fxLayoutAlign="center center">
+                <div class="picture-wrapper">
+                  <img class="shop-image" [src]="(shop$.picture === undefined || shop$.picture === '') ? '../../../../assets/img/item-no-picture.png' : shop$.picture"  />
+                </div>
+                <div class="change-picture-button" fxLayout="column" fxLayoutAlign="start center">
+                  <button mat-raised-button color="primary" (click)="changePicture()">Cambiar imagen</button>
+                </div>
+              </div>
+              
+              <div class="data-container"> 
+                  <div class="shop-name">{{shop$.name}}</div>
+                  <div class="shop-data" fxLayout="row wrap"><div class="data-Label">NIF:&nbsp;&nbsp;</div><div class="data-text">{{shop$.nif}}</div></div>
+                  <div class="shop-data" fxLayout="row wrap"><div class="data-Label">Código:&nbsp;&nbsp;</div><div class="data-text">{{shop$.code}}</div></div>
+                  <div class="shop-data" fxLayout="row wrap"><div class="data-Label">Teléfono:&nbsp;&nbsp;</div><div class="data-text">{{shop$.phone}}</div></div>
+                  <div class="shop-data" fxLayout="row wrap"><div class="data-Label">Email:&nbsp;&nbsp;</div><div class="data-text">{{shop$.email}}</div></div>
+                  <div class="shop-data" fxLayout="row wrap"><div class="data-Label">Dirección:&nbsp;&nbsp;</div><div class="data-text">{{shop$.address}}</div></div>
+                  <div class="shop-data" fxLayout="row wrap"><div class="data-Label">Población:&nbsp;&nbsp;</div><div class="data-text">{{shop$.city}}</div></div>
+                  <div class="shop-data" fxLayout="row wrap"><div class="data-Label">Web:&nbsp;&nbsp;</div><div class="data-text">{{shop$.web}}</div></div>
+                  <div class="shop-data" fxLayout="row wrap"><div class="data-Label">Propietario:&nbsp;&nbsp;</div><div class="data-text">{{shop$.owner}}</div></div>
+              </div>
+          </div>
+  
+          <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="auto" fxFlex.gt-xs="60%">
+            <mat-tab-group>
+              <mat-tab >
+                <ng-template mat-tab-label>
+                  Tienda
+                </ng-template>
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="grow">
+                  
+                </div>
+              </mat-tab>
+            
+  
+  
+  
+  
+  
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  Productos
+                </ng-template>
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="grow">
+                  Datos productos
+                </div>
+              </mat-tab>
+            
+  
+  
+  
+  
+  
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  Compras
+                </ng-template>
+            
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="grow">
+                  Datos compras
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+  
         </div>
-
-        <div>
-            
-            <div>Imagen</div>
-            
-            <div>
-                <div>Datos</div>
-                <div>{{shop.Id}}</div>
-            </div>
-            
-
-        </div>
+      </div>
     </div>    
 </div>
 

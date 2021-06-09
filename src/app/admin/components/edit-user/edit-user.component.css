@@ -10,7 +10,3 @@ mat-icon {
     cursor: pointer;
 }
 
-.back {
-    cursor: pointer;
-    color: var(--primary-color);
-}

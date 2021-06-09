@@ -8,7 +8,7 @@ import { of } from "rxjs";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { ErrorDialogComponent } from "src/app/shared/components/error-dialog/error-dialog.component";
 import * as BackofficeActions from '../actions';
-import { BackofficeService } from "../services/backoffice.service";
+import { BackofficeShopService } from "../services/backoffice-shop.service";
 
 
 @Injectable()
@@ -16,7 +16,7 @@ export class BackofficeEffects {
     
     constructor(
         private actions$: Actions,
-        private backofficeService: BackofficeService,
+        private backofficeShopService: BackofficeShopService,
         private router: Router,
         private snackBar: MatSnackBar,
         private dialog: MatDialog
@@ -26,7 +26,7 @@ export class BackofficeEffects {
         this.actions$.pipe(
             ofType(BackofficeActions.loadShop),
             mergeMap((param) =>
-                this.backofficeService.getShopByOwner(param.ownerId).pipe(
+                this.backofficeShopService.getShopByOwner(param.ownerId).pipe(
                     map((result) =>
                         BackofficeActions.loadShopSuccess({ shop: result })
                     ),
@@ -48,6 +48,10 @@ export class BackofficeEffects {
         { dispatch: false }
     );
 
+
+
+
+    
 
     snakBarMessage(result: any) {
         this.snackBar.open(result.message, undefined, {

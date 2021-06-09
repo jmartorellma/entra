@@ -13,7 +13,7 @@ import * as BackofficeActions from '../../actions';
 export class ShopAdminComponent implements OnInit {
 
   public backofficeState$: any;
-  public shop: ShopDTO | any;
+  public shop$: ShopDTO | any;
 
   constructor(
     private store: Store<AppState>,
@@ -28,7 +28,7 @@ export class ShopAdminComponent implements OnInit {
       this.store.select('backoffice').subscribe(backoffice => {
         this.backofficeState$ = backoffice;
         if(backoffice !== undefined && backoffice !== null && backoffice.shop != null) {
-          this.shop = backoffice.shop;
+          this.shop$ = backoffice.shop;
         }        
       });
   }
@@ -37,23 +37,8 @@ export class ShopAdminComponent implements OnInit {
     
   }
 
-  goProducts() {
+  changePicture() {
 
   }
 
-  goCategories() {
-    
-  }
-
-  goProviders() {
-    
-  }
-
-  goPurchases() {
-    
-  }
-
-  goDeliveries() {
-    
-  }
 }

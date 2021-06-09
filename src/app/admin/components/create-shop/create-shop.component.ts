@@ -31,16 +31,19 @@ export class CreateShopComponent implements OnInit {
   public web: FormControl;    
   public owner: FormControl; 
   public createForm: FormGroup;
+  public filteredUserShopList: UserDTO[];
   
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private store: Store<AppState>) { 
       this.userShopList$ = [];
+      this.filteredUserShopList = [];
       this.store.select('admin').subscribe(admin => {
         this.adminState$ = admin;
         if(this.adminState$ !== undefined && this.adminState$.userList.length > 0) {
-          this.userShopList$ = admin.userList.filter(u => u.role === 'Shop')       
+          this.userShopList$ = admin.userList.filter(u => u.role === 'Shop');
+          this.filteredUserShopList = this.userShopList$;       
         }     
       });
 
@@ -77,6 +80,15 @@ export class CreateShopComponent implements OnInit {
     this.store.dispatch(AdminActions.loadUsers());
   }
 
+  onKey(event: any) { 
+    if(event !== undefined && event.target !== undefined && event.target.value !== undefined )
+    this.filteredUserShopList = this.search(event.target.value);
+    }
+    
+  search(value: string) { 
+    return this.userShopList$.filter(u => u.userName.toLowerCase().startsWith(value.toLowerCase()));
+  }
+  
   createShop() {
     const createModel: CreateShopModel = {
       Nif: this.nif.value,

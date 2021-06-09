@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { ShopAdminComponent } from './components/shop-admin/shop-admin.component';
@@ -44,6 +45,7 @@ import { PaymentMethodsAdminComponent } from './components/payment-methods-admin
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
+    MatTabsModule,
     FlexLayoutModule
   ]
 })

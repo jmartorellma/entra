@@ -7,9 +7,9 @@ import { ShopDTO } from '../models/ShopDTO';
 @Injectable({
   providedIn: 'root'
 })
-export class BackofficeService {
+export class BackofficeShopService {
 
-  private shopUrl = `${AppConfiguration.Setting().apiEndpoint}/Shop`;
+  private shopUrl = `${AppConfiguration.Setting().apiEndpoint}/Shops`;
 
   constructor(
     private http: HttpClient) { }

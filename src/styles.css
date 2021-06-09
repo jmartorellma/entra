@@ -68,8 +68,20 @@ body {
     font-weight: bold;
 }
 
+.back {
+    margin-top: 15px;
+    cursor: pointer;
+    color: var(--primary-color);
+}
+
 .filter-label {
     margin-left: 15px;
+    box-sizing: border-box;
+}
+
+.filter-input {
+    box-sizing: border-box !important;
+    padding-left: 15px !important;
 }
 
 /* Account */
