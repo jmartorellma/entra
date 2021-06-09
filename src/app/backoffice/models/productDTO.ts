@@ -1,17 +1,17 @@
 export interface ProductDTO {
-    Id: number,
-    Code: string;            
-    Name: string;       
-    Description: string;           
-    IsActive: boolean;           
-    Price: number;          
-    Tax: number;          
-    Pvp: number;          
-    Picture: string; 
-    CreationDate: string;        
-    ShopId: number;
-    ShopName: string; 
-    ProviderId: number,          
-    Categories: number[];        
-    Stock: number; 
+    id: number,
+    code: string;            
+    name: string;       
+    description: string;           
+    isActive: boolean;           
+    price: number;          
+    tax: number;          
+    pvp: number;          
+    picture: string; 
+    creationDate: string;        
+    shopId: number;
+    shopName: string; 
+    providerId: number,          
+    categories: number[];        
+    stock: number; 
 }

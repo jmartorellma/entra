@@ -2,8 +2,10 @@ import { createAction, props } from "@ngrx/store";
 import { PictureDTO } from "src/app/backoffice/models/PictureDTO";
 import { CategoryDTO } from "../models/CategoryDTO";
 import { CreateCategoryModel } from "../models/createCategoryModel";
+import { CreateProductModel } from "../models/createProductModel";
 import { CreateProviderModel } from "../models/createProviderModel";
 import { EditCategoryModel } from "../models/editCategoryModel";
+import { EditProductModel } from "../models/editProductModel";
 import { EditProviderModel } from "../models/editProviderModel";
 import { EditShopBackofficeModel } from "../models/editShopBackofficeModel";
 import { EditShopPictureModel } from "../models/edtiShopPictureModel";
@@ -98,6 +100,51 @@ export const loadProductSuccess = createAction(
 
 export const loadProductError = createAction(
     '[BACKOFFICE] loadProduct Error',
+    props<{ payload: any }>()
+);
+
+export const createProduct = createAction(
+    '[BACKOFFICE] CreateProduct',
+    props<{ product: CreateProductModel }>()
+);
+
+export const createProductSuccess = createAction(
+    '[BACKOFFICE] CreateProduct Success',
+    props<{ product: ProductDTO }>()
+);
+
+export const createProductError = createAction(
+    '[BACKOFFICE] CreateProduct Error',
+    props<{ payload: any }>()
+);
+
+export const updateProduct = createAction(
+    '[BACKOFFICE] UpdateProduct',
+    props<{ product: EditProductModel }>()
+);
+
+export const updateProductSuccess = createAction(
+    '[BACKOFFICE] UpdateProduct Success',
+    props<{ product: ProductDTO }>()
+);
+
+export const updateProductError = createAction(
+    '[BACKOFFICE] UpdateProduct Error',
+    props<{ payload: any }>()
+);
+
+export const deleteProduct = createAction(
+    '[BACKOFFICE] DeleteProduct',
+    props<{ id: number }>()
+);
+
+export const deleteProductSuccess = createAction(
+    '[BACKOFFICE] DeleteProduct Success',
+    props<{ id: number }>()
+);
+
+export const deleteProductError = createAction(
+    '[BACKOFFICE] DeleteProduct Error',
     props<{ payload: any }>()
 );
 

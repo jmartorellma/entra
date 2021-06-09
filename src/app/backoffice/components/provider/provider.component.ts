@@ -72,7 +72,7 @@ export class ProviderComponent implements OnInit {
     }
   }
 
-  editCategory() {
+  editProvider() {
     if(this.isUpdate && this.provider !== undefined) {
       const editModel: EditProviderModel = {
         Id: this.provider.id,
@@ -91,7 +91,7 @@ export class ProviderComponent implements OnInit {
     }
   }
 
-  goCategories() {
+  goProviders() {
     this.router.navigate(['backoffice','backoffice-providers']);
   }
 

@@ -113,7 +113,7 @@ const _backofficeReducer = createReducer(
     on(BackofficeActions.loadProductSuccess, (state, action) => ({
         ...state,
         productList: state.productList.map(p => {
-            if(p.Id === action.product.Id) {
+            if(p.id === action.product.id) {
                 return { ...p, ...action.product }; 
             }
             else {
@@ -124,6 +124,61 @@ const _backofficeReducer = createReducer(
         pending: false,
     })),
     on(BackofficeActions.loadProductError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(BackofficeActions.createProduct, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(BackofficeActions.createProductSuccess, (state, action) => ({
+        ...state,
+        productList: [...state.productList, action.product],
+        error: null,
+        pending: false,
+    })),
+    on(BackofficeActions.createProductError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(BackofficeActions.updateProduct, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(BackofficeActions.updateProductSuccess, (state, action) => ({
+        ...state,
+        productList: state.productList.map(p => {
+            if(p.id === action.product.id) {
+                return { ...p, ...action.product }; 
+            }
+            else {
+                return p;
+            }
+        }),
+        error: null,
+        pending: false,
+    })),
+    on(BackofficeActions.updateProductError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(BackofficeActions.deleteProduct, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(BackofficeActions.deleteProductSuccess, (state, action) => ({
+        ...state,
+        productList: [...state.productList.filter(p => p.id !== action.id)],
+        error: null,
+        pending: false,
+    })),
+    on(BackofficeActions.deleteProductError, (state, {payload}) => ({
         ...state,
         error: payload.error,
         pending: false,

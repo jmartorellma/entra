@@ -207,6 +207,116 @@ export class BackofficeEffects {
         { dispatch: false }
     );
 
+    createProduct$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.createProduct),
+            mergeMap((param) =>
+                this.backofficeProductService.createProduct(param.product).pipe(
+                    map((result) =>
+                        BackofficeActions.createProductSuccess({ product: result })
+                    ),
+                    catchError((error) => 
+                        of(BackofficeActions.createProductError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    createProductSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.createProductSuccess),
+            map((param) => {
+                this.snakBarMessage({message: 'Producto creado correctamente'});
+                this.router.navigate(['backoffice', 'shop-admin']);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    createProductError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.createProductError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    updateProduct$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.updateProduct),
+            mergeMap((param) =>
+                this.backofficeProductService.updateProduct(param.product).pipe(
+                    map((result) =>
+                        BackofficeActions.updateProductSuccess({ product: result })
+                    ),
+                    catchError((error) => 
+                        of(BackofficeActions.updateProductError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    updateProductSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.updateProductSuccess),
+            map((param) => {
+                this.snakBarMessage({message: 'Producto actualizado correctamente'});
+                this.router.navigate(['backoffice', 'shop-admin']);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    updateProductError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.updateProductError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    deleteProduct$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.deleteProduct),
+            mergeMap((param) =>
+                this.backofficeProductService.deleteProduct(param.id).pipe(
+                    map((result) =>
+                        BackofficeActions.deleteProductSuccess({ id: result })
+                    ),
+                    catchError((error) => 
+                        of(BackofficeActions.deleteProductError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    deleteProductSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.deleteProductSuccess),
+            map((param) => {
+                this.snakBarMessage({message: 'Producto eliminado correctamente'});
+            })
+        ),
+        { dispatch: false }
+    );
+
+    deleteProductError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.deleteProductError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
     loadCategories$ = createEffect(() =>
         this.actions$.pipe(
             ofType(BackofficeActions.loadCategories),
