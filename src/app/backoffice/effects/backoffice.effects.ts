@@ -11,6 +11,7 @@ import { AppState } from "src/app/app.reducer";
 import { ErrorDialogComponent } from "src/app/shared/components/error-dialog/error-dialog.component";
 import * as BackofficeActions from '../actions';
 import { BackofficeCategoryService } from "../services/backoffice-category.service";
+import { BackofficePaymentMethodService } from "../services/backoffice-payment-method.service";
 import { BackofficeProductService } from "../services/backoffice-product.service";
 import { BackofficeProviderService } from "../services/backoffice-provider.service";
 import { BackofficeShopService } from "../services/backoffice-shop.service";
@@ -26,6 +27,7 @@ export class BackofficeEffects {
         private backofficeProductService: BackofficeProductService,
         private backofficeCategoryService: BackofficeCategoryService,
         private backofficeProviderService: BackofficeProviderService,
+        private backofficePaymentMethodService: BackofficePaymentMethodService,
         private router: Router,
         private snackBar: MatSnackBar,
         private dialog: MatDialog
@@ -582,6 +584,142 @@ export class BackofficeEffects {
     deleteProviderError$ = createEffect(() =>
         this.actions$.pipe(
             ofType(BackofficeActions.deleteProviderError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    loadPaymentMethods$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.loadPaymentMethods),
+            mergeMap((param) =>
+                this.backofficePaymentMethodService.getPaymentMethods().pipe(
+                    map((result) =>
+                        BackofficeActions.loadPaymentMethodsSuccess({ paymentMethodList: result })
+                    ),
+                    catchError((error) => 
+                        of(BackofficeActions.loadPaymentMethodsError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    loadPaymentMethodsError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.loadPaymentMethodsError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    createPaymentMethod$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.createPaymentMethod),
+            mergeMap((param) =>
+                this.backofficePaymentMethodService.createPaymentMethod(param.paymentMethod).pipe(
+                    map((result) =>
+                        BackofficeActions.createPaymentMethodSuccess({ paymentMethod: result })
+                    ),
+                    catchError((error) => 
+                        of(BackofficeActions.createPaymentMethodError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    createPaymentMethodSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.createPaymentMethodSuccess),
+            map((param) => {
+                this.snakBarMessage({message: 'Método de pago creado correctamente'});
+                this.router.navigate(['backoffice', 'backoffice-payment-methods']);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    createPaymentMethodError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.createPaymentMethodError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    updatePaymentMethod$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.updatePaymentMethod),
+            mergeMap((param) =>
+                this.backofficePaymentMethodService.updatePaymentMethod(param.paymentMethod).pipe(
+                    map((result) =>
+                        BackofficeActions.updatePaymentMethodSuccess({ paymentMethod : result })
+                    ),
+                    catchError((error) => 
+                        of(BackofficeActions.updatePaymentMethodError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    updatePaymentMethodSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.updatePaymentMethodSuccess),
+            map((param) => {
+                this.snakBarMessage({message: 'Método de pago actualizado correctamente'});
+                this.router.navigate(['backoffice', 'backoffice-payment-methods']);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    updatePaymentMethodError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.updatePaymentMethodError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
+    deletePaymentMethod$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.deletePaymentMethod),
+            mergeMap((param) =>
+                this.backofficePaymentMethodService.deletePaymentMethod(param.id).pipe(
+                    map((result) =>
+                        BackofficeActions.deletePaymentMethodSuccess({ id: result })
+                    ),
+                    catchError((error) => 
+                        of(BackofficeActions.deletePaymentMethodError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    deletePaymentMethodSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.deletePaymentMethodSuccess),
+            map((param) => {
+                this.snakBarMessage({message: 'Método de pago eliminado correctamente'});
+            })
+        ),
+        { dispatch: false }
+    );
+
+    deletePaymentMethodError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.deletePaymentMethodError),
             map((err) => {
                 this.dialogMessage(err.payload);
             })

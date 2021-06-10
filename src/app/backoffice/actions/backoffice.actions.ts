@@ -2,13 +2,16 @@ import { createAction, props } from "@ngrx/store";
 import { PictureDTO } from "src/app/backoffice/models/PictureDTO";
 import { CategoryDTO } from "../models/CategoryDTO";
 import { CreateCategoryModel } from "../models/createCategoryModel";
+import { CreatePaymentMethodModel } from "../models/createPaymentMethodModel";
 import { CreateProductModel } from "../models/createProductModel";
 import { CreateProviderModel } from "../models/createProviderModel";
 import { EditCategoryModel } from "../models/editCategoryModel";
+import { EditPaymentMethodModel } from "../models/editPaymentMethodModel";
 import { EditProductModel } from "../models/editProductModel";
 import { EditProviderModel } from "../models/editProviderModel";
 import { EditShopBackofficeModel } from "../models/editShopBackofficeModel";
 import { EditShopPictureModel } from "../models/edtiShopPictureModel";
+import { PaymentMethodDTO } from "../models/paymentMethodDTO";
 import { ProductDTO } from "../models/productDTO";
 import { ProviderDTO } from "../models/ProviderDTO";
 import { ShopDTO } from "../models/ShopDTO";
@@ -263,5 +266,64 @@ export const deleteProviderSuccess = createAction(
 
 export const deleteProviderError = createAction(
     '[BACKOFFICE] DeleteProvider Error',
+    props<{ payload: any }>()
+);
+
+export const loadPaymentMethods = createAction(
+    '[BACKOFFICE] LoadPaymentMethods'
+);
+
+export const loadPaymentMethodsSuccess = createAction(
+    '[BACKOFFICE] LoadPaymentMethods Success',
+    props<{ paymentMethodList: PaymentMethodDTO[] }>()
+);
+
+export const loadPaymentMethodsError = createAction(
+    '[BACKOFFICE] LoadPaymentMethods Error',
+    props<{ payload: any }>()
+);
+
+export const createPaymentMethod = createAction(
+    '[BACKOFFICE] CreatePaymentMethod',
+    props<{ paymentMethod: CreatePaymentMethodModel }>()
+);
+
+export const createPaymentMethodSuccess = createAction(
+    '[BACKOFFICE] CreatePaymentMethod Success',
+    props<{ paymentMethod: PaymentMethodDTO }>()
+);
+
+export const createPaymentMethodError = createAction(
+    '[BACKOFFICE] CreatePaymentMethod Error',
+    props<{ payload: any }>()
+);
+
+export const updatePaymentMethod = createAction(
+    '[BACKOFFICE] UpdatePaymentMethod',
+    props<{ paymentMethod: EditPaymentMethodModel }>()
+);
+
+export const updatePaymentMethodSuccess = createAction(
+    '[BACKOFFICE] UpdatePaymentMethod Success',
+    props<{ paymentMethod: PaymentMethodDTO }>()
+);
+
+export const updatePaymentMethodError = createAction(
+    '[BACKOFFICE] UpdatePaymentMethod Error',
+    props<{ payload: any }>()
+);
+
+export const deletePaymentMethod = createAction(
+    '[BACKOFFICE] DeletePaymentMethod',
+    props<{ id: number }>()
+);
+
+export const deletePaymentMethodSuccess = createAction(
+    '[BACKOFFICE] DeletePaymentMethod Success',
+    props<{ id: number }>()
+);
+
+export const deletePaymentMethodError = createAction(
+    '[BACKOFFICE] DeletePaymentMethod Error',
     props<{ payload: any }>()
 );

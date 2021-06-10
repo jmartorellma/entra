@@ -36,7 +36,7 @@ import { ErrorDialogComponent } from './shared/components/error-dialog/error-dia
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
   ],
   imports: [
     BrowserModule,

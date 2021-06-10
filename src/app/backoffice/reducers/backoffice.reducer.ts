@@ -1,6 +1,7 @@
 import { Action, createReducer, on } from "@ngrx/store";
 import * as BackofficeActions from '../actions';
 import { CategoryDTO } from "../models/CategoryDTO";
+import { PaymentMethodDTO } from "../models/paymentMethodDTO";
 import { ProductDTO } from "../models/productDTO";
 import { ProviderDTO } from "../models/ProviderDTO";
 import { ShopDTO } from "../models/ShopDTO";
@@ -10,6 +11,7 @@ export interface BackofficeState {
     productList: ProductDTO[];
     categoryList: CategoryDTO[];
     providerList: ProviderDTO[];
+    paymentMethodList: PaymentMethodDTO[];
     error: any;
     pending: boolean;
 }
@@ -19,6 +21,7 @@ export const initialState: BackofficeState = {
     productList: [],
     categoryList: [],
     providerList: [],
+    paymentMethodList: [],
     error: null,
     pending: false
 };
@@ -321,6 +324,77 @@ const _backofficeReducer = createReducer(
         pending: false,
     })),
     on(BackofficeActions.deleteProviderError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(BackofficeActions.loadPaymentMethods, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(BackofficeActions.loadPaymentMethodsSuccess, (state, action) => ({
+        ...state,
+        paymentMethodList: action.paymentMethodList,
+        error: null,
+        pending: false,
+    })),
+    on(BackofficeActions.loadPaymentMethodsError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(BackofficeActions.createPaymentMethod, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(BackofficeActions.createPaymentMethodSuccess, (state, action) => ({
+        ...state,
+        paymentMethodList: [...state.paymentMethodList, action.paymentMethod],
+        error: null,
+        pending: false,
+    })),
+    on(BackofficeActions.createPaymentMethodError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(BackofficeActions.updatePaymentMethod, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(BackofficeActions.updatePaymentMethodSuccess, (state, action) => ({
+        ...state,
+        paymentMethodList: state.paymentMethodList.map(p => {
+            if(p.id === action.paymentMethod.id) {
+                return { ...p, ...action.paymentMethod }; 
+            }
+            else {
+                return p;
+            }
+        }),
+        error: null,
+        pending: false,
+    })),
+    on(BackofficeActions.updatePaymentMethodError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(BackofficeActions.deletePaymentMethod, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(BackofficeActions.deletePaymentMethodSuccess, (state, action) => ({
+        ...state,
+        paymentMethodList: [...state.paymentMethodList.filter(p => p.id !== action.id)],
+        error: null,
+        pending: false,
+    })),
+    on(BackofficeActions.deletePaymentMethodError, (state, {payload}) => ({
         ...state,
         error: payload.error,
         pending: false,

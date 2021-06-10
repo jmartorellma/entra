@@ -40,21 +40,21 @@ export class ProductComponent implements OnInit {
     private route: ActivatedRoute) {
       
       this.product$ = {
-        Id:  0, 
-        Code: '', 
-        Name: '', 
-        Description:'',      
-        IsActive: false,
-        Price: 0,       
-        Tax: 0,      
-        Pvp: 0,         
-        Picture: '',     
-        CreationDate: '',     
-        ShopId: 0,       
-        ShopName: '',  
-        ProviderId: 0,  
-        Categories: [],     
-        Stock: 0
+        id:  0, 
+        code: '', 
+        name: '', 
+        description:'',      
+        isActive: false,
+        price: 0,       
+        tax: 0,      
+        pvp: 0,         
+        picture: '',     
+        creationDate: '',     
+        shopId: 0,       
+        shopName: '',  
+        providerId: 0,  
+        categories: [],     
+        stock: 0
       }  
 
       this.shopId = parseInt(this.route.snapshot.params.shopId, 10);
@@ -66,7 +66,7 @@ export class ProductComponent implements OnInit {
         this.store.select('backoffice').subscribe(backoffice => {
           this.backofficeState$ = backoffice;
           if(backoffice !== undefined && backoffice !== null && backoffice.productList != null) {
-            const p = backoffice.productList.find(p => p.Id === parseInt(this.route.snapshot.params.id, 10));
+            const p = backoffice.productList.find(p => p.id === parseInt(this.route.snapshot.params.id, 10));
             if(p) {
               this.product$ = p;
               this.loadProduct();
@@ -91,16 +91,16 @@ export class ProductComponent implements OnInit {
    }
 
    loadProduct() {
-    this.code = new FormControl(this.product$.Code, [Validators.required, Validators.minLength(6), Validators.maxLength(55), Validators.pattern('[a-zA-Z0-9]*')]);
-    this.name = new FormControl(this.product$.Name, [Validators.required, Validators.minLength(3), Validators.maxLength(255), Validators.pattern('[a-zA-Z0-9 áéíóúÁÉÍÓÚÑñÇç]*')]);
-    this.description = new FormControl(this.product$.Description, [Validators.required, Validators.minLength(9), Validators.maxLength(255), Validators.pattern('[a-zA-Z0-9 áéíóúÁÉÍÓÚÑñÇç]*')]);
-    this.isActive = new FormControl(this.product$.IsActive);
-    this.price = new FormControl(this.product$.Price, [Validators.required, Validators.min(0)]);
-    this.tax = new FormControl(this.product$.Tax, [Validators.required, Validators.min(0)]);
-    this.pvp = new FormControl(this.product$.Pvp, [Validators.required, Validators.min(0)]);
-    this.provider = new FormControl(this.product$.ProviderId, [Validators.required]);
-    this.categories = new FormControl(this.product$.Categories, [Validators.required]);
-    this.stock = new FormControl(this.product$.Stock, [Validators.required, Validators.min(0)]);
+    this.code = new FormControl(this.product$.code, [Validators.required, Validators.minLength(6), Validators.maxLength(55), Validators.pattern('[a-zA-Z0-9]*')]);
+    this.name = new FormControl(this.product$.name, [Validators.required, Validators.minLength(3), Validators.maxLength(255), Validators.pattern('[a-zA-Z0-9 áéíóúÁÉÍÓÚÑñÇç]*')]);
+    this.description = new FormControl(this.product$.description, [Validators.required, Validators.minLength(9), Validators.maxLength(255), Validators.pattern('[a-zA-Z0-9 áéíóúÁÉÍÓÚÑñÇç]*')]);
+    this.isActive = new FormControl(this.product$.isActive);
+    this.price = new FormControl(this.product$.price, [Validators.required, Validators.min(0)]);
+    this.tax = new FormControl(this.product$.tax, [Validators.required, Validators.min(0)]);
+    this.pvp = new FormControl(this.product$.pvp, [Validators.required, Validators.min(0)]);
+    this.provider = new FormControl(this.product$.providerId, [Validators.required]);
+    this.categories = new FormControl(this.product$.categories, [Validators.required]);
+    this.stock = new FormControl(this.product$.stock, [Validators.required, Validators.min(0)]);
 
     this.editForm = this.fb.group({
       code: this.code,

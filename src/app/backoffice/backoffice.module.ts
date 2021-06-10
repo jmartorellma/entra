@@ -22,6 +22,8 @@ import { DeleteDialogBackofficeComponent } from './components/delete-dialog-back
 import { CategoryComponent } from './components/category/category.component';
 import { BackofficeProvidersComponent } from './components/backoffice-providers/backoffice-providers.component';
 import { ProviderComponent } from './components/provider/provider.component';
+import { BackofficePaymentMethodsComponent } from './components/backoffice-payment-methods/backoffice-payment-methods.component';
+import { PaymentMethodComponent } from './components/payment-method/payment-method.component';
 
 
 @NgModule({
@@ -34,6 +36,8 @@ import { ProviderComponent } from './components/provider/provider.component';
     CategoryComponent,
     BackofficeProvidersComponent,
     ProviderComponent,
+    BackofficePaymentMethodsComponent,
+    PaymentMethodComponent,
   ],
   imports: [
     CommonModule,

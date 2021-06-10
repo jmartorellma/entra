@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
 import { ShopGuard } from '../auth/shop-guard';
 import { BackofficeCategoriesComponent } from './components/backoffice-categories/backoffice-categories.component';
+import { BackofficePaymentMethodsComponent } from './components/backoffice-payment-methods/backoffice-payment-methods.component';
 import { BackofficeProvidersComponent } from './components/backoffice-providers/backoffice-providers.component';
 import { CategoryComponent } from './components/category/category.component';
 import { EditShopComponent } from './components/edit-shop/edit-shop.component';
@@ -17,8 +18,10 @@ const routes: Routes = [
   { path: 'product/:shopId/:id', component: ProductComponent, canActivate: [AuthGuard, ShopGuard] },
   { path: 'backoffice-categories', component: BackofficeCategoriesComponent, canActivate: [AuthGuard, ShopGuard] },
   { path: 'backoffice-providers', component: BackofficeProvidersComponent, canActivate: [AuthGuard, ShopGuard] },
+  { path: 'backoffice-payment-methods', component: BackofficePaymentMethodsComponent, canActivate: [AuthGuard, ShopGuard] },  
   { path: 'category/:id', component: CategoryComponent, canActivate: [AuthGuard, ShopGuard] },
   { path: 'provider/:id', component: ProviderComponent, canActivate: [AuthGuard, ShopGuard] },
+  { path: 'payment-method/:id', component: ProviderComponent, canActivate: [AuthGuard, ShopGuard] },
 ];
 
 @NgModule({

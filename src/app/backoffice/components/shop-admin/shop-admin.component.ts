@@ -10,6 +10,7 @@ import { ProductDTO } from '../../models/productDTO';
 import { MatTableDataSource } from '@angular/material/table';
 import { DeleteDialogBackofficeComponent } from '../delete-dialog-backoffice/delete-dialog-backoffice.component';
 import { MatDialog } from '@angular/material/dialog';
+import { PurchaseDTO } from '../../models/purchaseDTO';
 
 @Component({
   selector: 'app-shop-admin',
@@ -23,12 +24,18 @@ export class ShopAdminComponent implements OnInit {
   public productList: ProductDTO[] | any;
   public dataSourceProducts: any;
   public displayedProductColumns: string[];
+  public dataSourcePurchases: any;
+  public displayedPurchasesColumns: string[];
+  public dataSourceUsers: any;
+  public displayedUsersColumns: string[];
 
   constructor(
     private store: Store<AppState>,
     private router: Router,
     private dialog: MatDialog) { 
-      this.displayedProductColumns = ['code', 'name', 'pvp', 'creationDate', 'actions']
+      this.displayedProductColumns = ['code', 'name', 'pvp', 'creationDate', 'actions'];
+      this.displayedPurchasesColumns = ['code', 'amount', 'userName', 'status', 'actions'];
+      this.displayedUsersColumns = ['userName', 'email', 'phoneNumber', 'actions'];
 
       this.store.select('backoffice').subscribe(backoffice => {
         this.backofficeState$ = backoffice;
@@ -69,7 +76,7 @@ export class ShopAdminComponent implements OnInit {
   }
 
   editShop() {
-    this.router.navigate(['backoffice', this.shop$.id,]);
+    this.router.navigate(['backoffice','shop', this.shop$.id,]);
   }
 
   // PRODUCTS
@@ -109,6 +116,47 @@ export class ShopAdminComponent implements OnInit {
 
   // PURCHASES
 
+  goPaymentMethods() {
+    this.router.navigate(['backoffice', 'backoffice-payment-methods']);
+  }
+
+  goDeliveries() {
+    // this.router.navigate(['backoffice', 'backoffice-deliveries']);
+  }
+
+  applyFilterPurchase(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourcePurchases.filter = filterValue.trim().toLowerCase();
+  }
+
+  editPurchase(row: PurchaseDTO) {
+    // this.router.navigate(['backoffice', 'purchase']);
+  }
+
+  deletePurchase(row: PurchaseDTO) {
+    const deleteDialog = this.dialog.open(DeleteDialogBackofficeComponent, {
+      data: { model: row.code, text: 'pedido' }
+    });
+
+    deleteDialog.afterClosed().subscribe(result => {
+      if(result) {
+        this.store.dispatch(BackofficeActions.deleteProduct({ id: row.id }));    
+      }     
+    });
+  }
+
   // LOCKED
 
+  applyFilterUser(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourcePurchases.filter = filterValue.trim().toLowerCase();
+  }
+
+  lockUser(row: PurchaseDTO){
+
+  }
+
+  unLockUser(id: number){
+    
+  }
 }
