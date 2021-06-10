@@ -8,11 +8,13 @@ import { CreateProviderModel } from "../models/createProviderModel";
 import { EditCategoryModel } from "../models/editCategoryModel";
 import { EditPaymentMethodModel } from "../models/editPaymentMethodModel";
 import { EditProductModel } from "../models/editProductModel";
+import { EditProductPictureModel } from "../models/editProductPictureModel";
 import { EditProviderModel } from "../models/editProviderModel";
 import { EditShopBackofficeModel } from "../models/editShopBackofficeModel";
 import { EditShopPictureModel } from "../models/edtiShopPictureModel";
 import { PaymentMethodDTO } from "../models/paymentMethodDTO";
 import { ProductDTO } from "../models/productDTO";
+import { ProductPictureDTO } from "../models/productPictureDTO";
 import { ProviderDTO } from "../models/ProviderDTO";
 import { ShopDTO } from "../models/ShopDTO";
 
@@ -118,6 +120,21 @@ export const createProductSuccess = createAction(
 
 export const createProductError = createAction(
     '[BACKOFFICE] CreateProduct Error',
+    props<{ payload: any }>()
+);
+
+export const uploadProductPicture = createAction(
+    '[BACKOFFICE] UploadProductPicture',
+    props<{ editProductPictureModel: EditProductPictureModel }>()
+);
+
+export const uploadProductPictureSuccess = createAction(
+    '[BACKOFFICE] UploadProductPicture Success',
+    props<{ picture: ProductPictureDTO }>()
+);
+
+export const uploadProductPictureError = createAction(
+    '[BACKOFFICE] UploadProductPicture Error',
     props<{ payload: any }>()
 );
 

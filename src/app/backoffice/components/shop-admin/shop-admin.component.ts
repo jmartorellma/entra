@@ -28,6 +28,7 @@ export class ShopAdminComponent implements OnInit {
   public displayedPurchasesColumns: string[];
   public dataSourceUsers: any;
   public displayedUsersColumns: string[];
+  public productsLoaded: boolean;
 
   constructor(
     private store: Store<AppState>,
@@ -36,11 +37,16 @@ export class ShopAdminComponent implements OnInit {
       this.displayedProductColumns = ['code', 'name', 'pvp', 'creationDate', 'actions'];
       this.displayedPurchasesColumns = ['code', 'amount', 'userName', 'status', 'actions'];
       this.displayedUsersColumns = ['userName', 'email', 'phoneNumber', 'actions'];
+      this.productsLoaded = false;
 
       this.store.select('backoffice').subscribe(backoffice => {
         this.backofficeState$ = backoffice;
         if(backoffice !== undefined && backoffice !== null && backoffice.shop != null) {
           this.shop$ = backoffice.shop;
+          if(!this.productsLoaded) {
+            this.productsLoaded = true;
+            this.store.dispatch(BackofficeActions.loadShopProducts({shopId: this.shop$.id})) 
+          }
         }  
         if(backoffice !== undefined && backoffice !== null && backoffice.productList != null) {
           this.productList = backoffice.productList;
@@ -79,7 +85,7 @@ export class ShopAdminComponent implements OnInit {
     this.router.navigate(['backoffice','shop', this.shop$.id,]);
   }
 
-  // PRODUCTS
+  // PRODUCTS TAB
 
   goCategories() {
     this.router.navigate(['backoffice', 'backoffice-categories']);
@@ -114,7 +120,7 @@ export class ShopAdminComponent implements OnInit {
     });
   }
 
-  // PURCHASES
+  // PURCHASES TAB
 
   goPaymentMethods() {
     this.router.navigate(['backoffice', 'backoffice-payment-methods']);
@@ -145,7 +151,7 @@ export class ShopAdminComponent implements OnInit {
     });
   }
 
-  // LOCKED
+  // LOCKED TAB
 
   applyFilterUser(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -153,10 +159,10 @@ export class ShopAdminComponent implements OnInit {
   }
 
   lockUser(row: PurchaseDTO){
-
+    // TODO
   }
 
   unLockUser(id: number){
-    
+    // TODO
   }
 }

@@ -283,6 +283,42 @@ export class BackofficeEffects {
         { dispatch: false }
     );
 
+    uploadProductPicture$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.uploadProductPicture),
+            mergeMap((param) =>
+                this.backofficeProductService.uploadProductPicture(param.editProductPictureModel).pipe(
+                    map((result) =>
+                        BackofficeActions.uploadProductPictureSuccess({ picture: result })
+                    ),
+                    catchError((error) => 
+                        of(BackofficeActions.uploadProductPictureError({ payload: error }))
+                    )
+                )
+            )
+        )
+    );
+
+    uploadProductPictureSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.uploadProductPictureSuccess),
+            map((param) => {
+                this.snakBarMessage({message: 'Imagen actualizada correctamente'});
+            })
+        ),
+        { dispatch: false }
+    );
+
+    uploadProductPictureError$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(BackofficeActions.uploadProductPictureError),
+            map((err) => {
+                this.dialogMessage(err.payload);
+            })
+        ),
+        { dispatch: false }
+    );
+
     deleteProduct$ = createEffect(() =>
         this.actions$.pipe(
             ofType(BackofficeActions.deleteProduct),

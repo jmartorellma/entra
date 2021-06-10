@@ -14,8 +14,7 @@
                     mat-icon-button color="primary" (click)="goAdmin()" title="Administación" aria-label="ballot icon">
                 <mat-icon>manage_accounts</mat-icon>
             </button>
-             <button *ngIf="accountState$ !== undefined && accountState$.loggedIn && accountState$.userClaims && 
-                            (accountState$.userClaims.role === 'SuperUser' || accountState$.userClaims.role === 'Admin' || accountState$.userClaims.role === 'Shop')" 
+            <button *ngIf="accountState$ !== undefined && accountState$.loggedIn && accountState$.userClaims && accountState$.userClaims.role === 'Shop'" 
                     mat-icon-button color="primary" (click)="goShopAdmin()" title="Gestión Tienda" aria-label="ballot icon">
                 <mat-icon>admin_panel_settings</mat-icon>
             </button>
@@ -28,7 +27,8 @@
             <button mat-icon-button color="primary" (click)="goSearch()" title="Buscar" aria-label="search icon">
                 <mat-icon>search</mat-icon>
             </button>
-            <button mat-icon-button color="primary" (click)="goCart()" title="Carro" aria-label="shopping_cart icon">
+            <button *ngIf="accountState$ !== undefined && accountState$.loggedIn"
+                mat-icon-button color="primary" (click)="goCart()" title="Carro" aria-label="shopping_cart icon">
                 <mat-icon>shopping_cart</mat-icon>
             </button>
             <button mat-icon-button color="primary" (click)="goProfile()" title="Cuenta" aria-label="account_circle icon">
@@ -37,6 +37,22 @@
             <button *ngIf="accountState$ !== undefined && accountState$.loggedIn" 
                     mat-icon-button color="primary" (click)="logout()" title="Salir" aria-label="logout icon">
                 <mat-icon>logout</mat-icon>
+            </button>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap.sm="8px" fxLayoutGap="25px" fxShow.sm="false" fxShow.gt-sm="false" fxShow="true">
+            <button *ngIf="accountState$ !== undefined && accountState$.loggedIn && accountState$.userClaims && 
+                           (accountState$.userClaims.role === 'SuperUser' || accountState$.userClaims.role === 'Admin')" 
+                    mat-icon-button color="primary" (click)="goAdmin()" title="Administación" aria-label="ballot icon">
+                <mat-icon>manage_accounts</mat-icon>
+            </button>
+            <button *ngIf="accountState$ !== undefined && accountState$.loggedIn && accountState$.userClaims && accountState$.userClaims.role === 'Shop'" 
+                    mat-icon-button color="primary" (click)="goShopAdmin()" title="Gestión Tienda" aria-label="ballot icon">
+                <mat-icon>admin_panel_settings</mat-icon>
+            </button>
+            <button *ngIf="accountState$ !== undefined && accountState$.loggedIn"
+                mat-icon-button color="primary" (click)="goCart()" title="Carro" aria-label="shopping_cart icon">
+                <mat-icon>shopping_cart</mat-icon>
             </button>
         </div>
     </mat-toolbar>

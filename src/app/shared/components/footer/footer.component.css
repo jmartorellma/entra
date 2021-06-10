@@ -2,6 +2,25 @@
     height: 30px;
 }
 
+@media screen and (max-width: 599px) {
+    .footer-toolbar {
+        height: 65px;
+    }
+  }
+
 .footer-text {
     font-size: 12px;
+}
+
+.mat-icon-button {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+}
+
+mat-icon {
+    width: 100%;
+    height: 100%;
+    font-size: 35px;
+    line-height: 35px !important;
 }

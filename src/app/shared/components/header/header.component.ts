@@ -13,7 +13,6 @@ import * as AccountActions from '../../../account/actions';
 export class HeaderComponent implements OnInit {
 
   public accountState$: AccountState | undefined;
-  //public profileState$: ProfileState | undefined;
 
   constructor(
     private store: Store<AppState>,

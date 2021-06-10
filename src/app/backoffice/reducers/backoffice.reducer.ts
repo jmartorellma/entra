@@ -1,3 +1,4 @@
+import { act } from "@ngrx/effects";
 import { Action, createReducer, on } from "@ngrx/store";
 import * as BackofficeActions from '../actions';
 import { CategoryDTO } from "../models/CategoryDTO";
@@ -166,6 +167,30 @@ const _backofficeReducer = createReducer(
         pending: false,
     })),
     on(BackofficeActions.updateProductError, (state, {payload}) => ({
+        ...state,
+        error: payload.error,
+        pending: false,
+    })),
+    on(BackofficeActions.uploadProductPicture, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(BackofficeActions.uploadProductPictureSuccess, (state, action) => ({
+        ...state,
+        productList: state.productList.map(p => {
+            if(p.id === action.picture.productId) {
+                p.picture = action.picture.filePath;               
+                return p; 
+            }
+            else {
+                return p;
+            }
+        }),
+        error: null,
+        pending: false,
+    })),
+    on(BackofficeActions.uploadProductPictureError, (state, {payload}) => ({
         ...state,
         error: payload.error,
         pending: false,

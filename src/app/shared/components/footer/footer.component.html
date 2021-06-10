@@ -1,10 +1,27 @@
 <!-- Footer -->
 <footer>
-    <mat-toolbar color="accent" class="footer-toolbar" fxLayout="row" fxLayoutAlign="space-between center" fxFlex="grow">        
-        <div class="footer-text" fxFlex fxLayout="row" fxLayoutAlign="start center">
+    <mat-toolbar color="accent" class="footer-toolbar" fxLayout="row" fxFlex="grow">        
+        <div fxShow.sm="true" fxShow.gt-sm="true" fxShow="false" class="footer-text" fxFlex fxLayout="row" fxLayoutAlign="start center" fxFlex="grow">
             <span>&copy;</span>&nbsp;
             <div>{{currentYear}}</div>
         </div>
-        <div fxFlex fxHide fxShow.gt-sm></div>
+        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap.sm="8px" fxLayoutGap="25px" fxShow.sm="false" fxShow.gt-sm="false" fxShow="true" fxFlex="grow">
+            <button mat-icon-button color="primary" (click)="goProducts()" title="Productos" aria-label="ballot icon">
+                <mat-icon>ballot</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" (click)="goShops()" title="Tiendas" aria-label="store icon">
+                <mat-icon>store</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" (click)="goSearch()" title="Buscar" aria-label="search icon">
+                <mat-icon>search</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" (click)="goProfile()" title="Cuenta" aria-label="account_circle icon">
+                <mat-icon>account_circle</mat-icon>
+            </button>
+            <button *ngIf="accountState$ !== undefined && accountState$.loggedIn" 
+                    mat-icon-button color="primary" (click)="logout()" title="Salir" aria-label="logout icon">
+                <mat-icon>logout</mat-icon>
+            </button>
+        </div>
     </mat-toolbar>
 </footer>

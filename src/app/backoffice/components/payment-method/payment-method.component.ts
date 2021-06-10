@@ -8,6 +8,7 @@ import { BackofficeState } from '../../reducers';
 import * as BackofficeActions from '../../actions';
 import { EditPaymentMethodModel } from '../../models/editPaymentMethodModel';
 import { CreatePaymentMethodModel } from '../../models/createPaymentMethodModel';
+import { ShopDTO } from '../../models/ShopDTO';
 
 @Component({
   selector: 'app-payment-method',
@@ -22,6 +23,7 @@ export class PaymentMethodComponent implements OnInit {
   public backofficeState$: BackofficeState | undefined;
   public editForm: FormGroup;
   public paymentMethod: PaymentMethodDTO | undefined; 
+  public shop$: ShopDTO | undefined;
   public isUpdate: boolean;
 
   constructor(
@@ -40,7 +42,11 @@ export class PaymentMethodComponent implements OnInit {
             this.paymentMethod = p;
             this.loadPaymentMethod(p);
           }
-        }             
+        }
+        if(backoffice !== undefined && backoffice.shop !== undefined) {
+          this.shop$ = backoffice.shop;
+        }
+                     
       }); 
 
       this.code = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9]*')]);
@@ -70,6 +76,11 @@ export class PaymentMethodComponent implements OnInit {
     if(parseInt(this.route.snapshot.params.id, 10) != 0) {
       this.store.dispatch(BackofficeActions.loadPaymentMethods());
     }
+    this.store.select('account').subscribe(account => {
+      if(account != undefined && account.userClaims !== undefined) {
+        this.store.dispatch(BackofficeActions.loadShop({ ownerId: parseInt(account.userClaims.sub, 10) })); 
+      }   
+    });
   }
 
   editPaymentMethod() {
@@ -82,12 +93,15 @@ export class PaymentMethodComponent implements OnInit {
       };
       this.store.dispatch(BackofficeActions.updatePaymentMethod({paymentMethod: editModel}));
     } else { 
-      const createModel: CreatePaymentMethodModel = {
-        Code: this.code.value,
-        Name: this.name.value,
-        Value: this.value.value
-      };
-      this.store.dispatch(BackofficeActions.createPaymentMethod({paymentMethod: createModel}));
+      if(this.shop$ !== undefined) {
+        const createModel: CreatePaymentMethodModel = {
+          Code: this.code.value,
+          Name: this.name.value,
+          Value: this.value.value,
+          ShopId: this.shop$.id
+        };
+        this.store.dispatch(BackofficeActions.createPaymentMethod({paymentMethod: createModel}));
+      }      
     }
   }
 
