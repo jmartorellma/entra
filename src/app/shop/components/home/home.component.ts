@@ -25,14 +25,5 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
 
   }
-
-
-  login() {
-    this.router.navigate(['accounts','login']);
-  }
-
-  profile() {
-    this.router.navigate(['profiles', 'profile']);
-  }
   
 }

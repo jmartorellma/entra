@@ -1,39 +1,49 @@
-<div *ngIf="accountState$ !== undefined && !accountState$.pending" class="main-content" fxFill fxLayout="column" fxLayoutAlign="space-between stretch">
-  <!-- <div class="slider-container" fxLayout="column" fxLayoutAlign="start stretch">
-    <carousel class="full-height">
-      <slide class="full-height">
-        <img class="full-height" src="../../../../assets/img/slider/mercado.jpg" alt="first slide" style="display: block; width: 100%;">
-      </slide>
-      <slide class="full-height">
-        <img class="full-height" src="../../../../assets/img/slider/carniseria.jpg" alt="second slide" style="display: block; width: 100%;">
-      </slide>
-      <slide class="full-height">
-        <img class="full-height" src="../../../../assets/img/slider/2-mercat-ds.jpg" alt="third slide" style="display: block; width: 100%;">
-      </slide>
-    </carousel>
-  </div> -->
+<div *ngIf="accountState$ !== undefined && !accountState$.pending" fxFill fxLayout="column" fxLayoutAlign="start center" fxFlex="grow">
+  <div class="main-content" fxLayout="column" fxLayoutAlign="start stretch" fxFlex="grow">
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="grow">
 
-  <div>
-    <p>Bienvenido a ENTRA!</p>
-    <p>En nuestra aplicación prodrás encontrar todos aquellos productos que estás acostumado a comprar en tu tienda habitual, ya que hemos puesto el comercio local a tu alcance desde tu dispositivo.</p>
-    <p>Estamos comprometidos con el consumo de proximidad, y en nuesto catálogo podrás descubrir una gran varidad de productos.</p>
-    <p>Si aydas al comercio local, ellos te ayudarán a ti!</p>
-  </div>
+      <div fxLayout="column" fxLayoutAlign="start center" fxFlex="grow">
+        <div class="slider-container" fxLayout="column" fxLayoutAlign="start stretch">
+          <carousel class="full-height">          
+            <slide class="full-height" style="text-align: center;">
+              <img class="full-height" src="../../../../assets/img/slider/carniseria.jpg" alt="first slide" style="display: block;">
+            </slide>
+            <slide class="full-height" style="text-align: center;">
+              <img class="full-height" src="../../../../assets/img/slider/2-mercat-ds.jpg" alt="second slide" style="display: block;">
+            </slide>
+            <slide class="full-height" style="text-align: center;">
+              <img class="full-height" src="../../../../assets/img/slider/mercado.jpg" alt="third slide" style="display: block;">
+            </slide>
+          </carousel>
+        </div>
+      </div>
 
-  <!-- <div class="carousel-container" fxLayout="column" fxLayoutAlign="start stretch">
-    <carousel class="full-height">
-      <slide class="full-height">
-        <img class="full-height" src="../../../../assets/img/slider/mercado.jpg" alt="first slide" style="display: block; width: 100%;">
-      </slide>
-      <slide class="full-height">
-        <img class="full-height" src="../../../../assets/img/slider/carniseria.jpg" alt="second slide" style="display: block; width: 100%;">
-      </slide>
-      <slide class="full-height">
-        <img class="full-height" src="../../../../assets/img/slider/2-mercat-ds.jpg" alt="third slide" style="display: block; width: 100%;">
-      </slide>
-    </carousel>
-  </div> -->
+      
+      
+      <div fxLayout="column" fxLayoutAlign="center start" fxFlex="grow">
+        <p><strong>Bienvenido a ENTRA!</strong></p>
+        <p>En nuestra aplicación prodrás encontrar todos aquellos productos que estás acostumado a comprar en tu tienda habitual, ya que hemos puesto el comercio local a tu alcance desde tu dispositivo.</p>
+        <p>Estamos comprometidos con el consumo de proximidad, y en nuesto catálogo podrás descubrir una gran varidad de productos.</p>
+        <p>Si aydas al comercio local, ellos te ayudarán a ti!</p>
+      </div>
+      
 
+        <!-- <div class="carousel-container" fxLayout="column" fxLayoutAlign="start stretch">
+          <carousel class="full-height">
+            <slide class="full-height">
+              <img class="full-height" src="../../../../assets/img/slider/mercado.jpg" alt="first slide" style="display: block; width: 100%;">
+            </slide>
+            <slide class="full-height">
+              <img class="full-height" src="../../../../assets/img/slider/carniseria.jpg" alt="second slide" style="display: block; width: 100%;">
+            </slide>
+            <slide class="full-height">
+              <img class="full-height" src="../../../../assets/img/slider/2-mercat-ds.jpg" alt="third slide" style="display: block; width: 100%;">
+            </slide>
+          </carousel>
+        </div> -->
+
+    </div>
+  </div>    
 </div>
 
 <div *ngIf="accountState$ === undefined || accountState$.pending" class="spinner-container" fxFill fxLayout="column" fxLayoutAlign="center center">
